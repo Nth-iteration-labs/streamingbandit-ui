@@ -7,16 +7,15 @@ export default (type, params) => {
 
         const { username, password } = params;
 
-		const request = new Request('http://strm.mnds.org:7070/login.secure', {method: 'POST',  
+		const request = new Request('http://strm.mnds.org:7070/login', {method: 'POST',  
 			body: 'username='+username+'&password='+password,
 			headers: new Headers({ 'Content-Type': 'application/x-www-form-urlencoded' })
 		});
 
         return fetch(request)
-			.then((response) => response.text())     // Transform the response into text
-		    .then((data) => {
-                if (data.includes('rong')) {
-					return Promise.reject()
+			.then((response) => {
+                if (!response.ok) {
+					return Promise.reject(response.statusText)
                 } else {
 					localStorage.setItem('username', username)
 					return Promise.resolve()

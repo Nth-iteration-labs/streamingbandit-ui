@@ -26,8 +26,5 @@ Your app is ready to be deployed!
 
 ### `npm run deploy`
 
-<<<<<<< HEAD
 Deploy the build to GitHub gh-pages.
-=======
-Deploy the build to GitHub gh-pages.
->>>>>>> c25bcc9b8b761754aa5615825f299131f19f890e
+

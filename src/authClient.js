@@ -27,8 +27,24 @@ export default (type, params) => {
     }
 
     if (type === AUTH_LOGOUT) {
-        localStorage.removeItem('username');
-        return Promise.resolve();
+
+
+		const request = new Request('http://strm.mnds.org:7070/logout', {method: 'GET'});
+
+        return fetch(request)
+			.then((response) => {
+                if (!response.ok) {
+					return Promise.reject(response.statusText)
+                } else {
+					localStorage.removeItem('username');
+					return Promise.resolve()
+				}
+            })
+		    .catch((e) => {
+				//console.log("caught")
+		    })
+
+
     }
 
     if (type === AUTH_ERROR) {

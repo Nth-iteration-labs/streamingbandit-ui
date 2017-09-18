@@ -1,13 +1,14 @@
-// in src/posts.js
+// in src/exp.js
 import React from 'react';
 import { List, Datagrid, TextField } from 'admin-on-rest';
 
-export const PostList = (props) => (
+export const ExpList = (props) => (
     <List {...props}>
         <Datagrid>
             <TextField source="id" />
-            <TextField source="title" />
-            <TextField source="body" />
+			<TextField source="name" />
         </Datagrid>
     </List>
 );
+
+

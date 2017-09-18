@@ -2,22 +2,24 @@
 
 import React from 'react';
 
-import { jsonServerRestClient, Admin, Resource } from 'admin-on-rest';
-
-import { PostList } from './posts';
-
+import { Admin, Resource } from 'admin-on-rest';
+import { ExpList } from './exp';
 import Login from './Login';
 import Dashboard from './Dashboard';
 import authClient from './authClient';
+
+
+import streamingBanditClient from './streamingBanditClient';
 
 const App = () => (
     <Admin authClient={authClient} 
 	        dashboard={Dashboard} 
 			title="StreamingBandit"
 			loginPage={Login}
-			restClient={jsonServerRestClient('http://strm.mnds.org:7070')}>
+			restClient={streamingBanditClient('http://strm.mnds.org:7070')}>
+			
 
-				<Resource name="posts" list={PostList} />
+				<Resource name="Experiments" list={ExpList} />
 
     </Admin>
 );

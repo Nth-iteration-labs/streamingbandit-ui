@@ -15,6 +15,7 @@ export default (type, params) => {
         return fetch(request)
 			.then((response) => {
                 if (!response.ok) {
+					localStorage.removeItem('username');
 					return Promise.reject(response.statusText)
                 } else {
 					localStorage.setItem('username', username)
@@ -27,24 +28,8 @@ export default (type, params) => {
     }
 
     if (type === AUTH_LOGOUT) {
-
-
-		const request = new Request('http://strm.mnds.org:7070/logout', {method: 'GET'});
-
-        return fetch(request)
-			.then((response) => {
-                if (!response.ok) {
-					return Promise.reject(response.statusText)
-                } else {
-					localStorage.removeItem('username');
-					return Promise.resolve()
-				}
-            })
-		    .catch((e) => {
-				//console.log("caught")
-		    })
-
-
+        localStorage.removeItem('username');
+        return Promise.resolve();
     }
 
     if (type === AUTH_ERROR) {

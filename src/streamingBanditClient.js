@@ -1,4 +1,6 @@
-/* eslint-disable */
+import { stringify } from 'query-string';
+import { fetchJson, flattenObject } from './fetch';
+import {jsonApiHttpClient, queryParameters } from './fetch';
 import {
     GET_LIST,
     GET_ONE,
@@ -9,8 +11,29 @@ import {
     DELETE,
 } from './types';
 
-import {jsonApiHttpClient, queryParameters } from './fetch';
+	
+// Flatten JSON and inject ID for further Admin-on-Rest parsing
+JSON.insertId = function (data) {
+	var jsonarray = []
+	for (var prop in data) {
+		data[prop].id = prop
+		jsonarray.push(data[prop])
+	}
+    return jsonarray;
+};
 
+/**
+ * Maps admin-on-rest queries to a json-server powered REST API
+ *
+ * @see https://github.com/typicode/json-server
+ * @example
+ * GET_LIST     => GET http://my.api.url/posts?_sort=title&_order=ASC&_start=0&_end=24
+ * GET_ONE      => GET http://my.api.url/posts/123
+ * GET_MANY     => GET http://my.api.url/posts/123, GET http://my.api.url/posts/456, GET http://my.api.url/posts/789
+ * UPDATE       => PUT http://my.api.url/posts/123
+ * CREATE       => POST http://my.api.url/posts/123
+ * DELETE       => DELETE http://my.api.url/posts/123
+ */
 export default (apiUrl, httpClient = jsonApiHttpClient) => {
     /**
      * @param {String} type One of the constants appearing at the top if this file, e.g. 'UPDATE'
@@ -21,67 +44,56 @@ export default (apiUrl, httpClient = jsonApiHttpClient) => {
     const convertRESTRequestToHTTP = (type, resource, params) => {
         let url = '';
         const options = {};
+		if (resource === "Experiments") {
+			resource = "exp"
+		}
         switch (type) {
-        case GET_MANY_REFERENCE:
-        case GET_LIST:
-            const { page, perPage } = params.pagination;
-            const { field, order } = params.sort;
-            const { name, value } = params.filter;
-            var query = {
-                'page[offset]': (page - 1) * perPage,
-                'page[limit]': perPage, 
-            };
-            Object.keys(params.filter).forEach(key =>{
-                var filterField = 'filter[' + key +']';
-                query[filterField] = params.filter[key];
-            })
-            if (type === 'GET_MANY_REFERENCE'){
-                const targetFilter = 'filter[' + params.target + ']';
-                query[targetFilter] = params.id;
+            case GET_LIST: {
+                const { page, perPage } = params.pagination;
+                const { field, order } = params.sort;
+                const query = {
+                    ...flattenObject(params.filter),
+                    _sort: field,
+                    _order: order,
+                    _start: (page - 1) * perPage,
+                    _end: page * perPage,
+                };
+                url = `${apiUrl}/${resource}?${stringify(query)}`;
+                break;
             }
-            if (order === 'ASC'){
-                query.sort = field;
-            }else{
-                query.sort = '-' + field;
+            case GET_ONE:
+                url = `${apiUrl}/${resource}/${params.id}`;
+                break;
+            case GET_MANY_REFERENCE: {
+                const { page, perPage } = params.pagination;
+                const { field, order } = params.sort;
+                const query = {
+                    ...flattenObject(params.filter),
+                    [params.target]: params.id,
+                    _sort: field,
+                    _order: order,
+                    _start: (page - 1) * perPage,
+                    _end: page * perPage,
+                };
+                url = `${apiUrl}/${resource}?${stringify(query)}`;
+                break;
             }
-			if (resource === "Experiments") {
-				resource = "admin/exp/list.json"
-			}
-            url = `${apiUrl}/${resource}?${queryParameters(query)}`;
-            break;
-        case GET_ONE:
-			if (resource === "Experiments") {
-				resource = "admin/exp/list.json"
-			}
-            url = `${apiUrl}/${resource}/${params.id}`;
-            break;
-        case GET_MANY:
-			if (resource === "Experiments") {
-				resource = "admin/exp/list.json"
-			}
-            const query = {'filter[id]': params.ids.toString() };
-            url = `${apiUrl}/${resource}?${queryParameters(query)}`;
-            break;
-        case UPDATE:
-            url = `${apiUrl}/${resource}/${params.id}`;
-            options.method = 'PATCH';
-            var attrs = {};
-            Object.keys(params.data).forEach(key => attrs[key] = params.data[key]);
-            const updateParams = {data:{type: resource, id: params.id, attributes: attrs}};
-            options.body = JSON.stringify(updateParams);
-            break;
-        case CREATE:
-            url = `${apiUrl}/${resource}`;
-            options.method = 'POST';
-            const createParams = {data: {type: resource, attributes: params.data }};
-            options.body = JSON.stringify(createParams);
-            break;
-        case DELETE:
-            url = `${apiUrl}/${resource}/${params.id}`;
-            options.method = 'DELETE';
-            break;
-        default:
-            throw new Error(`Unsupported fetch action type ${type}`);
+            case UPDATE:
+                url = `${apiUrl}/${resource}/${params.id}`;
+                options.method = 'PUT';
+                options.body = JSON.stringify(params.data);
+                break;
+            case CREATE:
+                url = `${apiUrl}/${resource}`;
+                options.method = 'POST';
+                options.body = JSON.stringify(params.data);
+                break;
+            case DELETE:
+                url = `${apiUrl}/${resource}/${params.id}`;
+                options.method = 'DELETE';
+                break;
+            default:
+                throw new Error(`Unsupported fetch action type ${type}`);
         }
         return { url, options };
     };
@@ -95,22 +107,19 @@ export default (apiUrl, httpClient = jsonApiHttpClient) => {
      */
     const convertHTTPResponseToREST = (response, type, resource, params) => {
         const { headers, json } = response;
-        switch (type) {
-        case GET_MANY_REFERENCE:
-        case GET_LIST:
-            return { data: response.json, total: response.json.length };
-        case GET_MANY:
-                jsonData = json.map(function(obj){
-                    return Object.assign({id: obj.id}, obj.attributes);
-                })
-                return {data: jsonData}
-        case UPDATE:
-        case CREATE:
-            return { data: Object.assign({id: json.id}, json.attributes) };
-        case DELETE:
-            return {data: json}
-        default:
-            return {data:json};
+
+		switch (type) {
+			case GET_ONE:
+				json.id = params.id
+				return { data: json }
+            case GET_LIST:
+            case GET_MANY_REFERENCE:
+				response.json = JSON.insertId(response.json)
+				return { data: response.json , total: response.json.length };
+            case CREATE:
+                return { data: { ...params.data, id: json.id } };
+            default:
+                return { data: json };
         }
     };
 
@@ -121,9 +130,21 @@ export default (apiUrl, httpClient = jsonApiHttpClient) => {
      * @returns {Promise} the Promise for a REST response
      */
     return (type, resource, params) => {
-        const { url, options } = convertRESTRequestToHTTP(type, resource, params);
-        return httpClient(url, options)
-            .then(response => convertHTTPResponseToREST(response, type, resource, params));
+        // json-server doesn't handle WHERE IN requests, so we fallback to calling GET_ONE n times instead
+        if (type === GET_MANY) {
+            return Promise.all(
+                params.ids.map(id => httpClient(`${apiUrl}/${resource}/${id}`))
+            ).then(responses => ({
+                data: responses.map(response => response.json),
+            }));
+        }
+        const { url, options } = convertRESTRequestToHTTP(
+            type,
+            resource,
+            params
+        );
+        return httpClient(url, options).then(response =>
+            convertHTTPResponseToREST(response, type, resource, params)
+        );
     };
 };
-

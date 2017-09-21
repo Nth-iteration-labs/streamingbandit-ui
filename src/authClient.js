@@ -1,5 +1,7 @@
 // in src/authClient.js
+
 import { AUTH_LOGIN, AUTH_LOGOUT, AUTH_ERROR, AUTH_CHECK } from 'admin-on-rest';
+import { sbConfig } from './config'
 
 export default (type, params) => {
 
@@ -7,18 +9,20 @@ export default (type, params) => {
 
         const { username, password } = params;
 
-		const request = new Request('http://strm.mnds.org:7070/login', {method: 'POST',  
-			body: 'username='+username+'&password='+password,
-			headers: new Headers({ 'Content-Type': 'application/x-www-form-urlencoded' })
+		const request = new Request(sbConfig.sbConnectionUrl+"/login", {method: 'POST',  
+			body: JSON.stringify({ username, password }),
+			headers: new Headers({ 'Content-Type': 'application/json' })
 		});
 
         return fetch(request)
 			.then((response) => {
                 if (!response.ok) {
 					localStorage.removeItem('username');
+					localStorage.removeItem('token');
 					return Promise.reject(response.statusText)
                 } else {
 					localStorage.setItem('username', username)
+					localStorage.setItem('token', btoa(username + ":" + password));
 					return Promise.resolve()
 				}
             })

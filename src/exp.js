@@ -1,6 +1,6 @@
 // in src/exp.js
 import React from 'react';
-import { List, Edit, Create, Datagrid, ReferenceField, TextField, NumberInput, EditButton, DisabledInput, LongTextInput, ReferenceInput, SelectInput, SimpleForm, TextInput,BooleanInput  } from 'admin-on-rest';
+import { List, Edit, Create, Datagrid, TextField, NumberInput, EditButton, DisabledInput, LongTextInput, SimpleForm,BooleanInput  } from 'admin-on-rest';
 import { TabbedForm, FormTab } from 'admin-on-rest'
 
 export const ExpList = (props) => (
@@ -33,7 +33,7 @@ export const ExpEdit = (props) => (
 				<div>Python code for set reward:</div>
 				<LongTextInput label="setreward" source="setreward" />
 				<div>Should the state of Theta be stored hourly?</div>
-				<BooleanInput label="hourly" source="hourly" />
+				<BooleanInput label="hourly" source="hourly"  />
 				<div>Should the getAdvice and setReward calls return an advice_id?</div>
 				<BooleanInput source="advice_id" />
 				<div>If advice_id is True, supply this to give the number of days that an advice_id should be stored:</div>

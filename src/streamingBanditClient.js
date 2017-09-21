@@ -1,6 +1,6 @@
 import { stringify } from 'query-string';
-import { fetchJson, flattenObject } from './fetch';
-import {jsonApiHttpClient, queryParameters } from './fetch';
+import {flattenObject } from './fetch';
+import {jsonApiHttpClient } from './fetch';
 import {
     GET_LIST,
     GET_ONE,
@@ -106,7 +106,7 @@ export default (apiUrl, httpClient = jsonApiHttpClient) => {
      * @returns {Object} REST response
      */
     const convertHTTPResponseToREST = (response, type, resource, params) => {
-        const { headers, json } = response;
+        const { json } = response;
 
 		switch (type) {
 			case GET_ONE:

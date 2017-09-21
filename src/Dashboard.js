@@ -1,14 +1,9 @@
 // in src/Dashboard.js
 import React, { Component } from 'react';
 import withWidth from 'material-ui/utils/withWidth';
-import { AppBarMobile, GET_LIST, GET_MANY } from 'admin-on-rest';
+import { AppBarMobile } from 'admin-on-rest';
 
 import Welcome from './Welcome';
-//import MonthlyRevenue from './MonthlyRevenue';
-//import NbNewOrders from './NbNewOrders';
-//import PendingOrders from './PendingOrders';
-//import PendingReviews from './PendingReviews';
-//import NewCustomers from './NewCustomers';
 
 const styles = {
     welcome: { marginBottom: '2em' },
@@ -22,17 +17,6 @@ class Dashboard extends Component {
     state = {};
 
     render() {
-        const {
-            nbNewCustomers,
-            nbNewOrders,
-            nbPendingReviews,
-            newCustomers,
-            pendingOrders,
-            pendingOrdersCustomers,
-            pendingReviews,
-            pendingReviewsCustomers,
-            revenue,
-        } = this.state;
         const { width } = this.props;
         return (
             <div>

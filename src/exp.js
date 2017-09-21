@@ -2,6 +2,7 @@
 import React from 'react';
 import { List, Edit, Create, Datagrid, TextField, NumberInput, EditButton, DisabledInput, LongTextInput, SimpleForm,BooleanInput  } from 'admin-on-rest';
 import { TabbedForm, FormTab } from 'admin-on-rest'
+import RichTextInput from 'aor-rich-text-input';
 
 export const ExpList = (props) => (
     <List {...props}>
@@ -31,7 +32,7 @@ export const ExpEdit = (props) => (
 				<div>Python code for get reward:</div>
 				<LongTextInput label="getreward" source="getreward" />
 				<div>Python code for set reward:</div>
-				<LongTextInput label="setreward" source="setreward" />
+				<RichTextInput source="setreward" syntax={true} toolbar={[['code-block']]} />
 				<div>Should the state of Theta be stored hourly?</div>
 				<BooleanInput label="hourly" source="hourly"  />
 				<div>Should the getAdvice and setReward calls return an advice_id?</div>

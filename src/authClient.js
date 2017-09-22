@@ -9,12 +9,16 @@ export default (type, params) => {
 
         const { username, password } = params;
 
-		const request = new Request(sbConfig.sbConnectionUrl+"/login", {method: 'POST',  
-			body: JSON.stringify({ username, password }),
-			headers: new Headers({ 'Content-Type': 'application/json' })
-		});
 
-        return fetch(request)
+        return fetch(
+					sbConfig.sbConnectionUrl+"/login", 
+					{
+						method: 'POST',  
+						body: JSON.stringify({ username, password }),
+						headers: new Headers({ 'Content-Type': 'application/json' }),
+						credentials: 'include',
+					},
+			)
 			.then((response) => {
                 if (!response.ok) {
 					localStorage.removeItem('username');
@@ -40,6 +44,7 @@ export default (type, params) => {
         const { status } = params;
         if (status === 401 || status === 403) {
             localStorage.removeItem('username');
+			localStorage.removeItem('token');
             return Promise.reject();
         }
         return Promise.resolve();

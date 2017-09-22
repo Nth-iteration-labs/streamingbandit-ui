@@ -1,8 +1,24 @@
 // in src/exp.js
 import React from 'react';
-import { List, Edit, Create, Datagrid, TextField, NumberInput, EditButton, DisabledInput, LongTextInput, SimpleForm,BooleanInput  } from 'admin-on-rest';
+
+import { EditButton, DisabledInput, LongTextInput, SimpleForm  } from 'admin-on-rest';
+import { List, Edit, Create, Datagrid, TextField, NumberInput } from 'admin-on-rest';
 import { TabbedForm, FormTab } from 'admin-on-rest'
-import RichTextInput from 'aor-rich-text-input';
+import { required, minLength } from 'admin-on-rest';
+import { SelectInput } from 'admin-on-rest';
+
+import { DependentInput } from 'aor-dependent-input';
+
+const styles = {
+    codeinput: {
+		/*fontFamily: "monospace",
+		fontSize: "17px",
+		fontStyle: "normal",
+		fontVariant: "normal",
+		fontWeight: "400",
+		lineHeight: "23px"*/
+	}
+};
 
 export const ExpList = (props) => (
     <List {...props}>
@@ -14,8 +30,21 @@ export const ExpList = (props) => (
     </List>
 );
 
+
+var CodeMirror = require('react-codemirror');
+require('codemirror/mode/javascript/javascript');
+require('codemirror/mode/python/python');
+require('codemirror/addon/display/autorefresh');
+
+var codemirrorui={
+	lineNumbers: true,
+	autoRefresh:true,
+	styleActiveLine: true,
+	mode: 'python'
+}
+
 const PostTitle = ({ record }) => {
-    return <span>Experiment: {record ? `"${record.name}"` : ''}</span>;
+    return <span>Experiment {record ? `"${record.name}"` : ''}</span>;
 };
 
 export const ExpEdit = (props) => (
@@ -23,24 +52,24 @@ export const ExpEdit = (props) => (
         <TabbedForm>
             <FormTab label="Settings">
 				<DisabledInput source="id" />
-				<div>Name of the experiment:</div>
-				<LongTextInput label="Title" source="name" />
-				<div>Python code for get context:</div>
-				<LongTextInput label="getcontext" source="getcontext" />
-				<div>Python code for get action:</div>
-				<LongTextInput label="getaction" source="getaction" />
-				<div>Python code for get reward:</div>
-				<LongTextInput label="getreward" source="getreward" />
-				<div>Python code for set reward:</div>
-				<RichTextInput source="setreward" syntax={true} toolbar={[['code-block']]} />
-				<div>Should the state of Theta be stored hourly?</div>
-				<BooleanInput label="hourly" source="hourly"  />
-				<div>Should the getAdvice and setReward calls return an advice_id?</div>
-				<BooleanInput source="advice_id" />
-				<div>If advice_id is True, supply this to give the number of days that an advice_id should be stored:</div>
-				<NumberInput source="delta_days" step={1} />
-				<div>If advice_id is True, supply this python dict to give the default reward for advice_id's that are over their delta_days limit:</div>
-				<LongTextInput label="Default reward" source="default_reward" />
+				<CodeMirror value="" options={codemirrorui} />
+				<LongTextInput label="Name of the experiment" source="name"  validate={[required]}/>
+				<LongTextInput label="Get context" elStyle={styles.codeinput} source="get_context" options={{rows: 2}} validate={[required, minLength(4)]}/>
+				<LongTextInput label="Get action" elStyle={styles.codeinput} source="get_action" options={{rows: 2}} validate={[required, minLength(4)]}/>
+				<LongTextInput label="Get reward" elStyle={styles.codeinput} source="get_reward" options={{rows: 2}} validate={[required, minLength(4)]}/>
+				<LongTextInput label="Set reward" elStyle={styles.codeinput} source="set_reward" options={{rows: 2}} validate={[required, minLength(4)]}/>
+				<SelectInput source="hourly_theta" choices={[
+					{ id: 'true', name: 'Store theta every hour' },
+					{ id: 'false', name: 'Do not store theta' },
+				]} />
+				<SelectInput source="advice_id" choices={[
+					{ id: 'true', name: 'Return an advice_id' },
+					{ id: 'false', name: 'Do not return an advice_id' },
+				]} />
+				<DependentInput dependsOn="advice_id" value="true">
+					<NumberInput label="Delta hours" source="delta_hours" step={1} />
+					<LongTextInput label="Default reward" source="default_reward" />
+				</DependentInput>
             </FormTab>
             <FormTab label="History">
 				<DisabledInput source="id" />
@@ -53,27 +82,27 @@ export const ExpEdit = (props) => (
 );
 
 
+
 export const ExpCreate = (props) => (
     <Create {...props}>
         <SimpleForm>
-			<div>Name of the experiment:</div>
-			<LongTextInput label="Title" source="name" />
-			<div>Python code for get context:</div>
-			<LongTextInput label="getContext" source="getcontext" />
-			<div>Python code for get action:</div>
-			<LongTextInput label="getAction" source="getaction" />
-			<div>Python code for get reward:</div>
-			<LongTextInput label="getReward" source="getreward" />
-			<div>Python code for set reward:</div>
-			<LongTextInput label="setReward" source="setreward" />
-			<div>Should the state of Theta be stored hourly?</div>
-			<BooleanInput label="Hourly" source="hourly" />
-			<div>Should the getAdvice and setReward calls return an advice_id?</div>
-			<BooleanInput source="advice_id" />
-			<div>If advice_id is True, supply this to give the number of days that an advice_id should be stored:</div>
-			<NumberInput source="delta_days" step={1} />
-			<div>If advice_id is True, supply this python dict to give the default reward for advice_id's that are over their delta_days limit:</div>
-			<LongTextInput label="Default reward" source="default_reward" />
+			<LongTextInput label="Name of the experiment" source="name"  validate={[required]}/>
+			<LongTextInput label="Get context" elStyle={styles.codeinput} source="get_context" options={{rows: 2}} validate={[required, minLength(4)]}/>
+			<LongTextInput label="Get action" elStyle={styles.codeinput} source="get_action" options={{rows: 2}} validate={[required, minLength(4)]}/>
+			<LongTextInput label="Get reward" elStyle={styles.codeinput} source="get_reward" options={{rows: 2}} validate={[required, minLength(4)]}/>
+			<LongTextInput label="Set reward" elStyle={styles.codeinput} source="set_reward" options={{rows: 2}} validate={[required, minLength(4)]}/>
+			<SelectInput source="hourly_theta" choices={[
+				{ id: 'true', name: 'Store theta every hour' },
+				{ id: 'false', name: 'Do not store theta' },
+			]} />
+			<SelectInput source="advice_id" choices={[
+				{ id: 'true', name: 'Return an advice id' },
+				{ id: 'false', name: 'Do not return an advice id' },
+			]} />
+			<DependentInput dependsOn="advice_id" value="true">
+				<NumberInput label="Delta hours" source="delta_hours" step={1} />
+				<LongTextInput label="Default reward" source="default_reward" />
+			</DependentInput>
         </SimpleForm>
     </Create>
 );

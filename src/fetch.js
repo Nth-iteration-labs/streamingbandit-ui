@@ -10,7 +10,7 @@ const fetchJson = (url, options = {}) => {
     if (options.user && options.user.authenticated && options.user.token) {
         requestHeaders.set('Authorization', options.user.token);
     }
-	//options.credentials = 'include'
+	options.credentials = 'include'
     return fetch(url, { ...options, headers: requestHeaders  })
         .then(response => response.text().then(text => ({
             status: response.status,
@@ -23,11 +23,8 @@ const fetchJson = (url, options = {}) => {
             try {
 
 				// temporary quick hack, untill JSON id's served by backend are normalized
-				body = body.replace(/getContext/g, 'getcontext');
-				body = body.replace(/getAction/g, 'getaction');
-				body = body.replace(/getReward/g, 'getreward');
-				body = body.replace(/setReward/g, 'setreward');
-				body = body.replace(/hourlyTheta/g, 'hourlytheta');
+				body = body.replace(/False/g, 'false');
+				body = body.replace(/True/g, 'true');
 
                 json = JSON.parse(body);
             } catch (e) {

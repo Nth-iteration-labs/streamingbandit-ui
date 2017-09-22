@@ -9,6 +9,9 @@ import { SelectInput } from 'admin-on-rest';
 
 import { DependentInput } from 'aor-dependent-input';
 
+import CodeMirrorInput from './CodeMirrorInput'
+
+
 const styles = {
     codeinput: {
 		/*fontFamily: "monospace",
@@ -31,7 +34,7 @@ export const ExpList = (props) => (
 );
 
 
-var CodeMirror = require('react-codemirror');
+/*var CodeMirror = require('react-codemirror');
 require('codemirror/mode/javascript/javascript');
 require('codemirror/mode/python/python');
 require('codemirror/addon/display/autorefresh');
@@ -41,7 +44,7 @@ var codemirrorui={
 	autoRefresh:true,
 	styleActiveLine: true,
 	mode: 'python'
-}
+}*/
 
 const PostTitle = ({ record }) => {
     return <span>Experiment {record ? `"${record.name}"` : ''}</span>;
@@ -52,9 +55,8 @@ export const ExpEdit = (props) => (
         <TabbedForm>
             <FormTab label="Settings">
 				<DisabledInput source="id" />
-				<CodeMirror value="" options={codemirrorui} />
-				<LongTextInput label="Name of the experiment" source="name"  validate={[required]}/>
-				<LongTextInput label="Get context" elStyle={styles.codeinput} source="get_context" options={{rows: 2}} validate={[required, minLength(4)]}/>
+				<CodeMirrorInput label="Name of the experiment" source="name"  validate={[required]}/>
+				<CodeMirrorInput label="Get context" elStyle={styles.codeinput} source="get_context" options={{rows: 2}} validate={[required, minLength(4)]}/>
 				<LongTextInput label="Get action" elStyle={styles.codeinput} source="get_action" options={{rows: 2}} validate={[required, minLength(4)]}/>
 				<LongTextInput label="Get reward" elStyle={styles.codeinput} source="get_reward" options={{rows: 2}} validate={[required, minLength(4)]}/>
 				<LongTextInput label="Set reward" elStyle={styles.codeinput} source="set_reward" options={{rows: 2}} validate={[required, minLength(4)]}/>

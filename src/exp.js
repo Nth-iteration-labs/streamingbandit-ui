@@ -4,62 +4,61 @@ import React from 'react';
 import { EditButton, DisabledInput, LongTextInput, SimpleForm  } from 'admin-on-rest';
 import { List, Edit, Create, Datagrid, TextField, NumberInput } from 'admin-on-rest';
 import { TabbedForm, FormTab } from 'admin-on-rest'
-import { required, minLength } from 'admin-on-rest';
-import { SelectInput } from 'admin-on-rest';
-
+import { required } from 'admin-on-rest';
+import { SelectInput, TextInput } from 'admin-on-rest';
+import DefaultOptionsField from './defaultOptionsField'
 import { DependentInput } from 'aor-dependent-input';
+import CodeMirror from 'react-codemirror2'
+import SimulateButton from './sbSimulateButton'
+import ResetButton from './sbResetButton'
+import { connect } from 'react-redux';
 
 import CodeMirrorInput from './CodeMirrorInput'
 
+const PostTitle = ({ record }) => {
+    return <span>Experiment {record ? `"${record.name}"` : ''}</span>;
+};
 
-const styles = {
-    codeinput: {
-		/*fontFamily: "monospace",
-		fontSize: "17px",
-		fontStyle: "normal",
-		fontVariant: "normal",
-		fontWeight: "400",
-		lineHeight: "23px"*/
-	}
+const validateExpCreation = (values) => {
+    const errors = {};
+    if (!values.get_context) {
+        errors.name = ['Get context is required'];
+    }
+    if (!values.get_action) {
+        errors.name = ['Get action is required'];
+    }
+    if (!values.get_reward) {
+        errors.name = ['Get reward is required'];
+    }
+    if (!values.set_reward) {
+        errors.name = ['Set reward is required'];
+    }
+    return errors
 };
 
 export const ExpList = (props) => (
     <List {...props}>
-        <Datagrid>
+        <Datagrid bodyOptions={{ stripedRows: true, showRowHover: true }}>
             <TextField source="id" />
+			<TextField source="key" />
 			<TextField source="name" />
             <EditButton />
         </Datagrid>
     </List>
 );
 
-
-/*var CodeMirror = require('react-codemirror');
-require('codemirror/mode/javascript/javascript');
-require('codemirror/mode/python/python');
-require('codemirror/addon/display/autorefresh');
-
-var codemirrorui={
-	lineNumbers: true,
-	autoRefresh:true,
-	styleActiveLine: true,
-	mode: 'python'
-}*/
-
-const PostTitle = ({ record }) => {
-    return <span>Experiment {record ? `"${record.name}"` : ''}</span>;
-};
-
 export const ExpEdit = (props) => (
     <Edit title={<PostTitle />} {...props}>
-        <TabbedForm>
+        <TabbedForm validate={validateExpCreation}>
             <FormTab label="Settings">
-				<DisabledInput source="id" />
-				<CodeMirrorInput label="Name of the experiment" source="name"  validate={[required]}/>
-				<CodeMirrorInput label="Get context" elStyle={styles.codeinput} source="get_context" options={{rows: 2}} validate={[required, minLength(4)]}/>
-				<LongTextInput label="Get action" elStyle={styles.codeinput} source="get_action" options={{rows: 2}} validate={[required, minLength(4)]}/>
-				<LongTextInput label="Get reward" elStyle={styles.codeinput} source="get_reward" options={{rows: 2}} validate={[required, minLength(4)]}/>
-				<LongTextInput label="Set reward" elStyle={styles.codeinput} source="set_reward" options={{rows: 2}} validate={[required, minLength(4)]}/>
+				<DefaultOptionsField name="field"/>
+				<TextField name="id" source="id" />
+				<TextField name="id" source="key" />
+				<TextInput name="name "label="Name of the experiment" source="name"  validate={[required]}/>
+				<CodeMirrorInput name="get_context" label="Get context" source="get_context" options={{rows: 2}} />
+				<CodeMirrorInput name="get_action" label="Get action" source="get_action" options={{rows: 2}} />
+				<CodeMirrorInput  name="get_reward" label="Get reward" source="get_reward" options={{rows: 2}} />
+				<CodeMirrorInput  name="set_reward" label="Set reward" source="set_reward" options={{rows: 2}} />
 				<SelectInput source="hourly_theta" choices={[
 					{ id: 'true', name: 'Store theta every hour' },
 					{ id: 'false', name: 'Do not store theta' },
@@ -70,14 +69,16 @@ export const ExpEdit = (props) => (
 				]} />
 				<DependentInput dependsOn="advice_id" value="true">
 					<NumberInput label="Delta hours" source="delta_hours" step={1} />
-					<LongTextInput label="Default reward" source="default_reward" />
+					<CodeMirrorInput name="default_reward" label="Default reward" source="default_reward" />
 				</DependentInput>
+
             </FormTab>
             <FormTab label="History">
-				<DisabledInput source="id" />
+				<ResetButton name="resetbutton" {...props}/>
 	        </FormTab>
             <FormTab label="Simulate">
-				<DisabledInput source="id" />
+				<SimulateButton name="simulationbutton" {...props}/>
+				<CodeMirrorInput name="results "label="Result" options={{rows: 2}} />
 	        </FormTab>
         </TabbedForm>
     </Edit>
@@ -89,10 +90,10 @@ export const ExpCreate = (props) => (
     <Create {...props}>
         <SimpleForm>
 			<LongTextInput label="Name of the experiment" source="name"  validate={[required]}/>
-			<LongTextInput label="Get context" elStyle={styles.codeinput} source="get_context" options={{rows: 2}} validate={[required, minLength(4)]}/>
-			<LongTextInput label="Get action" elStyle={styles.codeinput} source="get_action" options={{rows: 2}} validate={[required, minLength(4)]}/>
-			<LongTextInput label="Get reward" elStyle={styles.codeinput} source="get_reward" options={{rows: 2}} validate={[required, minLength(4)]}/>
-			<LongTextInput label="Set reward" elStyle={styles.codeinput} source="set_reward" options={{rows: 2}} validate={[required, minLength(4)]}/>
+			<CodeMirrorInput name="get_context" label="Get context" source="get_context" options={{rows: 2}} />
+			<CodeMirrorInput name="get_action" label="Get action" source="get_action" options={{rows: 2}} />
+			<CodeMirrorInput  name="get_reward" label="Get reward" source="get_reward" options={{rows: 2}} />
+			<CodeMirrorInput  name="set_reward" label="Set reward" source="set_reward" options={{rows: 2}} />
 			<SelectInput source="hourly_theta" choices={[
 				{ id: 'true', name: 'Store theta every hour' },
 				{ id: 'false', name: 'Do not store theta' },
@@ -103,7 +104,7 @@ export const ExpCreate = (props) => (
 			]} />
 			<DependentInput dependsOn="advice_id" value="true">
 				<NumberInput label="Delta hours" source="delta_hours" step={1} />
-				<LongTextInput label="Default reward" source="default_reward" />
+				<CodeMirrorInput label="Default reward" source="default_reward" />
 			</DependentInput>
         </SimpleForm>
     </Create>

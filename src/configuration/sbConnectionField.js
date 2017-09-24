@@ -15,6 +15,7 @@ export default class Custom extends React.Component {
         console.log(something);
     }
 
+
     handleClick(e) {
         //this.logme("Value on clicked: "+document.getElementById('text-field-default').value );
 		localStorage.setItem('serverurl', document.getElementById('text-field-default').value );
@@ -22,6 +23,7 @@ export default class Custom extends React.Component {
 
     componentDidMount() {
         //this.logme("Mount");
+
 		if(localStorage.getItem('serverurl')) {  document.getElementById('text-field-default').value = localStorage.getItem('serverurl') }
     }
 
@@ -29,7 +31,7 @@ export default class Custom extends React.Component {
 
 		return (
            <div>
-				<TextField id="text-field-default" defaultValue={sbConfig.sbConnectionUrl} style={styles.input} />
+				<TextField name="seturl" id="text-field-default" defaultValue={sbConfig.sbConnectionUrl} style={styles.input} />
 		        <RaisedButton onClick={this.handleClick.bind(this)} label="Set URL" value="set" primary={true} style={styles.button} />
            </div>
          )

@@ -1,12 +1,9 @@
 // in src/CodeMirrorInput.js
 
 import debounce from 'lodash.debounce';
-import React, { Component } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
-import { Field } from 'redux-form';
-import { Labeled } from 'admin-on-rest';
-
-var CodeMirror = require('react-codemirror');
+import CodeMirror from 'react-codemirror2'
 
 require('codemirror/mode/javascript/javascript');
 require('codemirror/mode/python/python');
@@ -24,12 +21,12 @@ const CodeMirrorInput = ({
   config
 }) => (
 		<CodeMirror     
-			id={id}
 			value={value} 
 			options={{lineNumbers: true,autoRefresh:true,styleActiveLine: true,mode: 'python'}} 
-			onChange={e => {
-				onChange(e)
-			}}
+			//onChange={debounce (e => {onChange(e)},300)}
+			onChange={debounce ((editor, metadata, value) => {onChange(value)},300)}
+			onSet={(editor, value) => {/*console.log('onSet', {value}*/}}
+			ref={el => this.value = el}
 		/>
 )
 
@@ -40,7 +37,8 @@ CodeMirrorInput.propTypes = {
   label: PropTypes.string,
   options: PropTypes.object,
   source: PropTypes.string,
-  config: PropTypes.object
+  config: PropTypes.object,
+  value: PropTypes.string,
 }
 
 CodeMirrorInput.defaultProps = {
@@ -51,4 +49,3 @@ CodeMirrorInput.defaultProps = {
 }
 
 export default CodeMirrorInput;
-

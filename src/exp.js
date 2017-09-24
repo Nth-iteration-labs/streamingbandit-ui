@@ -12,6 +12,7 @@ import CodeMirror from 'react-codemirror2'
 import SimulateButton from './sbSimulateButton'
 import ResetButton from './sbResetButton'
 import { connect } from 'react-redux';
+import History from './History'
 
 import CodeMirrorInput from './CodeMirrorInput'
 
@@ -75,8 +76,9 @@ export const ExpEdit = (props) => (
             </FormTab>
             <FormTab label="History">
 				<ResetButton name="resetbutton" {...props}/>
+				<History />
 	        </FormTab>
-            <FormTab label="Simulate">
+            <FormTab label="Simulate" name = "Simulate">
 				<SimulateButton name="simulationbutton" {...props}/>
 				<CodeMirrorInput name="results "label="Result" options={{rows: 2}} />
 	        </FormTab>

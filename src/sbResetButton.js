@@ -54,7 +54,7 @@ export default class ResetButton extends React.Component {
     render() {
 
 		return (
-		        <RaisedButton onClick={this.handleClick.bind(this)} label="Reset the theta of the Experiment" value="set" primary={true} style={styles.button} />
+		        <RaisedButton onClick={this.handleClick.bind(this)} label="Reset theta of Experiment" value="set" primary={true} style={styles.button} />
          )
 		 
 

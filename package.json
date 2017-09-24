@@ -6,6 +6,7 @@
     "aor-dependent-input": "^1.1.1",
     "babel-preset-stage-2": "^6.24.1",
     "codemirror": "^5.30.0",
+    "downloadbutton": "^1.0.0",
     "material-design-icons": "^3.0.1",
     "react": "^15.6.1",
     "react-codemirror": "^1.0.0",

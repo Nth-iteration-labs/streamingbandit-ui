@@ -32,7 +32,6 @@ export default class SimulateButton extends React.Component {
 				body: text,
 
 			}))).then(({ status, statusText, headers, body }) => {
-				//console.log(this.props.record.id)
 				let json;
 				try {
 					json = JSON.parse(body);
@@ -43,7 +42,6 @@ export default class SimulateButton extends React.Component {
 				if (status < 200 || status >= 300) {
 					return Promise.reject(statusText, status);
 				}
-				//return { status, headers, body, json };
         });
     }
 
@@ -54,7 +52,7 @@ export default class SimulateButton extends React.Component {
     render() {
 
 		return (
-		        <RaisedButton onClick={this.handleClick.bind(this)} label="Run a simulation of the experiment" value="set" primary={true} style={styles.button} />
+		        <RaisedButton name="sim" onClick={this.handleClick.bind(this)} label="Run a simulation of the experiment" value="set" primary={true} style={styles.button} />
          )
 		 
 

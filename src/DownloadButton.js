@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 function saveAs(uri, filename) {
     var link = document.createElement('a');
@@ -95,13 +96,13 @@ class DownloadButton extends React.Component {
 }
 
 DownloadButton.propTypes = {
-    fileData: React.PropTypes.object,
-    genFile: React.PropTypes.func,
-    async: React.PropTypes.bool,
-    generateTitle: React.PropTypes.string,
-    downloadTitle: React.PropTypes.oneOfType([React.PropTypes.string, React.PropTypes.func]),
-    loadingTitle: React.PropTypes.string,
-    onDownloaded: React.PropTypes.func,
+    fileData: PropTypes.object,
+    genFile: PropTypes.func,
+    async: PropTypes.bool,
+    generateTitle: PropTypes.string,
+    downloadTitle: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
+    loadingTitle: PropTypes.string,
+    onDownloaded: PropTypes.func,
 }
 
 DownloadButton.defaultProps = {

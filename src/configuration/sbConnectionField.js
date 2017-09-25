@@ -7,6 +7,7 @@ import { sbConfig } from '../config'
  const styles = {
     input: { marginLeft: '16px', marginBottom: '50px' },
     button: { margin: '1em', marginLeft: '16px' },
+	text: { marginLeft: '15px', fontSize: '18px', marginBottom: '1em'},
 };
 
 export default class Custom extends React.Component { 
@@ -19,6 +20,7 @@ export default class Custom extends React.Component {
     handleClick(e) {
         //this.logme("Value on clicked: "+document.getElementById('text-field-default').value );
 		localStorage.setItem('serverurl', document.getElementById('text-field-default').value );
+		window.location.reload()
     }
 
     componentDidMount() {
@@ -31,8 +33,9 @@ export default class Custom extends React.Component {
 
 		return (
            <div>
+				<div style={styles.text}>Set StreamingBandit server URL (without a trailing /):</div>
 				<TextField name="seturl" id="text-field-default" defaultValue={sbConfig.sbConnectionUrl} style={styles.input} />
-		        <RaisedButton onClick={this.handleClick.bind(this)} label="Set URL" value="set" primary={true} style={styles.button} />
+		        <RaisedButton onClick={this.handleClick.bind(this)} label="Set and reload" value="set" primary={true} style={styles.button} />
            </div>
          )
 		 

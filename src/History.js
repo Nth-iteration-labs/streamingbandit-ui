@@ -1,12 +1,9 @@
 import React, { Component } from 'react';
+import DownloadButton from './DownloadButton'
 import withWidth from 'material-ui/utils/withWidth';
 import { sbConfig } from './config'
-import { Card, CardTitle } from 'material-ui/Card';
-import { List, ListItem } from 'material-ui/List';
-import Avatar from 'material-ui/Avatar';
-import CustomerIcon from 'material-ui/svg-icons/social/person-add';
+import { Card, CardTitle } from 'material-ui/Card';;
 
-import DownloadButton from './DownloadButton'
 
 const styles = {
     welcome: { marginBottom: '2em' },
@@ -29,18 +26,24 @@ const styles = {
 
 class History extends Component {
 
+
+	constructor(props) {
+		super(props);
+		this.props = props;
+		this.makeFileLog = this.makeFileLog.bind(this);
+		this.makeFileRewardLog = this.makeFileRewardLog.bind(this);
+		this.makeFileActionLog = this.makeFileActionLog.bind(this);
+	}
+
+
     state = { 
-		mainFile: {
-			mime: 'text/plain',
-			filename: 'myexportedfile.txt',
-			contents: 'all of the exports',
-		}
 	};
+
 
     componentDidMount() {
 
 			fetch (
-				sbConfig.sbConnectionUrl+"/stats/"+"1318627cc5"+"/currenttheta.json", 
+				sbConfig.sbConnectionUrl+"/stats/"+ this.props.record.id +"/currenttheta.json", 
 				{
 					method: 'GET',  
 					headers: new Headers({ 'Content-Type': 'application/json' }),
@@ -58,8 +61,7 @@ class History extends Component {
 				let json;
 				try {
 					json = JSON.parse(body);
-					var obj = JSON.stringify(json, null, 2); // spacing level = 2
-					//var obj = {a:1, 'b':'foo', c:[false,'false',null, 'null', {d:{e:1.3e5,f:'1.3e5'}}]};
+					var obj = JSON.stringify(json, null, 2); 
 					var str = JSON.stringify(obj, undefined, 4);
 					this.setState({currentThetaString: str})
 				} catch (e) {
@@ -70,8 +72,9 @@ class History extends Component {
 				}
         });
 
+
 		fetch (
-				sbConfig.sbConnectionUrl+"/stats/"+1234+"/currenttheta.json", 
+				sbConfig.sbConnectionUrl+"/stats/"+ this.props.record.id +"/hourlytheta.json", 
 				{
 					method: 'GET',  
 					headers: new Headers({ 'Content-Type': 'application/json' }),
@@ -89,8 +92,7 @@ class History extends Component {
 				let json;
 				try {
 					json = JSON.parse(body);
-					var obj = JSON.stringify(json, null, 2); // spacing level = 2
-					var obj = {a:1, 'b':'foo', c:[false,'false',null, 'null', {d:{e:1.3e5,f:'1.3e5'}}]};
+					var obj = JSON.stringify(json, null, 2); 
 					var str = JSON.stringify(obj, undefined, 4);
 					this.setState({hourlyThetaString: str})
 				} catch (e) {
@@ -101,8 +103,9 @@ class History extends Component {
 				}
         });
 
+
 		fetch (
-				sbConfig.sbConnectionUrl+"/stats/"+1234+"/currenttheta.json", 
+				sbConfig.sbConnectionUrl+"/stats/"+ this.props.record.id +"/summary.json", 
 				{
 					method: 'GET',  
 					headers: new Headers({ 'Content-Type': 'application/json' }),
@@ -120,10 +123,9 @@ class History extends Component {
 				let json;
 				try {
 					json = JSON.parse(body);
-					var obj = JSON.stringify(json, null, 2); // spacing level = 2
-					var obj = {a:1, 'b':'foo', c:[false,'false',null, 'null', {d:{e:1.3e5,f:'1.3e5'}}]};
+					var obj = JSON.stringify(json, null, 2); 
 					var str = JSON.stringify(obj, undefined, 4);
-					this.setState({hourlyThetaString: str})
+					this.setState({summary: str})
 				} catch (e) {
 					// 
 				}
@@ -134,46 +136,146 @@ class History extends Component {
 
     }
 
+	makeFileLog(done) {
+
+		fetch (
+				sbConfig.sbConnectionUrl+"/stats/"+ this.props.record.id +"/log.json", 
+				{
+					method: 'GET',  
+					headers: new Headers({ 'Content-Type': 'application/json' }),
+					credentials: 'include',
+				},
+			).then(response => response.text().then(text => ({
+
+				status: response.status,
+				statusText: response.statusText,
+				headers: response.headers,
+				body: text,
+
+			}))).then(({ status, statusText, headers, body }) => {
+
+				let json;
+				try {
+					json = JSON.parse(body);
+					done({
+							mime: 'application/json',
+							filename: 'log.json',
+							contents: JSON.stringify(json, null, 2),
+					})
+
+				} catch (e) {
+					// 
+				}
+				if (status < 200 || status >= 300) {
+					return Promise.reject(statusText, status);
+				}
+        });
+
+	}
+
+
+	makeFileActionLog(done) {
+
+		fetch (
+				sbConfig.sbConnectionUrl+"/stats/"+ this.props.record.id +"/actionlog.json", 
+				{
+					method: 'GET',  
+					headers: new Headers({ 'Content-Type': 'application/json' }),
+					credentials: 'include',
+				},
+			).then(response => response.text().then(text => ({
+
+				status: response.status,
+				statusText: response.statusText,
+				headers: response.headers,
+				body: text,
+
+			}))).then(({ status, statusText, headers, body }) => {
+
+				let json;
+				try {
+					json = JSON.parse(body);
+					done({
+							mime: 'application/json',
+							filename: 'log.json',
+							contents: JSON.stringify(json, null, 2),
+					})
+
+				} catch (e) {
+					// 
+				}
+				if (status < 200 || status >= 300) {
+					return Promise.reject(statusText, status);
+				}
+        });
+
+	}
+
+	makeFileRewardLog(done) {
+
+		fetch (
+				sbConfig.sbConnectionUrl+"/stats/"+ this.props.record.id +"/rewardlog.json", 
+				{
+					method: 'GET',  
+					headers: new Headers({ 'Content-Type': 'application/json' }),
+					credentials: 'include',
+				},
+			).then(response => response.text().then(text => ({
+
+				status: response.status,
+				statusText: response.statusText,
+				headers: response.headers,
+				body: text,
+
+			}))).then(({ status, statusText, headers, body }) => {
+
+				let json;
+				try {
+					json = JSON.parse(body);
+					done({
+							mime: 'application/json',
+							filename: 'log.json',
+							contents: JSON.stringify(json, null, 2),
+					})
+
+				} catch (e) {
+					// 
+				}
+				if (status < 200 || status >= 300) {
+					return Promise.reject(statusText, status);
+				}
+        });
+
+	}
+
     render() {
         const {
             currentThetaString,
 			hourlyThetaString,
-			mainFile,
+			summary,
         } = this.state;
-        const { width } = this.props;
         return (
             <div>
                 <div style={styles.flex}>
-
-
                     <div style={styles.leftCol}>
-
-
                         <div style={styles.singleCol}>
-
 							<Card style={styles.card}>
 								<CardTitle title="Current Theta" subtitle="" />
 								<pre style={styles.pre}> {currentThetaString} </pre>
-								
 							</Card>
-
-
 						</div>
 
 		                <div style={styles.singleCol}>
 							<Card style={styles.card2}>	
 							<CardTitle title="Downloads" subtitle="" />
-								<DownloadButton style={styles.button} downloadTitle="Download Log" fileData={mainFile}/>
-								<DownloadButton style={styles.button} downloadTitle="Download Action Log" fileData={mainFile}/>	
-								<DownloadButton style={styles.button} downloadTitle="Download Reward Log" fileData={mainFile}/>	
+								<DownloadButton style={styles.button} generateTitle="Download log"  loadingTitle="Generating log file..." downloadTitle="Click to download log" async={true} genFile={this.makeFileLog}/>
+								<DownloadButton style={styles.button} generateTitle="Download action log"  loadingTitle="Generating action log file..." downloadTitle="Click to download action log" async={true} genFile={this.makeFileActionLog}/>
+								<DownloadButton style={styles.button} generateTitle="Download reward log"  loadingTitle="Generating reward log file..." downloadTitle="Click to download reward log" async={true} genFile={this.makeFileRewardLog}/>
 							</Card>
 						</div>
-
                     </div>
 
-
                     <div style={styles.rightCol}>
-
                         <div style={styles.singleCol}>
 							<Card style={styles.card}>
 								<CardTitle title="Hourly Theta" subtitle="" />
@@ -184,13 +286,10 @@ class History extends Component {
                         <div style={styles.singleCol}>
 							<Card style={styles.card}>
 								<CardTitle title="Summary" subtitle="" />
-								<pre style={styles.pre}> {hourlyThetaString} </pre>
+								<pre style={styles.pre}> {summary} </pre>
 							</Card>
                         </div>
-
-
                     </div>
-
 
                 </div>
             </div>

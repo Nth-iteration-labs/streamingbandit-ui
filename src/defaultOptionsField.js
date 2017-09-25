@@ -1,20 +1,13 @@
 import React from 'react';
-import RaisedButton from 'material-ui/RaisedButton';
 import MenuItem from 'material-ui/MenuItem';
 import SelectField from 'material-ui/SelectField';
-import TextField from 'material-ui/TextField';
 import { sbConfig } from './config'
-import { showNotification } from 'admin-on-rest';
-import CodeMirror from 'codemirror'
-
-
 
 const styles = {
   customWidth: {
     width: 400,
   },
 };
-
 
 function getReactDomComponent(dom) {
   const internalInstance = dom[Object.keys(dom).find(key =>
@@ -36,7 +29,7 @@ export default class DefaultOptionsField extends React.Component {
 	handleChange(event, index, value) {
 		console.log(index)
 		var cm = document.getElementsByClassName("aor-input-get_context")[0].getElementsByClassName("react-codemirror2")[0]
-		//console.log(getReactDomComponent(cm));
+		console.log(getReactDomComponent(cm));
     }
 
     componentWillMount() {

@@ -35,10 +35,8 @@ class History extends Component {
 		this.makeFileActionLog = this.makeFileActionLog.bind(this);
 	}
 
-
     state = { 
 	};
-
 
     componentDidMount() {
 

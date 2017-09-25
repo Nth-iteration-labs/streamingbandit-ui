@@ -50,18 +50,19 @@ export const ExpList = (props) => (
     </List>
 );
 
+
 export const ExpEdit = (props) => (
     <Edit title={<PostTitle />} {...props}>
-        <TabbedForm validate={validateExpCreation}>
-            <FormTab label="Settings">
-						<DefaultOptionsField name="field"/>
-						<TextField name="id" source="id" />
-						<TextField name="id" source="key" />
+        <TabbedForm validate={validateExpCreation} {...props}>
+            <FormTab label="Settings" {...props}>
 						<TextInput name="name "label="Name of the experiment" source="name"  validate={[required]}/>
-						<CodeMirrorInput name="get_context" label="Get context" source="get_context" options={{rows: 2}} />
-						<CodeMirrorInput name="get_action" label="Get action" source="get_action" options={{rows: 2}} />
-						<CodeMirrorInput  name="get_reward" label="Get reward" source="get_reward" options={{rows: 2}} />
-						<CodeMirrorInput  name="set_reward" label="Set reward" source="set_reward" options={{rows: 2}} />
+						<TextField name="id" source="id" />
+						<TextField name="key" source="key" />
+						<DefaultOptionsField name="field"/>
+						<CodeMirrorInput {...props} name="get_context" label="Get context" source="get_context" options={{rows: 2}} />
+						<CodeMirrorInput {...props} name="get_action" label="Get action" source="get_action" options={{rows: 2}} />
+						<CodeMirrorInput {...props} name="get_reward" label="Get reward" source="get_reward" options={{rows: 2}} />
+						<CodeMirrorInput {...props} name="set_reward" label="Set reward" source="set_reward" options={{rows: 2}} />
 						<SelectInput validate={[required]} source="hourly_theta" choices={[
 							{ id: 'true', name: 'Store theta every hour' },
 							{ id: 'false', name: 'Do not store theta' },
@@ -90,12 +91,12 @@ export const ExpEdit = (props) => (
 
 export const ExpCreate = (props) => (
     <Create {...props}>
-        <SimpleForm>
+        <SimpleForm {...props}>
 			<LongTextInput label="Name of the experiment" source="name"  validate={[required]}/>
-			<CodeMirrorInput name="get_context" label="Get context" source="get_context" options={{rows: 2}} />
-			<CodeMirrorInput name="get_action" label="Get action" source="get_action" options={{rows: 2}} />
-			<CodeMirrorInput  name="get_reward" label="Get reward" source="get_reward" options={{rows: 2}} />
-			<CodeMirrorInput  name="set_reward" label="Set reward" source="set_reward" options={{rows: 2}} />
+			<CodeMirrorInput {...props} name="get_context" label="Get context" source="get_context" options={{rows: 2}} />
+			<CodeMirrorInput {...props} name="get_action" label="Get action" source="get_action" options={{rows: 2}} />
+			<CodeMirrorInput  {...props} name="get_reward" label="Get reward" source="get_reward" options={{rows: 2}} />
+			<CodeMirrorInput {...props} name="set_reward" label="Set reward" source="set_reward" options={{rows: 2}} />
 			<SelectInput validate={[required]} source="hourly_theta" choices={[
 				{ id: 'true', name: 'Store theta every hour' },
 				{ id: 'false', name: 'Do not store theta' },

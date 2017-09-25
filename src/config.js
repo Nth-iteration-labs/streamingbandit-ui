@@ -2,9 +2,11 @@
 
 // StreamingBandit client configuration
 
-let clientUrl = { sbConnectionUrl: 'http://strm.mnds.org:7070' };
+let clientUrl = "http://strm.mnds.org:7070"
 
-if(localStorage.getItem('serverurl') !== null) {  
+if (localStorage.getItem("serverurl") === null) {
+  localStorage.setItem('serverurl',clientUrl)
+} else { 
 	clientUrl = localStorage.getItem('serverurl') 
 }
 

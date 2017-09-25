@@ -4,8 +4,7 @@
 
 let clientUrl = { sbConnectionUrl: 'http://strm.mnds.org:7070' };
 
-
-if(localStorage.getItem('serverurl')) {  
+if(localStorage.getItem('serverurl') !== null) {  
 	clientUrl = localStorage.getItem('serverurl') 
 }
 

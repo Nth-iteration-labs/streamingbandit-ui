@@ -23,7 +23,7 @@ export default class SimulateButton extends React.Component {
 
     handleClick(e) {
 			fetch(
-				sbConfig.sbConnectionUrl+"/eval/" + this.props.record.id + "/simulate?N=100&log_stats=False&verbose=False",
+				sbConfig.sbConnectionUrl+"/eval/" + this.props.record.id + "/simulate?N=100&log_stats=False&verbose=False&seed=1",
 				{
 					method: 'GET',  
 					headers: new Headers({ 'Content-Type': 'application/json' }),

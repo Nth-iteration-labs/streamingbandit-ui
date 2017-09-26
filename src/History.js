@@ -41,7 +41,7 @@ class History extends Component {
     componentDidMount() {
 
 			fetch (
-				sbConfig.sbConnectionUrl+"/stats/"+ this.props.record.id +"/currenttheta.json", 
+				sbConfig.sbConnectionUrl+"/stats/"+ this.props.record.id +"/currenttheta", 
 				{
 					method: 'GET',  
 					headers: new Headers({ 'Content-Type': 'application/json' }),
@@ -71,7 +71,7 @@ class History extends Component {
 
 
 		fetch (
-				sbConfig.sbConnectionUrl+"/stats/"+ this.props.record.id +"/hourlytheta.json", 
+				sbConfig.sbConnectionUrl+"/stats/"+ this.props.record.id +"/hourlytheta", 
 				{
 					method: 'GET',  
 					headers: new Headers({ 'Content-Type': 'application/json' }),
@@ -101,7 +101,7 @@ class History extends Component {
 
 
 		fetch (
-				sbConfig.sbConnectionUrl+"/stats/"+ this.props.record.id +"/summary.json", 
+				sbConfig.sbConnectionUrl+"/stats/"+ this.props.record.id +"/summary", 
 				{
 					method: 'GET',  
 					headers: new Headers({ 'Content-Type': 'application/json' }),
@@ -134,7 +134,7 @@ class History extends Component {
 	makeFileLog(done) {
 
 		fetch (
-				sbConfig.sbConnectionUrl+"/stats/"+ this.props.record.id +"/log.json", 
+				sbConfig.sbConnectionUrl+"/stats/"+ this.props.record.id +"/log", 
 				{
 					method: 'GET',  
 					headers: new Headers({ 'Content-Type': 'application/json' }),
@@ -172,7 +172,7 @@ class History extends Component {
 	makeFileActionLog(done) {
 
 		fetch (
-				sbConfig.sbConnectionUrl+"/stats/"+ this.props.record.id +"/actionlog.json", 
+				sbConfig.sbConnectionUrl+"/stats/"+ this.props.record.id +"/actionlog", 
 				{
 					method: 'GET',  
 					headers: new Headers({ 'Content-Type': 'application/json' }),
@@ -209,7 +209,7 @@ class History extends Component {
 	makeFileRewardLog(done) {
 
 		fetch (
-				sbConfig.sbConnectionUrl+"/stats/"+ this.props.record.id +"/rewardlog.json", 
+				sbConfig.sbConnectionUrl+"/stats/"+ this.props.record.id +"/rewardlog", 
 				{
 					method: 'GET',  
 					headers: new Headers({ 'Content-Type': 'application/json' }),

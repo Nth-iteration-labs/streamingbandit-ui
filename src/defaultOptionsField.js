@@ -48,6 +48,7 @@ export default class DefaultOptionsField extends React.Component {
 
 				let json;
 				try {
+
 					json = JSON.parse(body);
 					console.log(json)
 					let cm = document.getElementsByClassName("aor-input-get_context")[0].getElementsByClassName("CodeMirror")[0]
@@ -66,8 +67,8 @@ export default class DefaultOptionsField extends React.Component {
 					editor = cm.CodeMirror;
 					html = json.set_reward
 					editor.setValue(html);
-					cm = document.getElementsByClassName("aor-input-name")[0].getElementsByTagName("Input")[0]
-					cm.value = json.name
+					//cm = document.getElementsByClassName("aor-input-name")[0].getElementsByTagName("input")[0]
+					//cm.value = json.name
 					
 				} catch (e) {
 					// 

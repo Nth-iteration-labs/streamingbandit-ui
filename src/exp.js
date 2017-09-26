@@ -1,7 +1,7 @@
 // in src/exp.js
 import React from 'react';
 
-import { EditButton, LongTextInput, SimpleForm  } from 'admin-on-rest';
+import { EditButton, SimpleForm  } from 'admin-on-rest';
 import { List, Edit, Create, Datagrid, TextField, NumberInput } from 'admin-on-rest';
 import { TabbedForm, FormTab } from 'admin-on-rest'
 import { required } from 'admin-on-rest';
@@ -12,11 +12,6 @@ import SimulateButton from './sbSimulateButton'
 import ResetButton from './sbResetButton'
 import History from './History'
 import CodeMirrorInput from './CodeMirrorInput'
-
-/*const styles = {
-	pre:  { marginLeft: '1em', whiteSpace: "pre-wrap", wordWrap:"break-word", fontSize:12},
-    card: { borderLeft: 'solid 4px #4caf50', flex: 1, marginLeft: '1em', paddingBottom:"2em", marginBottom: "2em",marginTop: "2em"},
-};*/
 
 const PostTitle = ({ record }) => {
     return <span>Experiment {record ? `"${record.name}"` : ''}</span>;
@@ -55,10 +50,10 @@ export const ExpEdit = (props) => (
     <Edit title={<PostTitle />} {...props}>
         <TabbedForm validate={validateExpCreation} {...props}>
             <FormTab label="Settings" {...props}>
-						<TextInput name="name "label="Name of the experiment" source="name"  validate={[required]}/>
+						<TextInput ref='name' name="name "label="Name of the experiment" source="name"  validate={[required]}/>
 						<TextField name="id" source="id" />
 						<TextField name="key" source="key" />
-						<DefaultOptionsField name="field"/>
+						<DefaultOptionsField {...props} name="field"/>
 						<CodeMirrorInput {...props} name="get_context" label="Get context" source="get_context" options={{rows: 2}} />
 						<CodeMirrorInput {...props} name="get_action" label="Get action" source="get_action" options={{rows: 2}} />
 						<CodeMirrorInput {...props} name="get_reward" label="Get reward" source="get_reward" options={{rows: 2}} />
@@ -92,10 +87,11 @@ export const ExpEdit = (props) => (
 export const ExpCreate = (props) => (
     <Create {...props}>
         <SimpleForm {...props}>
-			<LongTextInput label="Name of the experiment" source="name"  validate={[required]}/>
+			<TextInput ref='name' label="Name of the experiment" source="name"  validate={[required]}/>
+			<DefaultOptionsField {...props} name="field"/>
 			<CodeMirrorInput {...props} name="get_context" label="Get context" source="get_context" options={{rows: 2}} />
 			<CodeMirrorInput {...props} name="get_action" label="Get action" source="get_action" options={{rows: 2}} />
-			<CodeMirrorInput  {...props} name="get_reward" label="Get reward" source="get_reward" options={{rows: 2}} />
+			<CodeMirrorInput {...props} name="get_reward" label="Get reward" source="get_reward" options={{rows: 2}} />
 			<CodeMirrorInput {...props} name="set_reward" label="Set reward" source="set_reward" options={{rows: 2}} />
 			<SelectInput validate={[required]} source="hourly_theta" choices={[
 				{ id: 'true', name: 'Store theta every hour' },

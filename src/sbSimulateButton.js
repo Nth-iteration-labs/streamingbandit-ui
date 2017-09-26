@@ -23,7 +23,7 @@ export default class SimulateButton extends React.Component {
 
     handleClick(e) {
 			fetch(
-				sbConfig.sbConnectionUrl+"/eval/" + this.props.record.id + "/simulate?N=100&log_stats=True&verbose=False",
+				sbConfig.sbConnectionUrl+"/eval/" + this.props.record.id + "/simulate?N=100&log_stats=False&verbose=False",
 				{
 					method: 'GET',  
 					headers: new Headers({ 'Content-Type': 'application/json' }),
@@ -38,15 +38,18 @@ export default class SimulateButton extends React.Component {
 
 			}))).then(({ status, statusText, headers, body }) => {
 				let json;
+				let str = '';
 				try {
-					var obj = JSON.stringify(json, null, 2); 
-					var str = JSON.stringify(obj, undefined, 4);
+					json = JSON.parse(body);
+					str = JSON.stringify(json, null, 4); 
 					this.setState({simResult: str})
 				} catch (e) {
-					// not json
+					json = JSON.parse(body);
+					str = JSON.stringify(json, null, 4); 
+					this.setState({simResult: str})
 				}
 				if (status < 200 || status >= 300) {
-					this.setState({simResult: "Python Syntax error - " + status + " " + statusText})
+					//this.setState({simResult: "Status code:" + status + " " + statusText})
 					return Promise.reject(statusText, status);
 				}
         });

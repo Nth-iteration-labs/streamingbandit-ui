@@ -1,0 +1,1 @@
+var clientUrl = "http://strm.mnds.org:7070"

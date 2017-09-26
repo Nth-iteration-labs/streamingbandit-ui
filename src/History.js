@@ -59,8 +59,7 @@ class History extends Component {
 				let json;
 				try {
 					json = JSON.parse(body);
-					var obj = JSON.stringify(json, null, 2); 
-					var str = JSON.stringify(obj, undefined, 4);
+					var str = JSON.stringify(json, undefined, 4);
 					this.setState({currentThetaString: str})
 				} catch (e) {
 					// 
@@ -90,8 +89,7 @@ class History extends Component {
 				let json;
 				try {
 					json = JSON.parse(body);
-					var obj = JSON.stringify(json, null, 2); 
-					var str = JSON.stringify(obj, undefined, 4);
+					var str = JSON.stringify(json, undefined, 4);
 					this.setState({hourlyThetaString: str})
 				} catch (e) {
 					// 
@@ -121,8 +119,7 @@ class History extends Component {
 				let json;
 				try {
 					json = JSON.parse(body);
-					var obj = JSON.stringify(json, null, 2); 
-					var str = JSON.stringify(obj, undefined, 4);
+					var str = JSON.stringify(json, undefined, 4);
 					this.setState({summary: str})
 				} catch (e) {
 					// 

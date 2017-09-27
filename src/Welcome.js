@@ -22,9 +22,9 @@ const styles = {
 };
 
 
-let localClientUrl = localStorage.getItem("serverurl")
 
-export default translate(({ style, translate }) => (
+
+export default translate(({ style, translate, localClientUrl}) => (
     <Card style={style}>
         <CardHeader
             title={"Welcome to StreamingBandit!"}

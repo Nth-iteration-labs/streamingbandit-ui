@@ -9,13 +9,6 @@ const styles = {
   },
 };
 
-/*function getReactDomComponent(dom) {
-  const internalInstance = dom[Object.keys(dom).find(key =>
-    key.startsWith('__reactInternalInstance$'))];
-  if (!internalInstance) return null;
-  return internalInstance._currentElement;
-}*/
-
 export default class DefaultOptionsField extends React.Component { 
 	  constructor(props) {
 		super(props);

@@ -13,15 +13,24 @@ const styles = {
     singleCol: { marginTop: '2em' },
 };
 
+
 class Dashboard extends Component {
-    state = {};
+	
+	constructor(props) {
+		super(props);
+		this.props = props
+		this.state = { 
+					   defaultExps : [],
+			           localClientUrl : localStorage.getItem("serverurl")
+				     }
+	 }
 
     render() {
         const { width } = this.props;
         return (
             <div>
                 {width === 1 && <AppBarMobile title="StreamingBandit" />}
-                <Welcome style={styles.welcome} />
+                <Welcome style={styles.welcome} localClientUrl={this.state.localClientUrl} />
             </div>
         );
     }

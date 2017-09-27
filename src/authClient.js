@@ -8,8 +8,6 @@ export default (type, params) => {
     if (type === AUTH_LOGIN) {
 
         const { username, password } = params;
-
-
         return fetch(
 					sbConfig.sbConnectionUrl+"/login", 
 					{
@@ -20,6 +18,9 @@ export default (type, params) => {
 					},
 			)
 			.then((response) => {
+                if (response.status < 200 || response.status >= 300) {
+                    throw new Error(response.statusText);
+                }
                 if (!response.ok) {
 					localStorage.removeItem('username');
 					localStorage.removeItem('token');
@@ -31,7 +32,7 @@ export default (type, params) => {
 				}
             })
 		    .catch((e) => {
-				//console.log("caught")
+				return Promise.reject(e.statusText)
 		    })
     }
 
@@ -55,3 +56,4 @@ export default (type, params) => {
     }
     return Promise.reject('Unknown method');
 };
+

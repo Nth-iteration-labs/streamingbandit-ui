@@ -147,6 +147,7 @@ Login.defaultProps = {
 const enhance = compose(
     translate,
     reduxForm({
+
         form: 'signIn',
 		//enableReinitialize: true,
 		//keepDirtyOnReinitialize: true,
@@ -164,6 +165,7 @@ const enhance = compose(
 			if (values.server_url) localStorage.setItem('serverurl',values.server_url)	
             return errors;
         },
+
     }),
     connect(null, { userLogin: userLoginAction }),
 );

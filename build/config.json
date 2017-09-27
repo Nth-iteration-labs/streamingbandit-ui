@@ -1,0 +1,4 @@
+[
+	{ sbConnectionUrl: "http://localhost:8080" },
+	{ sbClientTitle: "StreamingBandit" },
+]

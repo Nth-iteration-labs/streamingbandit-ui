@@ -12,7 +12,7 @@ import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
 import LockIcon from 'material-ui/svg-icons/action/lock-outline';
 import { cyan500, pinkA200 } from 'material-ui/styles/colors';
-
+import validUrl from 'valid-url';
 import { Notification, translate, userLogin as userLoginAction } from 'admin-on-rest';
 
 const styles = {
@@ -43,6 +43,19 @@ const styles = {
     },
 };
 
+function isString(value) {return typeof value === 'string';}
+
+function doLocalStorageConfig() {
+
+			let defaultClientUrl = "http://localhost:8080"
+			let localClientUrl = localStorage.getItem("serverurl")
+			if (localClientUrl === null || !isString(localClientUrl)) {
+				localStorage.setItem('serverurl',defaultClientUrl)
+				localClientUrl = defaultClientUrl
+			}
+			return localClientUrl
+}
+
 function getColorsFromTheme(theme) {
     if (!theme) return { primary1Color: cyan500, accent1Color: pinkA200 };
     const {
@@ -54,7 +67,6 @@ function getColorsFromTheme(theme) {
     return { primary1Color, accent1Color };
 }
 
-// see http://redux-form.com/6.4.3/examples/material-ui/
 const renderInput = ({ meta: { touched, error } = {}, input: { ...inputProps }, ...props }) =>
     <TextField
         errorText={touched && error}
@@ -65,7 +77,8 @@ const renderInput = ({ meta: { touched, error } = {}, input: { ...inputProps }, 
 
 class Login extends Component {
 
-    login = ({ username, password }) => {
+    login = ({ username, password, server_url }) => {
+		localStorage.setItem('serverurl', server_url )
         const { userLogin, location } = this.props;
         userLogin({ username, password }, location.state ? location.state.nextPathname : '/');
     }
@@ -99,6 +112,13 @@ class Login extends Component {
                                         type="password"
                                     />
                                 </div>
+                                <div style={styles.input}>
+                                    <Field
+                                        name="server_url"
+                                        component={renderInput}
+                                        floatingLabelText="Server URL"
+                                    />
+                                </div>
                             </div>
                             <CardActions>
                                 <RaisedButton type="submit" primary disabled={submitting} label={translate('aor.auth.sign_in')} fullWidth />
@@ -128,11 +148,20 @@ const enhance = compose(
     translate,
     reduxForm({
         form: 'signIn',
+		//enableReinitialize: true,
+		//keepDirtyOnReinitialize: true,
+		destroyOnUnmount: false,
+		initialValues: {
+			server_url: doLocalStorageConfig()
+		},
         validate: (values, props) => {
+			
             const errors = {};
             const { translate } = props;
             if (!values.username) errors.username = translate('aor.validation.required');
             if (!values.password) errors.password = translate('aor.validation.required');
+			if (!validUrl.isWebUri(values.server_url)) errors.server_url = "Enter a valid URL, ie 'http://www.example.com:8080'" 
+			if (values.server_url) localStorage.setItem('serverurl',values.server_url)	
             return errors;
         },
     }),

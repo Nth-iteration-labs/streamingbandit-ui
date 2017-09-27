@@ -13,8 +13,16 @@ const styles = {
 	marginTop: '-20px',
     marginLeft: '70px',
   },
+  connectedtext: {
+	display: "block",
+	marginBottom: "48px",
+	marginLeft: "73px",
+	marginTop: "-15px",
+  },
 };
 
+
+let localClientUrl = localStorage.getItem("serverurl")
 
 export default translate(({ style, translate }) => (
     <Card style={style}>
@@ -28,6 +36,7 @@ export default translate(({ style, translate }) => (
 			subtitleStyle={{'fontSize':'16px', 'fontWeight':'normal', 'marginBottom':'20px'}}
             avatar={<Avatar backgroundColor="#FFEB3B" icon={<LightBulbIcon />} />}
         />
+		<div style={styles.connectedtext}>You are currently connected to the StreamingBandit server at: <b>{ localClientUrl }</b></div>
 		<RaisedButton
 		  href="https://github.com/callemall/material-ui"
 		  target="_blank"

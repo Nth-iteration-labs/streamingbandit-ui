@@ -42,7 +42,6 @@ export default class ResetButton extends React.Component {
 				if (status < 200 || status >= 300) {
 					return Promise.reject(statusText, status);
 				}
-				//return { status, headers, body, json };
         });
     }
 

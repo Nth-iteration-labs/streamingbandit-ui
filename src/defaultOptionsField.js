@@ -29,7 +29,6 @@ export default class DefaultOptionsField extends React.Component {
     }
 
 	handleChange(event, index, value) {
-		console.log(index)
 		fetch (
 				sbConfig.sbConnectionUrl+"/exp/defaults/"+ index, 
 				{
@@ -50,7 +49,6 @@ export default class DefaultOptionsField extends React.Component {
 				try {
 
 					json = JSON.parse(body);
-					console.log(json)
 					let cm = document.getElementsByClassName("aor-input-get_context")[0].getElementsByClassName("CodeMirror")[0]
 					let editor = cm.CodeMirror;
 					var html = json.get_context
@@ -101,7 +99,6 @@ export default class DefaultOptionsField extends React.Component {
 				try {
 					json = JSON.parse(body);
 					this.setState({defaultExps: Object.values(json)})
-					console.log(this.state)
 				} catch (e) {
 					// not json, no big deal
 				}

@@ -23,7 +23,6 @@ const CodeMirrorInput = ({
 		<CodeMirror     
 			value={value} 
 			options={{lineNumbers: true,autoRefresh:true,viewportMargin: 0,mode: 'python'}} 
-			//onChange={debounce (e => {onChange(e)},300)}
 			onChange={debounce ((editor, metadata, value) => {onChange(value)},300)}
 			onSet={(editor, value) => {/*console.log('onSet', {value}*/}}
 			ref={el => this.value = el}

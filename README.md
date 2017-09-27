@@ -1,5 +1,8 @@
 # streamingbandit-ui
 
+![StreamingBandit Client](https://raw.githubusercontent.com/Nth-iteration-labs/streamingbandit-ui/master/img/StreamingBandit.png)
+
+
 RESTful frontend for StreamingBandit https://github.com/Nth-iteration-labs/streamingbandit build with https://github.com/marmelab/admin-on-rest, using React and Material Design.
 
 **Note**: This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app).

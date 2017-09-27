@@ -1,6 +1,6 @@
 {
   "short_name": "StreamingBandit App",
-  "name": "StreamingBandit UI App",
+  "name": "StreamingBandit Client App",
   "icons": [
     {
       "src": "favicon.ico",

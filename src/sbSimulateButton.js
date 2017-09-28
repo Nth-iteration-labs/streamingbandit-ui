@@ -22,18 +22,17 @@ export default class SimulateButton extends React.Component {
 		this.state = { numValue: 100, doShowResult: false, doLog: false, seed: null};
 	}
 
-	jsUcfirst(string) 
+	ucFirst(string) 
 	{
 		return string.charAt(0).toUpperCase() + string.slice(1);
 	}
-
 
     handleClick(e) {
 			this.setState({simResult: {__html: "<p class='loading'>Running simulation </p>"}})
 			let connectionString = sbConfig.sbConnectionUrl+ "/eval/" + this.props.record.id + 
 				                   "/simulate?N=" + parseInt(this.state.numValue,10) + 
-				                   "&log_stats=" + this.jsUcfirst(this.state.doLog.toString()) + 
-				                   "&verbose=" + this.jsUcfirst(this.state.doShowResult.toString())
+				                   "&log_stats=" + this.ucFirst(this.state.doLog.toString()) + 
+				                   "&verbose=" + this.ucFirst(this.state.doShowResult.toString())
 			if ( this.state.seed!==null) connectionString = connectionString + "&seed=" + this.state.seed;
 			fetch(
 				connectionString,
@@ -117,12 +116,9 @@ export default class SimulateButton extends React.Component {
 						onValid={(e) => {  this.setState({ seed: e.toString()}) ;} }
 						onError={(e) => {  this.setState({ seed: null }) ;} }
 					/><br/>
-
 					<RaisedButton name="sim" onClick={this.handleClick} label="Run a simulation of the experiment" value="set" primary={true} style={styles.button} />
 					<pre dangerouslySetInnerHTML={simResult} style={styles.pre}></pre>
 				</div>
          )
-		 
-
     }
 }

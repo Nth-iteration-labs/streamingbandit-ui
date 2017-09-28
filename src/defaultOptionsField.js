@@ -105,7 +105,7 @@ export default class DefaultOptionsField extends React.Component {
     render() {
 		return (
            <div>
-				<SelectField onChange={ this.handleChange } style={styles.customWidth} floatingLabelText="Fill fields with default values">
+				<SelectField onChange={ this.handleChange } style={styles.customWidth} floatingLabelText="Use default experiment">
 					    {this.state.defaultExps.map((name, index) => (
 							<MenuItem key={index} value={index} primaryText={name} />
 						))}

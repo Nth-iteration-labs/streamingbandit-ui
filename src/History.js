@@ -263,9 +263,9 @@ class History extends Component {
 		                <div style={styles.singleCol}>
 							<Card style={styles.card2}>	
 							<CardTitle title="Downloads" subtitle="" />
-								<DownloadButton style={styles.button} generateTitle="Download log"  loadingTitle="Generating log file..." downloadTitle="Click to download log" async={true} genFile={this.makeFileLog}/>
-								<DownloadButton style={styles.button} generateTitle="Download action log"  loadingTitle="Generating action log file..." downloadTitle="Click to download action log" async={true} genFile={this.makeFileActionLog}/>
-								<DownloadButton style={styles.button} generateTitle="Download reward log"  loadingTitle="Generating reward log file..." downloadTitle="Click to download reward log" async={true} genFile={this.makeFileRewardLog}/>
+								<DownloadButton style={styles.button} generateTitle="Generate and download log"  loadingTitle="Generating log file..." downloadTitle="Click to download log" async={true} genFile={this.makeFileLog}/>
+								<DownloadButton style={styles.button} generateTitle="Generate and download action log"  loadingTitle="Generating action log file..." downloadTitle="Click to download action log" async={true} genFile={this.makeFileActionLog}/>
+								<DownloadButton style={styles.button} generateTitle="Generate and download reward log"  loadingTitle="Generating reward log file..." downloadTitle="Click to download reward log" async={true} genFile={this.makeFileRewardLog}/>
 							</Card>
 						</div>
                     </div>

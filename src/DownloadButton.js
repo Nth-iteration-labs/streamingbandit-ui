@@ -1,28 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-/*function saveAs(blob, filename) {
-    if (navigator.appVersion.toString().indexOf('.NET') > 0) { //check if browser is IE
-        if (window.navigator.msSaveOrOpenBlob) { //check if version supports msSaveOrOpenBlob
-            window.navigator.msSaveOrOpenBlob(blob, filename); //launch download prompt
-        }
-    } else {
-        var uri = URL.createObjectURL(blob);
-        var link = document.createElement('a');
-
-        if (typeof link.download === 'string') {
-            document.body.appendChild(link); //Firefox requires the link to be in the body
-            link.download = filename;
-            link.href = uri;
-            link.click();
-            document.body.removeChild(link); //remove the link when done
-        } else {
-            window.location.replace(uri);
-        }
-    }
-}*/
-
-
 function saveAs(uri, filename) {
     var link = document.createElement('a');
 

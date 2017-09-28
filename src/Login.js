@@ -78,8 +78,9 @@ const renderInput = ({ meta: { touched, error } = {}, input: { ...inputProps }, 
 class Login extends Component {
 
     login = ({ username, password, server_url }) => {
-		localStorage.setItem('serverurl', server_url )
+
         const { userLogin, location } = this.props;
+		
         userLogin({ username, password }, location.state ? location.state.nextPathname : '/');
     }
 
@@ -156,13 +157,12 @@ const enhance = compose(
 			server_url: doLocalStorageConfig()
 		},
         validate: (values, props) => {
-			
+			localStorage.setItem('serverurl',values.server_url)	
             const errors = {};
             const { translate } = props;
             if (!values.username) errors.username = translate('aor.validation.required');
             if (!values.password) errors.password = translate('aor.validation.required');
-			if (!validUrl.isWebUri(values.server_url)) errors.server_url = "Enter a valid URL, ie 'http://www.example.com:8080'" 
-			if (values.server_url) localStorage.setItem('serverurl',values.server_url)	
+			if (!validUrl.isWebUri(values.server_url)) errors.server_url = "Enter a valid URL, ie 'http://www.example.com:8080'"
             return errors;
         },
 

@@ -1,7 +1,7 @@
 // in src/authClient.js
 
 import { AUTH_LOGIN, AUTH_LOGOUT, AUTH_ERROR, AUTH_CHECK } from 'admin-on-rest';
-import { sbConfig } from './config'
+//import { sbConfig } from './config'
 
 export default (type, params) => {
 
@@ -9,7 +9,7 @@ export default (type, params) => {
 
         const { username, password } = params;
         return fetch(
-					sbConfig.sbConnectionUrl+"/login", 
+					localStorage.getItem('serverurl')+"/login", 
 					{
 						method: 'POST',  
 						body: JSON.stringify({ username, password }),

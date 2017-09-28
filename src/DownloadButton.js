@@ -1,6 +1,28 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+/*function saveAs(blob, filename) {
+    if (navigator.appVersion.toString().indexOf('.NET') > 0) { //check if browser is IE
+        if (window.navigator.msSaveOrOpenBlob) { //check if version supports msSaveOrOpenBlob
+            window.navigator.msSaveOrOpenBlob(blob, filename); //launch download prompt
+        }
+    } else {
+        var uri = URL.createObjectURL(blob);
+        var link = document.createElement('a');
+
+        if (typeof link.download === 'string') {
+            document.body.appendChild(link); //Firefox requires the link to be in the body
+            link.download = filename;
+            link.href = uri;
+            link.click();
+            document.body.removeChild(link); //remove the link when done
+        } else {
+            window.location.replace(uri);
+        }
+    }
+}*/
+
+
 function saveAs(uri, filename) {
     var link = document.createElement('a');
 
@@ -12,10 +34,11 @@ function saveAs(uri, filename) {
         link.click();
         document.body.removeChild(link); //remove the link when done
 
-    } /*else {
-        location.replace(uri);
-    }*/
+    } else {
+        window.location.replace(uri);
+    }
 }
+
 
 class DownloadButton extends React.Component {
 
@@ -75,7 +98,7 @@ class DownloadButton extends React.Component {
 
             }
 
-            return (<button style={style} onClick={this._onDownload} className={cls}>
+            return (<button style={style} onClick={e => { e.preventDefault(); this._onDownload(); }} className={cls}>
                         {title}
                     </button>);
         }
@@ -87,12 +110,14 @@ class DownloadButton extends React.Component {
                     </button>);
         }
 
-        return (<button style={style} onClick={this._onGenerate} className={cls + ' DownloadButton-generate'}>
+        return (<button style={style} onClick={e => { e.preventDefault(); this._onGenerate(); }}  className={cls + ' DownloadButton-generate'}>
                     {this.props.generateTitle}
                 </button>);
     }
 
 }
+
+
 
 DownloadButton.propTypes = {
     fileData: PropTypes.object,

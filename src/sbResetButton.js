@@ -1,6 +1,6 @@
 import React from 'react';
 import RaisedButton from 'material-ui/RaisedButton';
-import { sbConfig } from './config'
+//import { sbConfig } from './config'
 
 
  const styles = {
@@ -17,7 +17,7 @@ export default class ResetButton extends React.Component {
 
     handleClick(e) {
 			fetch(
-				sbConfig.sbConnectionUrl+"/exp/"+ this.props.record.id +"/resetexperiment?key="+ this.props.record.key, 
+				localStorage.getItem('serverurl')+"/exp/"+ this.props.record.id +"/resetexperiment?key="+ this.props.record.key, 
 				{
 					method: 'GET',  
 					headers: new Headers({ 'Content-Type': 'application/json' }),

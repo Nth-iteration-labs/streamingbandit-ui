@@ -1,6 +1,6 @@
 import React from 'react';
 import RaisedButton from 'material-ui/RaisedButton';
-import { sbConfig } from './config'
+//import { sbConfig } from './config'
 import NumberInput from 'material-ui-number-input';
 import Toggle from 'material-ui/Toggle';
 
@@ -29,7 +29,7 @@ export default class SimulateButton extends React.Component {
 
     handleClick(e) {
 			this.setState({simResult: {__html: "<p class='loading'>Running simulation </p>"}})
-			let connectionString = sbConfig.sbConnectionUrl+ "/eval/" + this.props.record.id + 
+			let connectionString = localStorage.getItem('serverurl')+ "/eval/" + this.props.record.id + 
 				                   "/simulate?N=" + parseInt(this.state.numValue,10) + 
 				                   "&log_stats=" + this.ucFirst(this.state.doLog.toString()) + 
 				                   "&verbose=" + this.ucFirst(this.state.doShowResult.toString())

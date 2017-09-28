@@ -10,7 +10,7 @@ import authClient from './authClient';
 import Menu from './Menu';
 import customRoutes from './routes';
 import Layout from './Layout';
-import { sbConfig } from './config'
+//import { sbConfig } from './config'
 
 import streamingBanditClient from './streamingBanditClient';
 
@@ -24,7 +24,7 @@ const App = () => (
             customRoutes={customRoutes}
 			customReducers={{ theme: themeReducer }}
 			loginPage={Login}
-			restClient={streamingBanditClient(sbConfig.sbConnectionUrl)}>
+			restClient={streamingBanditClient(localStorage.getItem('serverurl'))}>
 
 				<Resource name="Experiments" list={ExpList} edit={ExpEdit} create={ExpCreate} remove={Delete}/>
 

@@ -56,4 +56,3 @@ export default (type, params) => {
     }
     return Promise.reject('Unknown method');
 };
-

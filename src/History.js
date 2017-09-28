@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import DownloadButton from './DownloadButton'
 import withWidth from 'material-ui/utils/withWidth';
-import { sbConfig } from './config'
+//import { sbConfig } from './config'
 import { Card, CardTitle } from 'material-ui/Card';;
 
 
@@ -41,7 +41,7 @@ class History extends Component {
     componentDidMount() {
 
 			fetch (
-				sbConfig.sbConnectionUrl+"/stats/"+ this.props.record.id +"/currenttheta", 
+				localStorage.getItem('serverurl')+"/stats/"+ this.props.record.id +"/currenttheta", 
 				{
 					method: 'GET',  
 					headers: new Headers({ 'Content-Type': 'application/json' }),
@@ -71,7 +71,7 @@ class History extends Component {
 
 
 		fetch (
-				sbConfig.sbConnectionUrl+"/stats/"+ this.props.record.id +"/hourlytheta", 
+				localStorage.getItem('serverurl')+"/stats/"+ this.props.record.id +"/hourlytheta", 
 				{
 					method: 'GET',  
 					headers: new Headers({ 'Content-Type': 'application/json' }),
@@ -101,7 +101,7 @@ class History extends Component {
 
 
 		fetch (
-				sbConfig.sbConnectionUrl+"/stats/"+ this.props.record.id +"/summary", 
+				localStorage.getItem('serverurl')+"/stats/"+ this.props.record.id +"/summary", 
 				{
 					method: 'GET',  
 					headers: new Headers({ 'Content-Type': 'application/json' }),
@@ -134,7 +134,7 @@ class History extends Component {
 	makeFileLog(done) {
 
 		fetch (
-				sbConfig.sbConnectionUrl+"/stats/"+ this.props.record.id +"/log", 
+				localStorage.getItem('serverurl')+"/stats/"+ this.props.record.id +"/log", 
 				{
 					method: 'GET',  
 					headers: new Headers({ 'Content-Type': 'application/json' }),
@@ -172,7 +172,7 @@ class History extends Component {
 	makeFileActionLog(done) {
 
 		fetch (
-				sbConfig.sbConnectionUrl+"/stats/"+ this.props.record.id +"/actionlog", 
+				localStorage.getItem('serverurl')+"/stats/"+ this.props.record.id +"/actionlog", 
 				{
 					method: 'GET',  
 					headers: new Headers({ 'Content-Type': 'application/json' }),
@@ -209,7 +209,7 @@ class History extends Component {
 	makeFileRewardLog(done) {
 
 		fetch (
-				sbConfig.sbConnectionUrl+"/stats/"+ this.props.record.id +"/rewardlog", 
+				localStorage.getItem('serverurl')+"/stats/"+ this.props.record.id +"/rewardlog", 
 				{
 					method: 'GET',  
 					headers: new Headers({ 'Content-Type': 'application/json' }),

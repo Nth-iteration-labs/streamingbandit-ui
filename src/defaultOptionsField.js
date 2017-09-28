@@ -1,7 +1,7 @@
 import React from 'react';
 import MenuItem from 'material-ui/MenuItem';
 import SelectField from 'material-ui/SelectField';
-import { sbConfig } from './config'
+//import { sbConfig } from './config'
 
 const styles = {
   customWidth: {
@@ -23,7 +23,7 @@ export default class DefaultOptionsField extends React.Component {
 
 	handleChange(event, index, value) {
 		fetch (
-				sbConfig.sbConnectionUrl+"/exp/defaults/"+ index, 
+				localStorage.getItem('serverurl')+"/exp/defaults/"+ index, 
 				{
 					method: 'GET',  
 					headers: new Headers({ 'Content-Type': 'application/json' }),
@@ -74,7 +74,7 @@ export default class DefaultOptionsField extends React.Component {
 
     componentWillMount() {
 			fetch(
-				sbConfig.sbConnectionUrl+"/exp/defaults", 
+				localStorage.getItem('serverurl')+"/exp/defaults", 
 				{
 					method: 'GET',  
 					headers: new Headers({ 'Content-Type': 'application/json' }),

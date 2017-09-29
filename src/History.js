@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import DownloadButton from './DownloadButton'
-import withWidth from 'material-ui/utils/withWidth';
-//import { sbConfig } from './config'
-import { Card, CardTitle } from 'material-ui/Card';;
-
+import withWidth from 'material-ui/utils/withWidth'
+import { Card, CardTitle } from 'material-ui/Card'
+import { easyComp } from 'react-easy-state'
+import store from './store'
 
 const styles = {
     welcome: { marginBottom: '2em' },
@@ -41,7 +41,7 @@ class History extends Component {
     componentDidMount() {
 
 			fetch (
-				localStorage.getItem('serverurl')+"/stats/"+ this.props.record.id +"/currenttheta", 
+				store.serverurl+"/stats/"+ this.props.record.id +"/currenttheta", 
 				{
 					method: 'GET',  
 					headers: new Headers({ 'Content-Type': 'application/json' }),
@@ -61,6 +61,7 @@ class History extends Component {
 					json = JSON.parse(body);
 					var str = JSON.stringify(json, undefined, 4);
 					this.setState({currentThetaString: str})
+					document.getElementById("currentThetaString").innerHTML=str;	
 				} catch (e) {
 					// 
 				}
@@ -71,7 +72,7 @@ class History extends Component {
 
 
 		fetch (
-				localStorage.getItem('serverurl')+"/stats/"+ this.props.record.id +"/hourlytheta", 
+				store.serverurl+"/stats/"+ this.props.record.id +"/hourlytheta", 
 				{
 					method: 'GET',  
 					headers: new Headers({ 'Content-Type': 'application/json' }),
@@ -91,6 +92,7 @@ class History extends Component {
 					json = JSON.parse(body);
 					var str = JSON.stringify(json, undefined, 4);
 					this.setState({hourlyThetaString: str})
+					document.getElementById("hourlyThetaString").innerHTML=str;
 				} catch (e) {
 					// 
 				}
@@ -101,7 +103,7 @@ class History extends Component {
 
 
 		fetch (
-				localStorage.getItem('serverurl')+"/stats/"+ this.props.record.id +"/summary", 
+				store.serverurl+"/stats/"+ this.props.record.id +"/summary", 
 				{
 					method: 'GET',  
 					headers: new Headers({ 'Content-Type': 'application/json' }),
@@ -121,6 +123,7 @@ class History extends Component {
 					json = JSON.parse(body);
 					var str = JSON.stringify(json, undefined, 4);
 					this.setState({summary: str})
+					document.getElementById("summary").innerHTML=str;
 				} catch (e) {
 					// 
 				}
@@ -134,7 +137,7 @@ class History extends Component {
 	makeFileLog(done) {
 
 		fetch (
-				localStorage.getItem('serverurl')+"/stats/"+ this.props.record.id +"/log", 
+				store.serverurl+"/stats/"+ this.props.record.id +"/log", 
 				{
 					method: 'GET',  
 					headers: new Headers({ 'Content-Type': 'application/json' }),
@@ -172,7 +175,7 @@ class History extends Component {
 	makeFileActionLog(done) {
 
 		fetch (
-				localStorage.getItem('serverurl')+"/stats/"+ this.props.record.id +"/actionlog", 
+				store.serverurl+"/stats/"+ this.props.record.id +"/actionlog", 
 				{
 					method: 'GET',  
 					headers: new Headers({ 'Content-Type': 'application/json' }),
@@ -209,7 +212,7 @@ class History extends Component {
 	makeFileRewardLog(done) {
 
 		fetch (
-				localStorage.getItem('serverurl')+"/stats/"+ this.props.record.id +"/rewardlog", 
+				store.serverurl+"/stats/"+ this.props.record.id +"/rewardlog", 
 				{
 					method: 'GET',  
 					headers: new Headers({ 'Content-Type': 'application/json' }),
@@ -256,7 +259,7 @@ class History extends Component {
                         <div style={styles.singleCol}>
 							<Card style={styles.card}>
 								<CardTitle title="Current Theta" subtitle="" />
-								<pre style={styles.pre}> {currentThetaString} </pre>
+								<pre id="currentThetaString" style={styles.pre}> {currentThetaString} </pre>
 							</Card>
 						</div>
 
@@ -274,14 +277,14 @@ class History extends Component {
                         <div style={styles.singleCol}>
 							<Card style={styles.card}>
 								<CardTitle title="Hourly Theta" subtitle="" />
-								<pre style={styles.pre}> {hourlyThetaString} </pre>
+								<pre id="hourlyThetaString" style={styles.pre}> {hourlyThetaString} </pre>
 							</Card>
                         </div>
 
                         <div style={styles.singleCol}>
 							<Card style={styles.card}>
 								<CardTitle title="Summary" subtitle="" />
-								<pre style={styles.pre}> {summary} </pre>
+								<pre id="summary" style={styles.pre}> {summary} </pre>
 							</Card>
                         </div>
                     </div>
@@ -292,4 +295,4 @@ class History extends Component {
     }
 }
 
-export default withWidth()(History);
+export default withWidth()(easyComp(History));

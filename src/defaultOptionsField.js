@@ -1,7 +1,8 @@
 import React from 'react';
 import MenuItem from 'material-ui/MenuItem';
 import SelectField from 'material-ui/SelectField';
-//import { sbConfig } from './config'
+import { easyComp } from 'react-easy-state'
+import store from './store'
 
 const styles = {
   customWidth: {
@@ -9,7 +10,7 @@ const styles = {
   },
 };
 
-export default class DefaultOptionsField extends React.Component { 
+class DefaultOptionsField extends React.Component { 
 	  constructor(props) {
 		super(props);
 		this.props = props
@@ -23,7 +24,7 @@ export default class DefaultOptionsField extends React.Component {
 
 	handleChange(event, index, value) {
 		fetch (
-				localStorage.getItem('serverurl')+"/exp/defaults/"+ index, 
+				store.serverurl+"/exp/defaults/"+ index, 
 				{
 					method: 'GET',  
 					headers: new Headers({ 'Content-Type': 'application/json' }),
@@ -74,7 +75,7 @@ export default class DefaultOptionsField extends React.Component {
 
     componentWillMount() {
 			fetch(
-				localStorage.getItem('serverurl')+"/exp/defaults", 
+				store.serverurl+"/exp/defaults", 
 				{
 					method: 'GET',  
 					headers: new Headers({ 'Content-Type': 'application/json' }),
@@ -114,3 +115,5 @@ export default class DefaultOptionsField extends React.Component {
          )
     }
 }
+
+export default easyComp(DefaultOptionsField)

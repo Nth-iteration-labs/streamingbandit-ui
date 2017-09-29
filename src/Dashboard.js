@@ -5,6 +5,9 @@ import { AppBarMobile } from 'admin-on-rest';
 
 import Welcome from './Welcome';
 
+import { easyComp } from 'react-easy-state'
+import store from './store'
+
 const styles = {
     welcome: { marginBottom: '2em' },
     flex: { display: 'flex' },
@@ -13,7 +16,6 @@ const styles = {
     singleCol: { marginTop: '2em' },
 };
 
-
 class Dashboard extends Component {
 	
 	constructor(props) {
@@ -21,7 +23,6 @@ class Dashboard extends Component {
 		this.props = props
 		this.state = { 
 					   defaultExps : [],
-			           localClientUrl : localStorage.getItem("serverurl")
 				     }
 	 }
 
@@ -30,11 +31,11 @@ class Dashboard extends Component {
         return (
             <div>
                 {width === 1 && <AppBarMobile title="StreamingBandit" />}
-                <Welcome style={styles.welcome} localClientUrl={this.state.localClientUrl} />
+                <Welcome style={styles.welcome} localClientUrl={store.serverurl} />
             </div>
         );
     }
 }
 
-export default withWidth()(Dashboard);
+export default withWidth()(easyComp(Dashboard));
 

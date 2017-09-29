@@ -1,8 +1,9 @@
 import React from 'react';
 import RaisedButton from 'material-ui/RaisedButton';
-//import { sbConfig } from './config'
 import NumberInput from 'material-ui-number-input';
 import Toggle from 'material-ui/Toggle';
+import { easyComp } from 'react-easy-state'
+import store from './store'
 
  const styles = {
     input: { marginLeft: '16px', marginBottom: '50px' },
@@ -13,13 +14,13 @@ import Toggle from 'material-ui/Toggle';
 };
 
 
-export default class SimulateButton extends React.Component { 
+class SimulateButton extends React.Component { 
 
 	constructor(props) {
 		super(props);
 		this.props = props;
 		this.handleClick = this.handleClick.bind(this);
-		this.state = { numValue: 100, doShowResult: false, doLog: false, seed: null};
+		this.state = { numValue: 100, doShowResult: false, doLog: false, seed: null, simResult: {__html: "<p id='result'></p>"} };
 	}
 
 	ucFirst(string) 
@@ -29,7 +30,8 @@ export default class SimulateButton extends React.Component {
 
     handleClick(e) {
 			this.setState({simResult: {__html: "<p class='loading'>Running simulation </p>"}})
-			let connectionString = localStorage.getItem('serverurl')+ "/eval/" + this.props.record.id + 
+			document.getElementById("result").innerHTML="<p class='loading'>Running simulation </p>";
+			let connectionString = store.serverurl + "/eval/" + this.props.record.id + 
 				                   "/simulate?N=" + parseInt(this.state.numValue,10) + 
 				                   "&log_stats=" + this.ucFirst(this.state.doLog.toString()) + 
 				                   "&verbose=" + this.ucFirst(this.state.doShowResult.toString())
@@ -55,10 +57,12 @@ export default class SimulateButton extends React.Component {
 					json = JSON.parse(body);
 					str = JSON.stringify(json, null, 4); 
 					this.setState({simResult: {__html: str}})
+					document.getElementById("result").innerHTML=str;	
 				} catch (e) {
 					json = JSON.parse(body);
 					str = JSON.stringify(json, null, 4); 
-					this.setState({simResult: str})
+					this.setState({simResult: {__html: str}})
+					document.getElementById("result").innerHTML=str;				
 				}
 				if (status < 200 || status >= 300) {
 					return Promise.reject(statusText, status);
@@ -122,3 +126,5 @@ export default class SimulateButton extends React.Component {
          )
     }
 }
+
+export default easyComp(SimulateButton)

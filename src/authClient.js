@@ -1,7 +1,5 @@
-// in src/authClient.js
-
 import { AUTH_LOGIN, AUTH_LOGOUT, AUTH_ERROR, AUTH_CHECK } from 'admin-on-rest';
-//import { sbConfig } from './config'
+import store from './store'
 
 export default (type, params) => {
 
@@ -9,7 +7,7 @@ export default (type, params) => {
 
         const { username, password } = params;
         return fetch(
-					localStorage.getItem('serverurl')+"/login", 
+					store["serverurl"]+"/login", 
 					{
 						method: 'POST',  
 						body: JSON.stringify({ username, password }),
@@ -28,7 +26,9 @@ export default (type, params) => {
                 } else {
 					localStorage.setItem('username', username)
 					localStorage.setItem('token', btoa(username + ":" + password));
+					document.location.href="/"  /* why this? **********/
 					return Promise.resolve()
+
 				}
             })
 		    .catch((e) => {
@@ -38,6 +38,7 @@ export default (type, params) => {
 
     if (type === AUTH_LOGOUT) {
         localStorage.removeItem('username');
+		localStorage.removeItem('token');
         return Promise.resolve();
     }
 

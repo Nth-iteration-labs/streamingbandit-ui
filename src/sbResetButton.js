@@ -1,6 +1,7 @@
 import React from 'react';
 import RaisedButton from 'material-ui/RaisedButton';
-//import { sbConfig } from './config'
+import { easyComp } from 'react-easy-state'
+import store from './store'
 
 
  const styles = {
@@ -8,7 +9,7 @@ import RaisedButton from 'material-ui/RaisedButton';
     button: { margin: '1em', marginLeft: '16px' },
 };
 
-export default class ResetButton extends React.Component { 
+class ResetButton extends React.Component { 
 
 	constructor(props) {
 		super(props);
@@ -17,7 +18,7 @@ export default class ResetButton extends React.Component {
 
     handleClick(e) {
 			fetch(
-				localStorage.getItem('serverurl')+"/exp/"+ this.props.record.id +"/resetexperiment?key="+ this.props.record.key, 
+				store.serverurl+"/exp/"+ this.props.record.id +"/resetexperiment?key="+ this.props.record.key, 
 				{
 					method: 'GET',  
 					headers: new Headers({ 'Content-Type': 'application/json' }),
@@ -31,7 +32,6 @@ export default class ResetButton extends React.Component {
 				body: text,
 
 			}))).then(({ status, statusText, headers, body }) => {
-				//console.log(this.props.record.id)
 				let json;
 				try {
 					json = JSON.parse(body);
@@ -58,3 +58,6 @@ export default class ResetButton extends React.Component {
 
     }
 }
+
+export default easyComp(ResetButton)
+

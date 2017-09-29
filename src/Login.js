@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import { propTypes, reduxForm, Field } from 'redux-form';
 import { connect } from 'react-redux';
 import compose from 'recompose/compose';
-
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import { Card, CardActions } from 'material-ui/Card';
@@ -14,6 +13,8 @@ import LockIcon from 'material-ui/svg-icons/action/lock-outline';
 import { cyan500, pinkA200 } from 'material-ui/styles/colors';
 import validUrl from 'valid-url';
 import { Notification, translate, userLogin as userLoginAction } from 'admin-on-rest';
+import { easyComp } from 'react-easy-state'
+import store from './store'
 
 const styles = {
     main: {
@@ -43,19 +44,6 @@ const styles = {
     },
 };
 
-function isString(value) {return typeof value === 'string';}
-
-function doLocalStorageConfig() {
-
-			let defaultClientUrl = "http://strm.mnds.org:7070"
-			let localClientUrl = localStorage.getItem("serverurl")
-			if (localClientUrl === null || !isString(localClientUrl)) {
-				localStorage.setItem('serverurl',defaultClientUrl)
-				localClientUrl = defaultClientUrl
-			}
-			return localClientUrl
-}
-
 function getColorsFromTheme(theme) {
     if (!theme) return { primary1Color: cyan500, accent1Color: pinkA200 };
     const {
@@ -77,10 +65,9 @@ const renderInput = ({ meta: { touched, error } = {}, input: { ...inputProps }, 
 
 class Login extends Component {
 
-    login = ({ username, password, server_url }) => {
 
+	login = ({ username, password  }) => {
         const { userLogin, location } = this.props;
-		
         userLogin({ username, password }, location.state ? location.state.nextPathname : '/');
     }
 
@@ -154,10 +141,10 @@ const enhance = compose(
 		//keepDirtyOnReinitialize: true,
 		destroyOnUnmount: false,
 		initialValues: {
-			server_url: doLocalStorageConfig()
+			server_url: store.serverurl
 		},
         validate: (values, props) => {
-			localStorage.setItem('serverurl',values.server_url)	
+			store.serverurl = values.server_url	
             const errors = {};
             const { translate } = props;
             if (!values.username) errors.username = translate('aor.validation.required');
@@ -170,4 +157,4 @@ const enhance = compose(
     connect(null, { userLogin: userLoginAction }),
 );
 
-export default enhance(Login);
+export default easyComp(enhance(Login));

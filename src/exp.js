@@ -82,8 +82,6 @@ export const ExpEdit = (props) => (
     </Edit>
 );
 
-
-
 export const ExpCreate = (props) => (
     <Create {...props}>
         <SimpleForm {...props}>

@@ -47,7 +47,7 @@ function isString(value) {return typeof value === 'string';}
 
 function doLocalStorageConfig() {
 
-			let defaultClientUrl = "http://localhost:8080"
+			let defaultClientUrl = "http://strm.mnds.org:7070"
 			let localClientUrl = localStorage.getItem("serverurl")
 			if (localClientUrl === null || !isString(localClientUrl)) {
 				localStorage.setItem('serverurl',defaultClientUrl)

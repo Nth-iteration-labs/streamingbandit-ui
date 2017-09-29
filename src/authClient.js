@@ -26,7 +26,7 @@ export default (type, params) => {
                 } else {
 					localStorage.setItem('username', username)
 					localStorage.setItem('token', btoa(username + ":" + password));
-					document.location.href="/"  /* why this? **********/
+					document.location.href="/"  /* grrr.. need to reload page to get the app to load the correct server */
 					return Promise.resolve()
 
 				}

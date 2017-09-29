@@ -15,6 +15,7 @@ import validUrl from 'valid-url';
 import { Notification, translate, userLogin as userLoginAction } from 'admin-on-rest';
 import { easyComp } from 'react-easy-state'
 import store from './store'
+import { Redirect } from 'react-router'
 
 const styles = {
     main: {
@@ -66,15 +67,33 @@ const renderInput = ({ meta: { touched, error } = {}, input: { ...inputProps }, 
 class Login extends Component {
 
 
+	state = {
+		navigate: false
+	}
+
 	login = ({ username, password  }) => {
+
+
         const { userLogin, location } = this.props;
         userLogin({ username, password }, location.state ? location.state.nextPathname : '/');
+
+		//this.setState(prevState => prevState)
+		//this.setState(this.state)
+		//this.forceUpdate()
+		//this.setState({ navigate: true })
     }
 
     render() {
         const { handleSubmit, submitting, theme, translate } = this.props;
         const muiTheme = getMuiTheme(theme);
         const { primary1Color, accent1Color } = getColorsFromTheme(muiTheme);
+
+		// needed since easyComp wrapper
+		const { navigate } = this.state
+		if (navigate) {
+		  return <Redirect to="/" push={true} />
+		}
+
         return (
             <MuiThemeProvider muiTheme={muiTheme}>
                 <div style={{ ...styles.main, backgroundColor: primary1Color }}>

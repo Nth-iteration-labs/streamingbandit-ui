@@ -15,7 +15,7 @@ import validUrl from 'valid-url';
 import { Notification, translate, userLogin as userLoginAction } from 'admin-on-rest';
 import { easyComp } from 'react-easy-state'
 import store from './store'
-import { Redirect } from 'react-router-dom'
+//import { Redirect } from 'react-router-dom'
 
 const styles = {
     main: {
@@ -64,10 +64,6 @@ const renderInput = ({ meta: { touched, error } = {}, input: { ...inputProps }, 
         fullWidth
     />;
 
-const route = (
-	<Redirect to="/" push={true} />
-);
-
 class Login extends Component {
 		
 
@@ -77,9 +73,9 @@ class Login extends Component {
 		this.login = this.login.bind(this);
 	}
 
-	state = {
+	/*state = {
 		navigate: false
-	}
+	}*/
 
 	login = ({ username, password }) => {
 		let serverurlparam = store.serverurl;
@@ -87,7 +83,7 @@ class Login extends Component {
         const { userLogin, location } = this.props;
         userLogin({ username, password, serverurlparam }, location.state ? location.state.nextPathname : '/');
 
-		this.setState({ navigate: true })  // needed bc easyComp wrapper
+		//this.setState({ navigate: true })  // needed bc easyComp wrapper
 
     }
 
@@ -96,10 +92,10 @@ class Login extends Component {
         const muiTheme = getMuiTheme(theme);
         const { primary1Color, accent1Color } = getColorsFromTheme(muiTheme);
 
-		const { navigate } = this.state  // needed bc easyComp wrapper
+		/*const { navigate } = this.state  // needed bc easyComp wrapper
 		if (navigate) {
-		  return { route }
-		}
+		  return <Redirect to="/" push={true} />
+		}*/
 
         return (
             <MuiThemeProvider muiTheme={muiTheme}>
@@ -163,9 +159,9 @@ const enhance = compose(
     reduxForm({
 
         form: 'signIn',
-		//enableReinitialize: true,
-		//keepDirtyOnReinitialize: true,
-		//destroyOnUnmount: false,
+		enableReinitialize: true,
+		keepDirtyOnReinitialize: true,
+		destroyOnUnmount: false,
 		initialValues: {
 			server_url: store.serverurl
 		},
@@ -183,4 +179,4 @@ const enhance = compose(
     connect(null, { userLogin: userLoginAction }),
 );
 
-export default easyComp(enhance(Login));
+export default enhance(easyComp(Login));

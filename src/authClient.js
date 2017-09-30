@@ -24,7 +24,7 @@ export default (type, params) => {
                 } else {
 					localStorage.setItem('username', username)
 					localStorage.setItem('token', btoa(username + ":" + password));
-					//document.location.href="/" // this hack seems not needed anymore because of hack in fetch?
+					window.location.reload(false); // yet another hack to make login in work well
 					return Promise.resolve()
 
 				}

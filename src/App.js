@@ -26,7 +26,7 @@ class App extends Component {
 	 }
 
     componentDidMount() {
-		
+		//store.serverurl = this.props.defaultServerUrl
 	}
 
     render(props,state) {

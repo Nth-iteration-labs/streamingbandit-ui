@@ -1,7 +1,6 @@
 import { stringify } from 'query-string';
 import {flattenObject } from './fetch';
 import {jsonApiHttpClient } from './fetch';
-import store from './store'
 
 import {
     GET_LIST,
@@ -24,22 +23,7 @@ JSON.insertId = function (data) {
     return jsonarray;
 };
 
-/**
- * Maps admin-on-rest queries to a json-server powered REST API
- *
- * @see https://github.com/typicode/json-server
- * @example
- * GET_LIST     => GET http://my.api.url/posts?_sort=title&_order=ASC&_start=0&_end=24
- * GET_ONE      => GET http://my.api.url/posts/123
- * GET_MANY     => GET http://my.api.url/posts/123, GET http://my.api.url/posts/456, GET http://my.api.url/posts/789
- * UPDATE       => PUT http://my.api.url/posts/123
- * CREATE       => POST http://my.api.url/posts/123
- * DELETE       => DELETE http://my.api.url/posts/123
- */
 export default (apiUrl, httpClient = jsonApiHttpClient) => {
-	// update apiUrl with value - hacky, lets see if can do better 
-	console.log("apiUrl"+apiUrl)
-	console.log("apiUrlstore"+store.serverurl)
     /**
      * @param {String} type One of the constants appearing at the top if this file, e.g. 'UPDATE'
      * @param {String} resource Name of the resource to fetch, e.g. 'posts'

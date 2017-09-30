@@ -2,12 +2,11 @@ import HttpError from './HttpError';
 import store from './store'
 
 const fetchJson = (url, options = {}) => {
-	console.log("fetchJson"+url)
-	console.log("fetchJsonstore"+store.serverurl)
-
 
 	///////////////// ugly hack - lets find out why this is needed ////
 	///////////////// problem: url remembered origin is "sticky ///////
+	//console.log("fetchJson"+url)
+	//console.log("fetchJsonstore"+store.serverurl)
 	var parser = document.createElement('a');
 	parser.href = url
 	let fixurl = store.serverurl + parser.pathname + parser.search + parser.hash

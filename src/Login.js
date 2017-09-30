@@ -15,7 +15,7 @@ import validUrl from 'valid-url';
 import { Notification, translate, userLogin as userLoginAction } from 'admin-on-rest';
 import { easyComp } from 'react-easy-state'
 import store from './store'
-import { Redirect } from 'react-router'
+import { Redirect } from 'react-router-dom'
 
 const styles = {
     main: {
@@ -64,23 +64,31 @@ const renderInput = ({ meta: { touched, error } = {}, input: { ...inputProps }, 
         fullWidth
     />;
 
-class Login extends Component {
+const route = (
+	<Redirect to="/" push={true} />
+);
 
+class Login extends Component {
+		
+
+	constructor(props) {
+		super(props);
+		this.props = props;
+		this.login = this.login.bind(this);
+	}
 
 	state = {
 		navigate: false
 	}
 
-	login = ({ username, password  }) => {
-
-
+	login = ({ username, password }) => {
+		let serverurlparam = store.serverurl;
+	    
         const { userLogin, location } = this.props;
-        userLogin({ username, password }, location.state ? location.state.nextPathname : '/');
+        userLogin({ username, password, serverurlparam }, location.state ? location.state.nextPathname : '/');
 
-		//this.setState(prevState => prevState)
-		//this.setState(this.state)
-		//this.forceUpdate()
-		//this.setState({ navigate: true })
+		this.setState({ navigate: true })  // needed bc easyComp wrapper
+
     }
 
     render() {
@@ -88,10 +96,9 @@ class Login extends Component {
         const muiTheme = getMuiTheme(theme);
         const { primary1Color, accent1Color } = getColorsFromTheme(muiTheme);
 
-		// needed since easyComp wrapper
-		const { navigate } = this.state
+		const { navigate } = this.state  // needed bc easyComp wrapper
 		if (navigate) {
-		  return <Redirect to="/" push={true} />
+		  return { route }
 		}
 
         return (
@@ -158,7 +165,7 @@ const enhance = compose(
         form: 'signIn',
 		//enableReinitialize: true,
 		//keepDirtyOnReinitialize: true,
-		destroyOnUnmount: false,
+		//destroyOnUnmount: false,
 		initialValues: {
 			server_url: store.serverurl
 		},

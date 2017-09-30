@@ -1,6 +1,27 @@
 import HttpError from './HttpError';
+import store from './store'
 
 const fetchJson = (url, options = {}) => {
+	console.log("fetchJson"+url)
+	console.log("fetchJsonstore"+store.serverurl)
+
+
+	///////////////// ugly hack - lets find out why this is needed ////
+	///////////////// problem: url remembered origin is "sticky ///////
+	var parser = document.createElement('a');
+	parser.href = url
+	let fixurl = store.serverurl + parser.pathname + parser.search + parser.hash
+	url = fixurl
+	//parser.href = "http://example.com:3000/pathname/?search=test#hash";
+	//parser.protocol; // => "http:"
+	//parser.hostname; // => "example.com"
+	//parser.port;     // => "3000"
+	//parser.pathname; // => "/pathname/"
+	//parser.search;   // => "?search=test"
+	//parser.hash;     // => "#hash"
+	//parser.host; // => "example.com:3000"
+
+
     const requestHeaders = options.headers || new Headers({
         'Accept': 'application/vnd.api+json',
     });

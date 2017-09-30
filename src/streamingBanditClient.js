@@ -1,6 +1,8 @@
 import { stringify } from 'query-string';
 import {flattenObject } from './fetch';
 import {jsonApiHttpClient } from './fetch';
+import store from './store'
+
 import {
     GET_LIST,
     GET_ONE,
@@ -35,6 +37,9 @@ JSON.insertId = function (data) {
  * DELETE       => DELETE http://my.api.url/posts/123
  */
 export default (apiUrl, httpClient = jsonApiHttpClient) => {
+	// update apiUrl with value - hacky, lets see if can do better 
+	console.log("apiUrl"+apiUrl)
+	console.log("apiUrlstore"+store.serverurl)
     /**
      * @param {String} type One of the constants appearing at the top if this file, e.g. 'UPDATE'
      * @param {String} resource Name of the resource to fetch, e.g. 'posts'

@@ -12,7 +12,7 @@
     "material-design-icons": "^3.0.1",
     "material-ui-number-input": "^5.0.24",
     "react": "^15.6.2",
-    "react-codemirror2": "^2.0.1",
+    "react-codemirror2": "^2.0.2",
     "react-dom": "^15.6.2",
     "react-easy-params": "^1.0.0",
     "react-easy-state": "^3.0.1",

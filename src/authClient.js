@@ -1,13 +1,11 @@
 import { AUTH_LOGIN, AUTH_LOGOUT, AUTH_ERROR, AUTH_CHECK } from 'admin-on-rest';
-import store from './store'
 
 export default (type, params) => {
 
     if (type === AUTH_LOGIN) {
-
-        const { username, password } = params;
+        const { username, password, serverurlparam } = params;
         return fetch(
-					store["serverurl"]+"/login", 
+					serverurlparam +"/login", 
 					{
 						method: 'POST',  
 						body: JSON.stringify({ username, password }),
@@ -26,7 +24,7 @@ export default (type, params) => {
                 } else {
 					localStorage.setItem('username', username)
 					localStorage.setItem('token', btoa(username + ":" + password));
-					document.location.href="/"  /* grrr.. need to reload page to get the app to load the correct server */
+					//document.location.href="/" // this hack seems not needed anymore because of hack in fetch?
 					return Promise.resolve()
 
 				}

@@ -31,7 +31,7 @@ const fetchJson = (url, options = {}) => {
         requestHeaders.set('Authorization', options.user.token);
     }
 	options.credentials = 'include'
-    return fetch(url, { ...options, headers: requestHeaders  })
+    return fetch(url, { ...options, headers: requestHeaders || {} })
         .then(response => response.text().then(text => ({
             status: response.status,
             statusText: response.statusText,

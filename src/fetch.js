@@ -3,8 +3,8 @@ import store from './store'
 
 const fetchJson = (url, options = {}) => {
 
-	///////////////// ugly hack - lets find out why this is needed ////
-	///////////////// problem: url remembered origin is "sticky ///////
+	///////////////// ugly hack - need to find out why origin url  ////
+	///////////////// is "sticky  here                             ////
 	//console.log("fetchJson"+url)
 	//console.log("fetchJsonstore"+store.serverurl)
 	var parser = document.createElement('a');
@@ -19,7 +19,6 @@ const fetchJson = (url, options = {}) => {
 	//parser.search;   // => "?search=test"
 	//parser.hash;     // => "#hash"
 	//parser.host; // => "example.com:3000"
-
 
     const requestHeaders = options.headers || new Headers({
         'Accept': 'application/vnd.api+json',
@@ -41,11 +40,6 @@ const fetchJson = (url, options = {}) => {
         .then(({ status, statusText, headers, body }) => {
             let json;
             try {
-
-				// temporary quick hack, untill JSON id's served by backend are normalized
-				//body = body.replace(/False/g, 'false');
-				//body = body.replace(/True/g, 'true');
-
                 json = JSON.parse(body);
             } catch (e) {
                 // not json, no big deal

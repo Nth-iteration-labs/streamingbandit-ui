@@ -1,5 +1,16 @@
 import { AUTH_LOGIN, AUTH_LOGOUT, AUTH_ERROR, AUTH_CHECK } from 'admin-on-rest';
 
+function deleteAllCookies() {
+    var cookies = document.cookie.split(";");
+
+    for (var i = 0; i < cookies.length; i++) {
+        var cookie = cookies[i];
+        var eqPos = cookie.indexOf("=");
+        var name = eqPos > -1 ? cookie.substr(0, eqPos) : cookie;
+        document.cookie = name + "=;expires=Thu, 01 Jan 1970 00:00:00 GMT";
+    }
+}
+
 export default (type, params) => {
 
     if (type === AUTH_LOGIN) {
@@ -35,6 +46,7 @@ export default (type, params) => {
     }
 
     if (type === AUTH_LOGOUT) {
+		deleteAllCookies()
         localStorage.removeItem('username');
 		localStorage.removeItem('token');
         return Promise.resolve();

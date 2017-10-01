@@ -43,8 +43,8 @@ const fetchJson = (url, options = {}) => {
             try {
 
 				// temporary quick hack, untill JSON id's served by backend are normalized
-				body = body.replace(/False/g, 'false');
-				body = body.replace(/True/g, 'true');
+				//body = body.replace(/False/g, 'false');
+				//body = body.replace(/True/g, 'true');
 
                 json = JSON.parse(body);
             } catch (e) {

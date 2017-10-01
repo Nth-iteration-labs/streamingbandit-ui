@@ -60,7 +60,7 @@ class History extends Component {
 				try {
 					json = JSON.parse(body);
 					var str = JSON.stringify(json, undefined, 4);
-					this.setState({currentThetaString: str})
+					//this.setState({currentThetaString: str})
 					document.getElementById("currentThetaString").innerHTML=str;	
 				} catch (e) {
 					// 
@@ -91,7 +91,7 @@ class History extends Component {
 				try {
 					json = JSON.parse(body);
 					var str = JSON.stringify(json, undefined, 4);
-					this.setState({hourlyThetaString: str})
+					//this.setState({hourlyThetaString: str})
 					document.getElementById("hourlyThetaString").innerHTML=str;
 				} catch (e) {
 					// 
@@ -122,7 +122,7 @@ class History extends Component {
 				try {
 					json = JSON.parse(body);
 					var str = JSON.stringify(json, undefined, 4);
-					this.setState({summary: str})
+					//this.setState({summary: str})
 					document.getElementById("summary").innerHTML=str;
 				} catch (e) {
 					// 

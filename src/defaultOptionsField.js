@@ -1,7 +1,6 @@
 import React from 'react';
 import MenuItem from 'material-ui/MenuItem';
 import SelectField from 'material-ui/SelectField';
-import { easyComp } from 'react-easy-state'
 import store from './store'
 
 const styles = {
@@ -116,4 +115,4 @@ class DefaultOptionsField extends React.Component {
     }
 }
 
-export default easyComp(DefaultOptionsField)
+export default DefaultOptionsField

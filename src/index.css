@@ -3,3 +3,44 @@ body {
   padding: 0;
   font-family: sans-serif;
 }
+
+/* having some fun with animated loading dots */
+
+.loading:after {
+  display: inline-block;
+  animation: dotty steps(1,end) 2s infinite;
+  content: '';
+}
+
+@keyframes dotty {
+  0%   { content: ''; }
+  25%  { content: '.'; }
+  50%  { content: '..'; }
+  75%  { content: '...'; }
+  100% { content: ''; }
+
+}
+
+/* codemirror css - move to component */
+
+.CodeMirror {
+	font-size: 16px;
+	height: 100%;
+	margin-top: 13px;
+	border: 1px solid rgb(224, 224, 224);
+}
+
+.CodeMirror-linenumber {
+	margin-left: -37px;
+}
+
+.CodeMirror-code pre {
+	padding-left: 13px;
+}
+
+/* restore default cursor for aor input div */
+
+.aor-input-key div,
+.aor-input-id div {
+	cursor: default !important;
+}

@@ -86,7 +86,7 @@ export const ExpCreate = (props) => (
     <Create {...props}>
         <SimpleForm {...props}>
 			<TextInput ref='name' label="Name of the experiment" source="name"  validate={[required]}/>
-			<DefaultOptionsField {...props} name="field"/>
+			<DefaultOptionsField name="field"/>
 			<CodeMirrorInput {...props} name="get_context" label="Get context" source="get_context" options={{rows: 2}} />
 			<CodeMirrorInput {...props} name="get_action" label="Get action" source="get_action" options={{rows: 2}} />
 			<CodeMirrorInput {...props} name="get_reward" label="Get reward" source="get_reward" options={{rows: 2}} />

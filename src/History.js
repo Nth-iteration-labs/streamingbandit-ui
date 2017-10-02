@@ -23,7 +23,6 @@ const styles = {
 		"backgroundColor":"rgb(0, 188, 212)","textAlign":"center", marginBottom:"1em"}
 };
 
-
 class History extends Component {
 
 

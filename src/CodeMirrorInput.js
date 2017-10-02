@@ -1,5 +1,3 @@
-// in src/CodeMirrorInput.js
-
 import debounce from 'lodash.debounce';
 import React from 'react';
 import PropTypes from 'prop-types';

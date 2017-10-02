@@ -3,22 +3,17 @@ import store from './store'
 
 const fetchJson = (url, options = {}) => {
 
-	///////////////// ugly hack - need to find out why origin url  ////
-	///////////////// is "sticky  here                             ////
-	//console.log("fetchJson"+url)
-	//console.log("fetchJsonstore"+store.serverurl)
+	// start ugly hack - need to find out why old url can "stick" here
+
+	// console.log("fetchJson"+url)
+	// console.log("fetchJsonstore"+store.serverurl)
+
 	var parser = document.createElement('a');
 	parser.href = url
 	let fixurl = store.serverurl + parser.pathname + parser.search + parser.hash
 	url = fixurl
-	//parser.href = "http://example.com:3000/pathname/?search=test#hash";
-	//parser.protocol; // => "http:"
-	//parser.hostname; // => "example.com"
-	//parser.port;     // => "3000"
-	//parser.pathname; // => "/pathname/"
-	//parser.search;   // => "?search=test"
-	//parser.hash;     // => "#hash"
-	//parser.host; // => "example.com:3000"
+
+	// end ugly hack
 
     const requestHeaders = options.headers || new Headers({
         'Accept': 'application/vnd.api+json',

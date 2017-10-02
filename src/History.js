@@ -38,30 +38,28 @@ class History extends Component {
     state = { 
 	};
 
-    componentDidMount() {
 
-			fetch (
-				store.serverurl+"/stats/"+ this.props.record.id +"/currenttheta", 
+	fetchAndShow(url,id) {
+		fetch (
+			url, 
 				{
 					method: 'GET',  
 					headers: new Headers({ 'Content-Type': 'application/json' }),
 					credentials: 'include',
 				},
 			).then(response => response.text().then(text => ({
-
 				status: response.status,
 				statusText: response.statusText,
 				headers: response.headers,
 				body: text,
 
 			}))).then(({ status, statusText, headers, body }) => {
-
 				let json;
 				try {
 					json = JSON.parse(body);
 					var str = JSON.stringify(json, undefined, 4);
 					//this.setState({currentThetaString: str})
-					document.getElementById("currentThetaString").innerHTML=str;	
+					document.getElementById(id).innerHTML=str;	
 				} catch (e) {
 					// 
 				}
@@ -69,30 +67,32 @@ class History extends Component {
 					return Promise.reject(statusText, status);
 				}
         });
+	}
 
-
+	fetchAndDo(url,file,callback) {
 		fetch (
-				store.serverurl+"/stats/"+ this.props.record.id +"/hourlytheta", 
+				url,
 				{
 					method: 'GET',  
 					headers: new Headers({ 'Content-Type': 'application/json' }),
 					credentials: 'include',
 				},
 			).then(response => response.text().then(text => ({
-
 				status: response.status,
 				statusText: response.statusText,
 				headers: response.headers,
 				body: text,
 
 			}))).then(({ status, statusText, headers, body }) => {
-
 				let json;
 				try {
 					json = JSON.parse(body);
-					var str = JSON.stringify(json, undefined, 4);
-					//this.setState({hourlyThetaString: str})
-					document.getElementById("hourlyThetaString").innerHTML=str;
+					callback({
+							mime: 'application/json',
+							filename: file,
+							contents: JSON.stringify(json, null, 2),
+					})
+
 				} catch (e) {
 					// 
 				}
@@ -100,150 +100,26 @@ class History extends Component {
 					return Promise.reject(statusText, status);
 				}
         });
+	}
 
+    componentDidMount() {
 
-		fetch (
-				store.serverurl+"/stats/"+ this.props.record.id +"/summary", 
-				{
-					method: 'GET',  
-					headers: new Headers({ 'Content-Type': 'application/json' }),
-					credentials: 'include',
-				},
-			).then(response => response.text().then(text => ({
-
-				status: response.status,
-				statusText: response.statusText,
-				headers: response.headers,
-				body: text,
-
-			}))).then(({ status, statusText, headers, body }) => {
-
-				let json;
-				try {
-					json = JSON.parse(body);
-					var str = JSON.stringify(json, undefined, 4);
-					//this.setState({summary: str})
-					document.getElementById("summary").innerHTML=str;
-				} catch (e) {
-					// 
-				}
-				if (status < 200 || status >= 300) {
-					return Promise.reject(statusText, status);
-				}
-        });
+		this.fetchAndShow(store.serverurl+"/stats/"+ this.props.record.id +"/currenttheta","currentThetaString")
+		this.fetchAndShow(store.serverurl+"/stats/"+ this.props.record.id +"/hourlytheta","hourlyThetaString")
+		this.fetchAndShow(store.serverurl+"/stats/"+ this.props.record.id +"/summary","summary")
 
     }
 
 	makeFileLog(done) {
-
-		fetch (
-				store.serverurl+"/stats/"+ this.props.record.id +"/log", 
-				{
-					method: 'GET',  
-					headers: new Headers({ 'Content-Type': 'application/json' }),
-					credentials: 'include',
-				},
-			).then(response => response.text().then(text => ({
-
-				status: response.status,
-				statusText: response.statusText,
-				headers: response.headers,
-				body: text,
-
-			}))).then(({ status, statusText, headers, body }) => {
-
-				let json;
-				try {
-					json = JSON.parse(body);
-					done({
-							mime: 'application/json',
-							filename: 'log.json',
-							contents: JSON.stringify(json, null, 2),
-					})
-
-				} catch (e) {
-					// 
-				}
-				if (status < 200 || status >= 300) {
-					return Promise.reject(statusText, status);
-				}
-        });
-
+		this.fetchAndDo(store.serverurl+"/stats/"+ this.props.record.id +"/log", "log.json", done)
 	}
 
-
 	makeFileActionLog(done) {
-
-		fetch (
-				store.serverurl+"/stats/"+ this.props.record.id +"/actionlog", 
-				{
-					method: 'GET',  
-					headers: new Headers({ 'Content-Type': 'application/json' }),
-					credentials: 'include',
-				},
-			).then(response => response.text().then(text => ({
-
-				status: response.status,
-				statusText: response.statusText,
-				headers: response.headers,
-				body: text,
-
-			}))).then(({ status, statusText, headers, body }) => {
-
-				let json;
-				try {
-					json = JSON.parse(body);
-					done({
-							mime: 'application/json',
-							filename: 'log.json',
-							contents: JSON.stringify(json, null, 2),
-					})
-
-				} catch (e) {
-					// 
-				}
-				if (status < 200 || status >= 300) {
-					return Promise.reject(statusText, status);
-				}
-        });
-
+		this.fetchAndDo(store.serverurl+"/stats/"+ this.props.record.id +"/actionlog", "actionlog.json", done)
 	}
 
 	makeFileRewardLog(done) {
-
-		fetch (
-				store.serverurl+"/stats/"+ this.props.record.id +"/rewardlog", 
-				{
-					method: 'GET',  
-					headers: new Headers({ 'Content-Type': 'application/json' }),
-					credentials: 'include',
-				},
-			).then(response => response.text().then(text => ({
-
-				status: response.status,
-				statusText: response.statusText,
-				headers: response.headers,
-				body: text,
-
-			}))).then(({ status, statusText, headers, body }) => {
-
-				let json;
-				try {
-					json = JSON.parse(body);
-					done({
-							mime: 'application/json',
-							filename: 'log.json',
-							contents: JSON.stringify(json, null, 2),
-					})
-
-				} catch (e) {
-					// 
-				}
-				if (status < 200 || status >= 300) {
-					return Promise.reject(statusText, status);
-				}
-        });
-
+		this.fetchAndDo(store.serverurl+"/stats/"+ this.props.record.id +"/rewardlog", "rewardlog.json", done)
 	}
 
     render() {
@@ -266,9 +142,24 @@ class History extends Component {
 		                <div style={styles.singleCol}>
 							<Card style={styles.card2}>	
 							<CardTitle title="Downloads" subtitle="" />
-								<DownloadButton style={styles.button} generateTitle="Generate and download log"  loadingTitle="Generating log file..." downloadTitle="Click to download log" async={true} genFile={this.makeFileLog}/>
-								<DownloadButton style={styles.button} generateTitle="Generate and download action log"  loadingTitle="Generating action log file..." downloadTitle="Click to download action log" async={true} genFile={this.makeFileActionLog}/>
-								<DownloadButton style={styles.button} generateTitle="Generate and download reward log"  loadingTitle="Generating reward log file..." downloadTitle="Click to download reward log" async={true} genFile={this.makeFileRewardLog}/>
+								<DownloadButton style={styles.button} 
+										generateTitle="Generate and download log"  
+										loadingTitle="Generating log file..." 
+										downloadTitle="Click to download log" 
+										async={true} 
+										genFile={this.makeFileLog}/>
+								<DownloadButton style={styles.button} 
+										generateTitle="Generate and download action log"  
+										loadingTitle="Generating action log file..." 
+										downloadTitle="Click to download action log" 
+										async={true} 
+										genFile={this.makeFileActionLog}/>
+								<DownloadButton style={styles.button} 
+										generateTitle="Generate and download reward log"  
+										loadingTitle="Generating reward log file..." 
+										downloadTitle="Click to download reward log" 
+										async={true} 
+										genFile={this.makeFileRewardLog}/>
 							</Card>
 						</div>
                     </div>

@@ -17,7 +17,6 @@ function saveAs(uri, filename) {
     }
 }
 
-
 class DownloadButton extends React.Component {
 
     constructor(props) {
@@ -100,7 +99,6 @@ class DownloadButton extends React.Component {
     }
 
 }
-
 
 DownloadButton.propTypes = {
     fileData: PropTypes.object,

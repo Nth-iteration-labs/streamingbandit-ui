@@ -16,8 +16,6 @@ import {Notification, translate, userLogin as userLoginAction} from 'admin-on-re
 import {easyComp} from 'react-easy-state'
 import store from '../stores/store'
 
-//import { Redirect } from 'react-router-dom'
-
 const styles = {
     main: {
         display: 'flex',

@@ -17,10 +17,6 @@ class DefaultOptionsField extends React.Component {
         this.handleChange = this.handleChange.bind(this);
     }
 
-    handleClick(e) {
-        //this.logme("Value on clicked: "+document.getElementById('text-field-default').value );
-    }
-
     handleChange(event, index, value) {
         fetch(
             store.serverurl + "/exp/defaults/" + index,
@@ -70,7 +66,6 @@ class DefaultOptionsField extends React.Component {
         });
 
     }
-
 
     componentWillMount() {
         fetch(

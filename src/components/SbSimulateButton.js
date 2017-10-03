@@ -13,7 +13,6 @@ const styles = {
     pre: {marginLeft: '18px', whiteSpace: "pre-wrap", wordWrap: "break-word", fontSize: 16},
 };
 
-
 class SimulateButton extends React.Component {
 
     constructor(props) {

@@ -21,7 +21,6 @@ const styles = {
     },
 };
 
-
 export default translate(({style, translate, localClientUrl}) => (
     <Card style={style}>
         <CardHeader

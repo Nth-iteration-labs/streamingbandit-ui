@@ -27,7 +27,6 @@ const styles = {
 
 class History extends Component {
 
-
     state = {};
 
     constructor(props) {

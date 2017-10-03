@@ -3,7 +3,6 @@ import {flattenObject, jsonApiHttpClient} from './fetch';
 
 import {CREATE, DELETE, GET_LIST, GET_MANY, GET_MANY_REFERENCE, GET_ONE, UPDATE,} from '../constants/types';
 
-
 // Flatten JSON and inject ID for further Admin-on-Rest parsing
 JSON.insertId = function (data) {
     var jsonarray = [];

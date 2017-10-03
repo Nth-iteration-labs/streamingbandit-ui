@@ -27,33 +27,52 @@ class DefaultOptionsField extends React.Component {
                 credentials: 'include',
             },
         ).then(response => response.text().then(text => ({
-
             status: response.status,
             statusText: response.statusText,
             headers: response.headers,
+            ok: response.ok,
             body: text,
 
-        }))).then(({status, statusText, headers, body}) => {
+        }))).then(({status, statusText, headers, body, ok}) => {
+
+			console.log(ok)
+            if (!ok) {
+                let cm = document.getElementsByClassName("aor-input-get_context")[0].getElementsByClassName("CodeMirror")[0];
+                let editor = cm.CodeMirror;
+				let errortext = JSON.stringify(JSON.parse(body), undefined, 2);
+                editor.setValue("Server error:\n\n" + errortext + "\n\n");
+				cm = document.getElementsByClassName("aor-input-get_action")[0].getElementsByClassName("CodeMirror")[0];
+				editor = cm.CodeMirror;
+				editor.setValue("");
+				cm = document.getElementsByClassName("aor-input-get_reward")[0].getElementsByClassName("CodeMirror")[0];
+				editor = cm.CodeMirror;
+				editor.setValue("");
+				cm = document.getElementsByClassName("aor-input-set_reward")[0].getElementsByClassName("CodeMirror")[0];
+				editor = cm.CodeMirror;
+				editor.setValue("");
+                throw Error(statusText);
+            }
 
             let json;
             try {
+                var html = ""
 
                 json = JSON.parse(body);
                 let cm = document.getElementsByClassName("aor-input-get_context")[0].getElementsByClassName("CodeMirror")[0];
                 let editor = cm.CodeMirror;
-                var html = json.get_context;
+                if (json.hasOwnProperty('get_context')) html = json.get_context; else html = "# not defined \n";
                 editor.setValue(html);
                 cm = document.getElementsByClassName("aor-input-get_action")[0].getElementsByClassName("CodeMirror")[0];
                 editor = cm.CodeMirror;
-                html = json.get_action;
+                if (json.hasOwnProperty('get_action')) html = json.get_action; else html = "# not defined \n";
                 editor.setValue(html);
                 cm = document.getElementsByClassName("aor-input-get_reward")[0].getElementsByClassName("CodeMirror")[0];
                 editor = cm.CodeMirror;
-                html = json.get_reward;
+                if (json.hasOwnProperty('get_reward')) html = json.get_reward; else html = "# not defined \n";
                 editor.setValue(html);
                 cm = document.getElementsByClassName("aor-input-set_reward")[0].getElementsByClassName("CodeMirror")[0];
                 editor = cm.CodeMirror;
-                html = json.set_reward;
+                if (json.hasOwnProperty('set_reward')) html = json.set_reward; else html = "# not defined \n";
                 editor.setValue(html);
                 //cm = document.getElementsByClassName("aor-input-name")[0].getElementsByTagName("input")[0]
                 //cm.value = json.name
@@ -62,8 +81,10 @@ class DefaultOptionsField extends React.Component {
                 //
             }
             if (status < 200 || status >= 300) {
-                return Promise.reject(statusText, status);
+                return Promise.reject(statusText);
             }
+        }).catch(function(error) {
+            return Promise.reject(error);
         });
 
     }

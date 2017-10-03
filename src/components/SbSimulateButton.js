@@ -71,7 +71,7 @@ class SimulateButton extends React.Component {
             if (status < 200 || status >= 300) {
                 return Promise.reject(statusText, status);
             }
-        });
+        })
     }
 
     handleToggleDoShowResult() {

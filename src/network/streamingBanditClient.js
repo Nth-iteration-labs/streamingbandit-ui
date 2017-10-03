@@ -1,25 +1,16 @@
-import { stringify } from 'query-string';
-import {flattenObject } from './fetch';
-import {jsonApiHttpClient } from './fetch';
+import {stringify} from 'query-string';
+import {flattenObject, jsonApiHttpClient} from './fetch';
 
-import {
-    GET_LIST,
-    GET_ONE,
-    GET_MANY,
-    GET_MANY_REFERENCE,
-    CREATE,
-    UPDATE,
-    DELETE,
-} from './types';
+import {CREATE, DELETE, GET_LIST, GET_MANY, GET_MANY_REFERENCE, GET_ONE, UPDATE,} from '../constants/types';
 
-	
+
 // Flatten JSON and inject ID for further Admin-on-Rest parsing
 JSON.insertId = function (data) {
-	var jsonarray = []
-	for (var prop in data) {
-		data[prop].id = prop
-		jsonarray.push(data[prop])
-	}
+    var jsonarray = [];
+    for (var prop in data) {
+        data[prop].id = prop;
+        jsonarray.push(data[prop])
+    }
     return jsonarray;
 };
 
@@ -33,13 +24,13 @@ export default (apiUrl, httpClient = jsonApiHttpClient) => {
     const convertRESTRequestToHTTP = (type, resource, params) => {
         let url = '';
         const options = {};
-		if (resource === "Experiments") {
-			resource = "exp"
-		}
+        if (resource === "Experiments") {
+            resource = "exp"
+        }
         switch (type) {
             case GET_LIST: {
-                const { page, perPage } = params.pagination;
-                const { field, order } = params.sort;
+                const {page, perPage} = params.pagination;
+                const {field, order} = params.sort;
                 const query = {
                     ...flattenObject(params.filter),
                     _sort: field,
@@ -54,8 +45,8 @@ export default (apiUrl, httpClient = jsonApiHttpClient) => {
                 url = `${apiUrl}/${resource}/${params.id}`;
                 break;
             case GET_MANY_REFERENCE: {
-                const { page, perPage } = params.pagination;
-                const { field, order } = params.sort;
+                const {page, perPage} = params.pagination;
+                const {field, order} = params.sort;
                 const query = {
                     ...flattenObject(params.filter),
                     [params.target]: params.id,
@@ -84,7 +75,7 @@ export default (apiUrl, httpClient = jsonApiHttpClient) => {
             default:
                 throw new Error(`Unsupported fetch action type ${type}`);
         }
-        return { url, options };
+        return {url, options};
     };
 
     /**
@@ -95,20 +86,20 @@ export default (apiUrl, httpClient = jsonApiHttpClient) => {
      * @returns {Object} REST response
      */
     const convertHTTPResponseToREST = (response, type, resource, params) => {
-        const { json } = response;
+        const {json} = response;
 
-		switch (type) {
-			case GET_ONE:
-				json.id = params.id
-				return { data: json }
+        switch (type) {
+            case GET_ONE:
+                json.id = params.id;
+                return {data: json};
             case GET_LIST:
             case GET_MANY_REFERENCE:
-				response.json = JSON.insertId(response.json)
-				return { data: response.json , total: response.json.length };
+                response.json = JSON.insertId(response.json);
+                return {data: response.json, total: response.json.length};
             case CREATE:
-                return { data: { ...params.data, id: json.id } };
+                return {data: {...params.data, id: json.id}};
             default:
-                return { data: json };
+                return {data: json};
         }
     };
 
@@ -127,7 +118,7 @@ export default (apiUrl, httpClient = jsonApiHttpClient) => {
                 data: responses.map(response => response.json),
             }));
         }
-        const { url, options } = convertRESTRequestToHTTP(
+        const {url, options} = convertRESTRequestToHTTP(
             type,
             resource,
             params

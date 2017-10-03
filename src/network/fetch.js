@@ -1,19 +1,19 @@
-import HttpError from './HttpError';
-import store from './store'
+import HttpError from '../core/HttpError';
+import store from '../stores/store'
 
 const fetchJson = (url, options = {}) => {
 
-	// start ugly hack - need to find out why old url can "stick" here
+    // start ugly hack - need to find out why old url can "stick" here
 
-	// console.log("fetchJson"+url)
-	// console.log("fetchJsonstore"+store.serverurl)
+    // console.log("fetchJson"+url)
+    // console.log("fetchJsonstore"+store.serverurl)
 
-	var parser = document.createElement('a');
-	parser.href = url
-	let fixurl = store.serverurl + parser.pathname + parser.search + parser.hash
-	url = fixurl
+    var parser = document.createElement('a');
+    parser.href = url;
+    let fixurl = store.serverurl + parser.pathname + parser.search + parser.hash;
+    url = fixurl;
 
-	// end ugly hack
+    // end ugly hack
 
     const requestHeaders = options.headers || new Headers({
         'Accept': 'application/vnd.api+json',
@@ -24,15 +24,15 @@ const fetchJson = (url, options = {}) => {
     if (options.user && options.user.authenticated && options.user.token) {
         requestHeaders.set('Authorization', options.user.token);
     }
-	options.credentials = 'include'
-    return fetch(url, { ...options, headers: requestHeaders || {} })
+    options.credentials = 'include';
+    return fetch(url, {...options, headers: requestHeaders || {}})
         .then(response => response.text().then(text => ({
             status: response.status,
             statusText: response.statusText,
             headers: response.headers,
             body: text,
         })))
-        .then(({ status, statusText, headers, body }) => {
+        .then(({status, statusText, headers, body}) => {
             let json;
             try {
                 json = JSON.parse(body);
@@ -42,17 +42,17 @@ const fetchJson = (url, options = {}) => {
             if (status < 200 || status >= 300) {
                 return Promise.reject(new HttpError((json && json.message) || statusText, status));
             }
-            return { status, headers, body, json };
+            return {status, headers, body, json};
         });
 };
 
 export const jsonApiHttpClient = (url, options = {}) => {
     if (!options.headers) {
-        options.headers = new Headers({ 'Accept': 'application/vnd.api+json' });
+        options.headers = new Headers({'Accept': 'application/vnd.api+json'});
     }
     options.headers.set('Content-Type', 'application/vnd.api+json');
     return fetchJson(url, options);
-}
+};
 
 
 const isValidObject = value => {
@@ -78,7 +78,7 @@ export const flattenObject = (value, path = []) => {
             )
         );
     } else {
-        return path.length ? { [path.join('.')]: value } : value;
+        return path.length ? {[path.join('.')]: value} : value;
     }
 };
 

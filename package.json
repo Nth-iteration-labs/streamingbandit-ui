@@ -18,7 +18,8 @@
     "react-easy-state": "^3.0.1",
     "react-scripts": "1.0.13",
     "url-exists": "^1.0.3",
-    "valid-url": "^1.0.9"
+    "valid-url": "^1.0.9",
+    "react-redux": "latest"
   },
   "scripts": {
     "start": "react-scripts start",

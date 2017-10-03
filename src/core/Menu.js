@@ -1,28 +1,27 @@
-// in src/Menu.js
 import React from 'react';
-import { connect } from 'react-redux';
-import { translate, DashboardMenuItem, MenuItemLink } from 'admin-on-rest';
+import {connect} from 'react-redux';
+import {DashboardMenuItem, MenuItemLink, translate} from 'admin-on-rest';
 import compose from 'recompose/compose';
 
 import PersonIcon from 'material-ui/svg-icons/social/person';
 import BookIcon from 'material-ui/svg-icons/action/book';
 
 const items = [
-    { name: 'Experiments', icon: <BookIcon /> },
+    {name: 'Experiments', icon: <BookIcon/>},
 ];
 
 const styles = {
     main: {
         display: 'flex',
         flexDirection: 'column',
-        justifyContent: 'flex-start',
+        justifyContent: "flex-start",
         height: '100%',
     },
 };
 
-const Menu = ({ onMenuTap, translate, logout }) => (
+const Menu = ({onMenuTap, translate, logout}) => (
     <div style={styles.main}>
-        <DashboardMenuItem onClick={onMenuTap} />
+        <DashboardMenuItem onClick={onMenuTap}/>
         {items.map(item => (
             <MenuItemLink
                 key={item.name}
@@ -35,7 +34,7 @@ const Menu = ({ onMenuTap, translate, logout }) => (
         <MenuItemLink
             to="/configuration"
             primaryText={"Configuration"}
-            leftIcon={<PersonIcon />}
+            leftIcon={<PersonIcon/>}
             onClick={onMenuTap}
         />
         {logout}

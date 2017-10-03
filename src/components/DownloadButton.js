@@ -31,7 +31,7 @@ class DownloadButton extends React.Component {
         this._onDownload = this._onDownload.bind(this);
     }
 
-    _onGenerate(){
+    _onGenerate() {
         this.setState({loading: true, fileData: null});
         this.props.genFile(this._donePreparing);
     }
@@ -56,12 +56,12 @@ class DownloadButton extends React.Component {
         this.props.onDownloaded && this.props.onDownloaded();
     }
 
-    render () {
+    render() {
         // need one or the other
         if (!this.props.genFile && !this.props.fileData) {
 
-          return (<em>Invalid configuration for download button</em>
-                );
+            return (<em>Invalid configuration for download button</em>
+            );
         }
 
         var style = this.props.style;
@@ -76,25 +76,30 @@ class DownloadButton extends React.Component {
 
             }
 
-            return (<button style={style} onClick={e => { e.preventDefault(); this._onDownload(); }} className={cls}>
-                        {title}
-                    </button>);
+            return (<button style={style} onClick={e => {
+                e.preventDefault();
+                this._onDownload();
+            }} className={cls}>
+                {title}
+            </button>);
         }
 
         if (this.state.loading) {
 
             return (<button style={style} className={cls + ' DownloadButton-loading'}>
-                        {this.props.loadingTitle}
-                    </button>);
+                {this.props.loadingTitle}
+            </button>);
         }
 
-        return (<button style={style} onClick={e => { e.preventDefault(); this._onGenerate(); }}  className={cls + ' DownloadButton-generate'}>
-                    {this.props.generateTitle}
-                </button>);
+        return (<button style={style} onClick={e => {
+            e.preventDefault();
+            this._onGenerate();
+        }} className={cls + ' DownloadButton-generate'}>
+            {this.props.generateTitle}
+        </button>);
     }
 
 }
-
 
 
 DownloadButton.propTypes = {
@@ -105,7 +110,7 @@ DownloadButton.propTypes = {
     downloadTitle: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
     loadingTitle: PropTypes.string,
     onDownloaded: PropTypes.func,
-}
+};
 
 DownloadButton.defaultProps = {
     async: false,
@@ -113,6 +118,6 @@ DownloadButton.defaultProps = {
     generateTitle: 'Generate file',
     loadingTitle: 'Loading...',
 
-}
+};
 
 export default DownloadButton;

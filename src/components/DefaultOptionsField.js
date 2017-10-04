@@ -78,7 +78,7 @@ class DefaultOptionsField extends React.Component {
                 if (json.hasOwnProperty('set_reward')) html = json.set_reward; else html = "# not defined \n";
                 editor.setValue(html);
                 //cm = document.getElementsByClassName("aor-input-name")[0].getElementsByTagName("input")[0]
-                //cm.value = json.name
+                //cm.value = json.name				
 
             } catch (e) {
                 //
@@ -125,7 +125,7 @@ class DefaultOptionsField extends React.Component {
     render() {
         return (
             <div>
-                <SelectField {...this.props} onChange={this.handleChange} value={this.state.value} style={styles.customWidth}
+                <SelectField onChange={this.handleChange} value={this.state.value} style={styles.customWidth}
                              floatingLabelText="Use experiment template">
                     {this.state.defaultExps.map((name, index) => (
                         <MenuItem key={index} value={index} primaryText={name}/>

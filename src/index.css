@@ -46,3 +46,13 @@ body {
 .aor-input-id div {
     cursor: default !important;
 }
+
+/* override font for default reward area */
+
+.aor-input-default_reward textarea  {
+	font-size: 18px !important;
+	font-family: monospace !important;
+	white-space: pre;
+	z-index: 2;
+	overflow: visible;
+}

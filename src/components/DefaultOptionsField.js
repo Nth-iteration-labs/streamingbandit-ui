@@ -38,7 +38,6 @@ class DefaultOptionsField extends React.Component {
 
         }))).then(({status, statusText, headers, body, ok}) => {
 
-            console.log(ok)
             if (!ok) {
                 let cm = document.getElementsByClassName("aor-input-get_context")[0].getElementsByClassName("CodeMirror")[0];
                 let editor = cm.CodeMirror;

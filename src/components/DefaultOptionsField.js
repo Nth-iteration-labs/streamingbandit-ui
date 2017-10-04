@@ -19,6 +19,9 @@ class DefaultOptionsField extends React.Component {
     }
 
     handleChange(event, index, value) {
+
+		this.setState({value})
+
         fetch(
             store.serverurl + "/exp/defaults/" + index,
             {
@@ -122,8 +125,8 @@ class DefaultOptionsField extends React.Component {
     render() {
         return (
             <div>
-                <SelectField onChange={this.handleChange} style={styles.customWidth}
-                             floatingLabelText="Use default experiment">
+                <SelectField {...this.props} onChange={this.handleChange} value={this.state.value} style={styles.customWidth}
+                             floatingLabelText="Use experiment template">
                     {this.state.defaultExps.map((name, index) => (
                         <MenuItem key={index} value={index} primaryText={name}/>
                     ))}

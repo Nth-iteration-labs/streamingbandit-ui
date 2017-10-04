@@ -9,8 +9,9 @@ import {
     List,
     NumberInput,
     required,
-    SelectInput,
     SimpleForm,
+	LongTextInput,
+	BooleanInput,
     TabbedForm,
     TextField,
     TextInput
@@ -55,6 +56,9 @@ export const ExpList = (props) => (
     </List>
 );
 
+const checkCustomConstraint = v => (v==="true"||v===true||v==="True") ? true : false;
+const truthyFormat = v => (v==="true"||v===true||v==="True") ? true : false
+const truthyParse  = v => (v==="true"||v===true||v==="True") ? "True" : "False"
 
 export const ExpEdit = (props) => (
     <Edit title={<PostTitle/>} {...props}>
@@ -72,18 +76,13 @@ export const ExpEdit = (props) => (
                                  options={{rows: 2}}/>
                 <CodeMirrorInput {...props} name="set_reward" label="Set reward" source="set_reward"
                                  options={{rows: 2}}/>
-                <SelectInput validate={[required]} source="hourly_theta" choices={[
-                    {id: 'true', name: 'Store theta every hour'},
-                    {id: 'false', name: 'Do not store theta'},
-                ]}/>
-                <SelectInput source="advice_id" validate={[required]} choices={[
-                    {id: 'true', name: 'Return an advice_id'},
-                    {id: 'false', name: 'Do not return an advice_id'},
-                ]}/>
-                <DependentInput dependsOn="advice_id" value="true">
-                    <NumberInput label="Delta hours" source="delta_hours" step={1}/>
-                    <CodeMirrorInput name="default_reward" label="Default reward" source="default_reward"/>
+			    <BooleanInput label="Store theta every hour?" source="hourly_theta" parse ={truthyParse} format={truthyFormat}/>
+			    <BooleanInput label="Return an advice_id?"    source="advice_id"    parse ={truthyParse} format={truthyFormat}/>
+                <DependentInput dependsOn="advice_id" resolve={checkCustomConstraint}>
+                    <NumberInput label="Delta hours" source="delta_hours" step={1} validate={[required]}/>
+                    <LongTextInput validate={[required]} name="default_reward" label="Default reward" source="default_reward" options={{multiLine: true,rows: 2}} />
                 </DependentInput>
+				<br/><br/>
             </FormTab>
             <FormTab label="History">
                 <ResetButton name="resetbutton" {...props}/>
@@ -106,18 +105,14 @@ export const ExpCreate = (props) => (
             <CodeMirrorInput {...props} name="get_action" label="Get action" source="get_action" options={{rows: 2}}/>
             <CodeMirrorInput {...props} name="get_reward" label="Get reward" source="get_reward" options={{rows: 2}}/>
             <CodeMirrorInput {...props} name="set_reward" label="Set reward" source="set_reward" options={{rows: 2}}/>
-            <SelectInput validate={[required]} source="hourly_theta" choices={[
-                {id: 'true', name: 'Store theta every hour'},
-                {id: 'false', name: 'Do not store theta'},
-            ]}/>
-            <SelectInput validate={[required]} source="advice_id" choices={[
-                {id: 'true', name: 'Return an advice id'},
-                {id: 'false', name: 'Do not return an advice id'},
-            ]}/>
-            <DependentInput dependsOn="advice_id" value="true">
-                <NumberInput label="Delta hours" source="delta_hours" step={1}/>
-                <CodeMirrorInput label="Default reward" source="default_reward"/>
-            </DependentInput>
+			<BooleanInput label="Store theta every hour?" defaultValue = "False" source="hourly_theta" parse ={truthyParse} format={truthyFormat}/>
+			<BooleanInput label="Return an advice_id?" defaultValue = "False" source="advice_id"    parse ={truthyParse} format={truthyFormat}/>
+			<DependentInput dependsOn="advice_id" resolve={checkCustomConstraint}>
+				<NumberInput label="Delta hours" source="delta_hours" step={1} validate={[required]}/>
+				<LongTextInput validate={[required]} name="default_reward" label="Default reward" source="default_reward" 
+				 />
+			</DependentInput>
+			<br/><br/>
         </SimpleForm>
     </Create>
 );

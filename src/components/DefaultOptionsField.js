@@ -20,7 +20,7 @@ class DefaultOptionsField extends React.Component {
 
     handleChange(event, index, value) {
 
-		this.setState({value})
+        this.setState({value})
 
         fetch(
             store.serverurl + "/exp/defaults/" + index,
@@ -38,21 +38,21 @@ class DefaultOptionsField extends React.Component {
 
         }))).then(({status, statusText, headers, body, ok}) => {
 
-			console.log(ok)
+            console.log(ok)
             if (!ok) {
                 let cm = document.getElementsByClassName("aor-input-get_context")[0].getElementsByClassName("CodeMirror")[0];
                 let editor = cm.CodeMirror;
-				let errortext = JSON.stringify(JSON.parse(body), undefined, 2);
+                let errortext = JSON.stringify(JSON.parse(body), undefined, 2);
                 editor.setValue("Server error:\n\n" + errortext + "\n\n");
-				cm = document.getElementsByClassName("aor-input-get_action")[0].getElementsByClassName("CodeMirror")[0];
-				editor = cm.CodeMirror;
-				editor.setValue("");
-				cm = document.getElementsByClassName("aor-input-get_reward")[0].getElementsByClassName("CodeMirror")[0];
-				editor = cm.CodeMirror;
-				editor.setValue("");
-				cm = document.getElementsByClassName("aor-input-set_reward")[0].getElementsByClassName("CodeMirror")[0];
-				editor = cm.CodeMirror;
-				editor.setValue("");
+                cm = document.getElementsByClassName("aor-input-get_action")[0].getElementsByClassName("CodeMirror")[0];
+                editor = cm.CodeMirror;
+                editor.setValue("");
+                cm = document.getElementsByClassName("aor-input-get_reward")[0].getElementsByClassName("CodeMirror")[0];
+                editor = cm.CodeMirror;
+                editor.setValue("");
+                cm = document.getElementsByClassName("aor-input-set_reward")[0].getElementsByClassName("CodeMirror")[0];
+                editor = cm.CodeMirror;
+                editor.setValue("");
                 throw Error(statusText);
             }
 

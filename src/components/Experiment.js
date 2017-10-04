@@ -10,8 +10,8 @@ import {
     NumberInput,
     required,
     SimpleForm,
-	LongTextInput,
-	BooleanInput,
+    LongTextInput,
+    BooleanInput,
     TabbedForm,
     TextField,
     TextInput
@@ -76,13 +76,13 @@ export const ExpEdit = (props) => (
                                  options={{rows: 2}}/>
                 <CodeMirrorInput {...props} name="set_reward" label="Set reward" source="set_reward"
                                  options={{rows: 2}}/>
-			    <BooleanInput label="Store theta every hour?" source="hourly_theta" parse ={truthyParse} format={truthyFormat}/>
-			    <BooleanInput label="Return an advice_id?"    source="advice_id"    parse ={truthyParse} format={truthyFormat}/>
+                <BooleanInput label="Store theta every hour?" source="hourly_theta" parse ={truthyParse} format={truthyFormat}/>
+                <BooleanInput label="Return an advice_id?"    source="advice_id"    parse ={truthyParse} format={truthyFormat}/>
                 <DependentInput dependsOn="advice_id" resolve={checkCustomConstraint}>
                     <NumberInput label="Delta hours" source="delta_hours" step={1} validate={[required]}/>
                     <LongTextInput validate={[required]} name="default_reward" label="Default reward" source="default_reward" options={{multiLine: true,rows: 2}} />
                 </DependentInput>
-				<br/><br/>
+                <br/><br/>
             </FormTab>
             <FormTab label="History">
                 <ResetButton name="resetbutton" {...props}/>
@@ -105,14 +105,14 @@ export const ExpCreate = (props) => (
             <CodeMirrorInput {...props} name="get_action" label="Get action" source="get_action" options={{rows: 2}}/>
             <CodeMirrorInput {...props} name="get_reward" label="Get reward" source="get_reward" options={{rows: 2}}/>
             <CodeMirrorInput {...props} name="set_reward" label="Set reward" source="set_reward" options={{rows: 2}}/>
-			<BooleanInput label="Store theta every hour?" defaultValue = "False" source="hourly_theta" parse ={truthyParse} format={truthyFormat}/>
-			<BooleanInput label="Return an advice_id?" defaultValue = "False" source="advice_id"    parse ={truthyParse} format={truthyFormat}/>
-			<DependentInput dependsOn="advice_id" resolve={checkCustomConstraint}>
-				<NumberInput label="Delta hours" source="delta_hours" step={1} validate={[required]}/>
-				<LongTextInput validate={[required]} name="default_reward" label="Default reward" source="default_reward" 
-				 />
-			</DependentInput>
-			<br/><br/>
+            <BooleanInput label="Store theta every hour?" defaultValue = "False" source="hourly_theta" parse ={truthyParse} format={truthyFormat}/>
+            <BooleanInput label="Return an advice_id?" defaultValue = "False" source="advice_id"    parse ={truthyParse} format={truthyFormat}/>
+            <DependentInput dependsOn="advice_id" resolve={checkCustomConstraint}>
+                <NumberInput label="Delta hours" source="delta_hours" step={1} validate={[required]}/>
+                <LongTextInput validate={[required]} name="default_reward" label="Default reward" source="default_reward" 
+                 />
+            </DependentInput>
+            <br/><br/>
         </SimpleForm>
     </Create>
 );

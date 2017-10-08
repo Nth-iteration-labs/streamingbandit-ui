@@ -20,8 +20,8 @@ import {
 import DefaultOptionsField from './DefaultOptionsField'
 import {DependentInput} from 'aor-dependent-input';
 import SimulateButton from './SbSimulateButton'
-import ResetButton from './SbResetButton'
 import History from './History'
+import Theta from './Theta'
 import CodeMirrorInput from './CodeMirrorInput'
 
 const PostTitle = ({record}) => {
@@ -46,8 +46,8 @@ const validateExpCreation = (values) => {
 };
 
 export const ExpList = (props) => (
-    <List {...props}>
-        <Datagrid bodyOptions={{stripedRows: true, showRowHover: true}}>
+    <List {...props} sort={{ field: 'name', order: 'ASC' }}>
+        <Datagrid bodyOptions={{stripedRows: true, showRowHover: true}} >
             <TextField source="id"/>
             <TextField source="key"/>
             <TextField source="name"/>
@@ -60,13 +60,15 @@ const checkCustomConstraint = v => (v==="true"||v===true||v==="True") ? true : f
 const truthyFormat = v => (v==="true"||v===true||v==="True") ? true : false
 const truthyParse  = v => (v==="true"||v===true||v==="True") ? "True" : "False"
 
+
 export const ExpEdit = (props) => (
+
     <Edit title={<PostTitle/>} {...props}>
-        <TabbedForm validate={validateExpCreation}>
+        <TabbedForm {...props} validate={validateExpCreation} redirect={false}  submitOnEnter={true}>
             <FormTab label="Settings" {...props}>
-                <TextInput ref='name' name="name " label="Name of the experiment" source="name" validate={[required]}/>
-                <TextField name="id" source="id"/>
-                <TextField name="key" source="key"/>
+                <TextInput name="name" {...props} label="Name of the experiment" source="name" validate={[required]}/>
+                <TextField name="id" {...props} source="id" />
+                <TextField name="key"  {...props} source="key"/>
                 <DefaultOptionsField {...props} name="field"/>
                 <CodeMirrorInput {...props} name="get_context" label="Get context" source="get_context" options={{rows: 2}}/>
                 <CodeMirrorInput {...props} name="get_action" label="Get action" source="get_action" options={{rows: 2}}/>
@@ -80,12 +82,14 @@ export const ExpEdit = (props) => (
                 </DependentInput>
                 <br/><br/>
             </FormTab>
-            <FormTab label="History">
-                <ResetButton name="resetbutton" {...props}/>
-                <History name="history" {...props} />
-            </FormTab>
             <FormTab label="Simulate" name="Simulate">
                 <SimulateButton name="simulationbutton" {...props}/>
+            </FormTab>
+            <FormTab label="Theta">
+                <Theta name="theta" {...props} />
+            </FormTab>
+            <FormTab label="Logs">
+                <History name="history" {...props} />
             </FormTab>
         </TabbedForm>
     </Edit>
@@ -94,7 +98,7 @@ export const ExpEdit = (props) => (
 export const ExpCreate = (props) => (
     <Create {...props}>
         <SimpleForm {...props}>
-            <TextInput ref='name' label="Name of the experiment" source="name" validate={[required]}/>
+            <TextInput label="Name of the experiment" source="name" validate={[required]}/>
             <DefaultOptionsField name="field"/>
             <CodeMirrorInput {...props} name="get_context" label="Get context" source="get_context" options={{rows: 2}}/>
             <CodeMirrorInput {...props} name="get_action" label="Get action" source="get_action" options={{rows: 2}}/>

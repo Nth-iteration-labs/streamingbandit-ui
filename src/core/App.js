@@ -38,7 +38,7 @@ class App extends Component {
                    loginPage={Login}
                    restClient={streamingBanditClient(store.serverurl)}>
 
-                <Resource serverurl={store.serverurl} name="Experiments" list={ExpList} edit={ExpEdit}
+                <Resource {...props} serverurl={store.serverurl} name="Experiments" list={ExpList} edit={ExpEdit}
                           create={ExpCreate} remove={Delete}/>
 
             </Admin>

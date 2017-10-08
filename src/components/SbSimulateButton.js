@@ -32,6 +32,36 @@ class SimulateButton extends React.Component {
         return string.charAt(0).toUpperCase() + string.slice(1);
     }
 
+	fetchAndShow(url, id) {
+        fetch(
+            url,
+            {
+                method: 'GET',
+                headers: new Headers({'Content-Type': 'application/json'}),
+                credentials: 'include',
+            },
+        ).then(response => response.text().then(text => ({
+            status: response.status,
+            statusText: response.statusText,
+            headers: response.headers,
+            body: text,
+
+        }))).then(({status, statusText, headers, body}) => {
+            let json;
+            try {
+                json = JSON.parse(body);
+                var str = JSON.stringify(json, undefined, 4);
+                //this.setState({currentThetaString: str})
+                document.getElementById(id).innerHTML = str;
+            } catch (e) {
+                //
+            }
+            if (status < 200 || status >= 300) {
+                return Promise.reject(statusText, status);
+            }
+        });
+    }
+
     handleClick(e) {
         this.setState({simResult: {__html: "<p class='loading'>Running simulation </p>"}});
         document.getElementById("result").innerHTML = "<p class='loading'>Running simulation </p>";
@@ -62,6 +92,9 @@ class SimulateButton extends React.Component {
                 str = JSON.stringify(json, null, 4);
                 this.setState({simResult: {__html: str}});
                 document.getElementById("result").innerHTML = str;
+			    this.fetchAndShow(store.serverurl + "/stats/" + this.props.record.id + "/currenttheta", "currentThetaString");
+                this.fetchAndShow(store.serverurl + "/stats/" + this.props.record.id + "/hourlytheta", "hourlyThetaString");
+                this.fetchAndShow(store.serverurl + "/stats/" + this.props.record.id + "/summary", "summary")
             } catch (e) {
                 json = JSON.parse(body);
                 str = JSON.stringify(json, null, 4);

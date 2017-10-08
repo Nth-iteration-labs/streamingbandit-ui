@@ -1,6 +1,6 @@
 import {stringify} from 'query-string';
 import {flattenObject, jsonApiHttpClient} from './fetch';
-
+import _ from 'lodash';
 import {CREATE, DELETE, GET_LIST, GET_MANY, GET_MANY_REFERENCE, GET_ONE, UPDATE,} from '../constants/types';
 
 // Flatten JSON and inject ID for further Admin-on-Rest parsing
@@ -93,8 +93,19 @@ export default (apiUrl, httpClient = jsonApiHttpClient) => {
                 return {data: json};
             case GET_LIST:
             case GET_MANY_REFERENCE:
+
+				/* the id insert & sorting ought to be done server side, really */
+
                 response.json = JSON.insertId(response.json);
+				if (params.sort.order==="DESC") 
+				{
+					response.json = _.reverse(_.sortBy(response.json, [params.sort.field]));
+				} else {
+					response.json = _.sortBy(response.json, [params.sort.field]);
+				}
+				
                 return {data: response.json, total: response.json.length};
+			case UPDATE:
             case CREATE:
                 return {data: {...params.data, id: json.id}};
             default:

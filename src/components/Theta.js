@@ -42,9 +42,9 @@ class Theta extends Component {
 
     handleClick(e) {
 
-		let connectionString = store.serverurl + "/exp/" + this.props.record.id + "/resetexperiment?key=" + this.props.record.key
-		if (this.state.thetaKey !== null && this.state.thetaKey !=="") connectionString = connectionString + "&theta_key=" + this.state.thetaKey;
-		if (this.state.thetaValue !== null && this.state.thetaValue !=="") connectionString = connectionString + "&theta_value=" + this.state.thetaValue;
+        let connectionString = store.serverurl + "/exp/" + this.props.record.id + "/resetexperiment?key=" + this.props.record.key;
+        if (this.state.thetaKey !== null && this.state.thetaKey !== "") connectionString = connectionString + "&theta_key=" + this.state.thetaKey;
+        if (this.state.thetaValue !== null && this.state.thetaValue !== "") connectionString = connectionString + "&theta_value=" + this.state.thetaValue;
         fetch(
             connectionString,
             {
@@ -125,21 +125,21 @@ class Theta extends Component {
             <div>
                 <RaisedButton onClick={this.handleClick.bind(this)} label="Reset theta of Experiment" value="set"
                               style={styles.buttonMargin} primary={true}/>&nbsp;&nbsp;
-				<TextField
-						defaultValue={this.state.thetaKey}
-						onChange={(e) => {
-							console.log(e.target.value)
-							this.setState({thetaKey: e.target.value});
-						}}
-						floatingLabelText="Optional: limit to theta key"
-						hintText="Theta key"/>&nbsp;&nbsp;
-				<TextField
-						defaultValue={this.state.thetaValue}
-						onChange={(e) => {
-							this.setState({thetaValue: e.target.value});
-						}}
-						floatingLabelText="Optional: limit to theta value"
-						hintText="Theta value"/>
+                <TextField
+                    defaultValue={this.state.thetaKey}
+                    onChange={(e) => {
+                        console.log(e.target.value);
+                        this.setState({thetaKey: e.target.value});
+                    }}
+                    floatingLabelText="Optional: limit to theta key"
+                    hintText="Theta key"/>&nbsp;&nbsp;
+                <TextField
+                    defaultValue={this.state.thetaValue}
+                    onChange={(e) => {
+                        this.setState({thetaValue: e.target.value});
+                    }}
+                    floatingLabelText="Optional: limit to theta value"
+                    hintText="Theta value"/>
                 <div style={styles.flex}>
                     <div style={styles.leftCol}>
                         <div style={styles.singleCol}>

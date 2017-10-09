@@ -24,24 +24,24 @@ export default (type, params) => {
                 credentials: 'include',
             },
         ).then((response) => {
-                if (response.status === 401) {
-                    return Promise.reject("Wrong username or password")
-                }
-                if (response.status < 200 || response.status >= 300) {
-                    throw new Error(response.statusText);
-                }
-                if (!response.ok) {
-                    localStorage.removeItem('username');
-                    localStorage.removeItem('token');
-                    return Promise.reject(response.statusText)
-                } else {
-                    localStorage.setItem('username', username);
-                    localStorage.setItem('token', btoa(username + ":" + password));
-                    window.location.reload(false); // yet another hack to make login in work well
-                    return Promise.resolve()
+            if (response.status === 401) {
+                return Promise.reject("Wrong username or password")
+            }
+            if (response.status < 200 || response.status >= 300) {
+                throw new Error(response.statusText);
+            }
+            if (!response.ok) {
+                localStorage.removeItem('username');
+                localStorage.removeItem('token');
+                return Promise.reject(response.statusText)
+            } else {
+                localStorage.setItem('username', username);
+                localStorage.setItem('token', btoa(username + ":" + password));
+                window.location.reload(false); // yet another hack to make login in work well
+                return Promise.resolve()
 
-                }
-            })
+            }
+        })
             .catch((e) => {
                 return Promise.reject(e)
             })

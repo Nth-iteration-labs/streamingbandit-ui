@@ -7,6 +7,7 @@ import {
     Edit,
     EditButton,
     FormTab,
+    FunctionField,
     List,
     LongTextInput,
     NumberInput,
@@ -16,8 +17,6 @@ import {
     TextField,
     TextInput
 } from 'admin-on-rest';
-
-import { FunctionField } from 'admin-on-rest'
 
 
 import DefaultOptionsField from './DefaultOptionsField'
@@ -66,9 +65,9 @@ const truthyFormat = v => (v === "true" || v === true || v === "True") ? true : 
 const truthyParse = v => (v === "true" || v === true || v === "True") ? "True" : "False";
 
 
-const getActionQuery = (record) => store.serverurl + "/getaction/" + record.id + "?key="  + record.key + "&context=CONTEXT"
-const setRewardQueryA = (record) => store.serverurl + "/setreward/" + record.id + "?key="  + record.key + "&context=CONTEXT&action=ACTION&reward=REWARD"
-const setRewardQueryB = (record) => store.serverurl + "/setreward/" + record.id + "?key="  + record.key + "&advice_id=ADVICE_ID&reward=REWARD"
+const getActionQuery = (record) => store.serverurl + "/getaction/" + record.id + "?key=" + record.key + "&context=CONTEXT";
+const setRewardQueryA = (record) => store.serverurl + "/setreward/" + record.id + "?key=" + record.key + "&context=CONTEXT&action=ACTION&reward=REWARD";
+const setRewardQueryB = (record) => store.serverurl + "/setreward/" + record.id + "?key=" + record.key + "&advice_id=ADVICE_ID&reward=REWARD";
 
 export const ExpEdit = (props) => (
 
@@ -79,26 +78,26 @@ export const ExpEdit = (props) => (
                 <TextField name="id" {...props} source="id"/>
                 <TextField name="key"  {...props} source="key"/>
 
-				
+
                 <DefaultOptionsField {...props} name="field"/>
                 <CodeMirrorInput {...props} name="get_context" label="Get context" source="get_context"
                                  options={{rows: 2}}/>
                 <CodeMirrorInput {...props} name="get_action" label="Get action" source="get_action"
                                  options={{rows: 2}}/>
 
-				<FunctionField label="Example get action query" render={getActionQuery} />
+                <FunctionField label="Example get action query" render={getActionQuery}/>
 
                 <CodeMirrorInput {...props} name="get_reward" label="Get reward" source="get_reward"
                                  options={{rows: 2}}/>
                 <CodeMirrorInput {...props} name="set_reward" label="Set reward" source="set_reward"
                                  options={{rows: 2}}/>
-								 
-				<DependentInput dependsOn="advice_id" resolve={checkCustomConstraint}>
-					<FunctionField label="Example set reward query" render={setRewardQueryB} />
-				</DependentInput>
-				<DependentInput dependsOn="advice_id" resolve={checkCustomConstraintInverse}>
-					<FunctionField label="Example set reward query" render={setRewardQueryA} />
-				</DependentInput>
+
+                <DependentInput dependsOn="advice_id" resolve={checkCustomConstraint}>
+                    <FunctionField label="Example set reward query" render={setRewardQueryB}/>
+                </DependentInput>
+                <DependentInput dependsOn="advice_id" resolve={checkCustomConstraintInverse}>
+                    <FunctionField label="Example set reward query" render={setRewardQueryA}/>
+                </DependentInput>
 
                 <BooleanInput label="Store theta every hour?" source="hourly_theta" parse={truthyParse}
                               format={truthyFormat}/>
@@ -107,7 +106,8 @@ export const ExpEdit = (props) => (
                 <DependentInput dependsOn="advice_id" resolve={checkCustomConstraint}>
                     <NumberInput label="Delta hours" source="delta_hours" step={1} validate={[required]}/>
 
-                    <LongTextInput validate={[required]} name="default_reward" label={'Default reward as a Python dict, for example \u007b\u0022\u0076\u0061\u006c\u0075\u0065\u0022\u003a\u0022\u0030\u0022\u007d'}
+                    <LongTextInput validate={[required]} name="default_reward"
+                                   label={'Default reward as a Python dict, for example \u007b\u0022\u0076\u0061\u006c\u0075\u0065\u0022\u003a\u0022\u0030\u0022\u007d'}
                                    source="default_reward" options={{multiLine: true, rows: 2}}/>
                 </DependentInput>
                 <br/><br/>
@@ -141,7 +141,8 @@ export const ExpCreate = (props) => (
                           format={truthyFormat}/>
             <DependentInput dependsOn="advice_id" resolve={checkCustomConstraint}>
                 <NumberInput label="Delta hours" source="delta_hours" step={1} validate={[required]}/>
-                <LongTextInput validate={[required]} name="default_reward" label={'Default reward as a Python dict, for example \u007b\u0022\u0076\u0061\u006c\u0075\u0065\u0022\u003a\u0022\u0030\u0022\u007d'}
+                <LongTextInput validate={[required]} name="default_reward"
+                               label={'Default reward as a Python dict, for example \u007b\u0022\u0076\u0061\u006c\u0075\u0065\u0022\u003a\u0022\u0030\u0022\u007d'}
                                source="default_reward"/>
             </DependentInput>
             <br/><br/>

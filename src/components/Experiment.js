@@ -17,12 +17,16 @@ import {
     TextInput
 } from 'admin-on-rest';
 
+import { FunctionField } from 'admin-on-rest'
+
+
 import DefaultOptionsField from './DefaultOptionsField'
 import {DependentInput} from 'aor-dependent-input';
 import SimulateButton from './SbSimulateButton'
 import History from './History'
 import Theta from './Theta'
 import CodeMirrorInput from './CodeMirrorInput'
+import store from '../stores/store'
 
 const PostTitle = ({record}) => {
     return <span>Experiment {record ? `"${record.name}"` : ''}</span>;
@@ -57,8 +61,15 @@ export const ExpList = (props) => (
 );
 
 const checkCustomConstraint = v => (v === "true" || v === true || v === "True") ? true : false;
+const checkCustomConstraintInverse = v => (v === "true" || v === true || v === "True") ? false : true;
 const truthyFormat = v => (v === "true" || v === true || v === "True") ? true : false;
 const truthyParse = v => (v === "true" || v === true || v === "True") ? "True" : "False";
+
+
+const getActionQuery = (record) => store.serverurl + "/getaction/" + record.id + "?key="  + record.key + "&context=CONTEXT"
+const setRewardQueryA = (record) => store.serverurl + "/setreward/" + record.id + "?key="  + record.key + "&context=CONTEXT&action=ACTION&reward=REWARD"
+const setRewardQueryB = (record) => store.serverurl + "/setreward/" + record.id + "?key="  + record.key + "&advice_id=ADVICE_ID&reward=REWARD"
+
 
 
 export const ExpEdit = (props) => (
@@ -69,15 +80,28 @@ export const ExpEdit = (props) => (
                 <TextInput name="name" {...props} label="Name of the experiment" source="name" validate={[required]}/>
                 <TextField name="id" {...props} source="id"/>
                 <TextField name="key"  {...props} source="key"/>
+
+				
                 <DefaultOptionsField {...props} name="field"/>
                 <CodeMirrorInput {...props} name="get_context" label="Get context" source="get_context"
                                  options={{rows: 2}}/>
                 <CodeMirrorInput {...props} name="get_action" label="Get action" source="get_action"
                                  options={{rows: 2}}/>
+
+				<FunctionField label="Example get action query" render={getActionQuery} />
+
                 <CodeMirrorInput {...props} name="get_reward" label="Get reward" source="get_reward"
                                  options={{rows: 2}}/>
                 <CodeMirrorInput {...props} name="set_reward" label="Set reward" source="set_reward"
                                  options={{rows: 2}}/>
+								 
+				<DependentInput dependsOn="advice_id" resolve={checkCustomConstraint}>
+					<FunctionField label="Example set reward query" render={setRewardQueryB} />
+				</DependentInput>
+				<DependentInput dependsOn="advice_id" resolve={checkCustomConstraintInverse}>
+					<FunctionField label="Example set reward query" render={setRewardQueryA} />
+				</DependentInput>
+
                 <BooleanInput label="Store theta every hour?" source="hourly_theta" parse={truthyParse}
                               format={truthyFormat}/>
                 <BooleanInput label="Return an advice_id?" source="advice_id" parse={truthyParse}

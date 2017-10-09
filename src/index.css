@@ -41,7 +41,7 @@ body {
 }
 
 /* restore default cursor for aor input div */
-
+.aor-input-undefined div,
 .aor-input-key div,
 .aor-input-id div {
     cursor: default !important;

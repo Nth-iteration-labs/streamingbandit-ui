@@ -43,7 +43,6 @@ export default (type, params) => {
                 }
             })
             .catch((e) => {
-				console.log(e)
                 return Promise.reject(e)
             })
     }

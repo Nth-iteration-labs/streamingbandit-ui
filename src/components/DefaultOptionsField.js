@@ -20,7 +20,7 @@ class DefaultOptionsField extends React.Component {
 
     handleChange(event, index, value) {
 
-        this.setState({value})
+        this.setState({value});
 
         fetch(
             store.serverurl + "/exp/defaults/" + index,
@@ -57,7 +57,7 @@ class DefaultOptionsField extends React.Component {
 
             let json;
             try {
-                var html = ""
+                var html = "";
 
                 json = JSON.parse(body);
                 let cm = document.getElementsByClassName("aor-input-get_context")[0].getElementsByClassName("CodeMirror")[0];
@@ -85,7 +85,7 @@ class DefaultOptionsField extends React.Component {
             if (status < 200 || status >= 300) {
                 return Promise.reject(statusText);
             }
-        }).catch(function(error) {
+        }).catch(function (error) {
             return Promise.reject(error);
         });
 

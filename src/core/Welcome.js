@@ -33,7 +33,8 @@ export default translate(({style, translate, localClientUrl}) => (
             subtitleStyle={{'fontSize': '16px', 'fontWeight': 'normal', 'marginBottom': '20px'}}
             avatar={<Avatar backgroundColor="#FFEB3B" icon={<LightBulbIcon/>}/>}
         />
-        <div style={styles.connectedtext}>You are currently connected to the StreamingBandit server at:&nbsp;<b>{localClientUrl}</b></div>
+        <div style={styles.connectedtext}>You are currently connected to the StreamingBandit server at:&nbsp;
+            <b>{localClientUrl}</b></div>
         <RaisedButton
             href="https://github.com/callemall/material-ui"
             target="_blank"

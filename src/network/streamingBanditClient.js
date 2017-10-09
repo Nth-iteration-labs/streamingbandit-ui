@@ -94,18 +94,17 @@ export default (apiUrl, httpClient = jsonApiHttpClient) => {
             case GET_LIST:
             case GET_MANY_REFERENCE:
 
-				/* the id insert & sorting ought to be done server side, really */
+                /* the id insert & sorting ought to be done server side, really */
 
                 response.json = JSON.insertId(response.json);
-				if (params.sort.order==="DESC") 
-				{
-					response.json = _.reverse(_.sortBy(response.json, [params.sort.field]));
-				} else {
-					response.json = _.sortBy(response.json, [params.sort.field]);
-				}
-				
+                if (params.sort.order === "DESC") {
+                    response.json = _.reverse(_.sortBy(response.json, [params.sort.field]));
+                } else {
+                    response.json = _.sortBy(response.json, [params.sort.field]);
+                }
+
                 return {data: response.json, total: response.json.length};
-			case UPDATE:
+            case UPDATE:
             case CREATE:
                 return {data: {...params.data, id: json.id}};
             default:

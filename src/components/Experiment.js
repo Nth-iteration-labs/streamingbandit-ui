@@ -1,17 +1,17 @@
 import React from 'react';
 
 import {
+    BooleanInput,
     Create,
     Datagrid,
     Edit,
     EditButton,
     FormTab,
     List,
+    LongTextInput,
     NumberInput,
     required,
     SimpleForm,
-    LongTextInput,
-    BooleanInput,
     TabbedForm,
     TextField,
     TextInput
@@ -46,8 +46,8 @@ const validateExpCreation = (values) => {
 };
 
 export const ExpList = (props) => (
-    <List {...props} sort={{ field: 'name', order: 'ASC' }}>
-        <Datagrid bodyOptions={{stripedRows: true, showRowHover: true}} >
+    <List {...props} sort={{field: 'name', order: 'ASC'}}>
+        <Datagrid bodyOptions={{stripedRows: true, showRowHover: true}}>
             <TextField source="id"/>
             <TextField source="key"/>
             <TextField source="name"/>
@@ -56,29 +56,36 @@ export const ExpList = (props) => (
     </List>
 );
 
-const checkCustomConstraint = v => (v==="true"||v===true||v==="True") ? true : false;
-const truthyFormat = v => (v==="true"||v===true||v==="True") ? true : false
-const truthyParse  = v => (v==="true"||v===true||v==="True") ? "True" : "False"
+const checkCustomConstraint = v => (v === "true" || v === true || v === "True") ? true : false;
+const truthyFormat = v => (v === "true" || v === true || v === "True") ? true : false;
+const truthyParse = v => (v === "true" || v === true || v === "True") ? "True" : "False";
 
 
 export const ExpEdit = (props) => (
 
     <Edit title={<PostTitle/>} {...props}>
-        <TabbedForm {...props} validate={validateExpCreation} redirect={false}  submitOnEnter={true}>
+        <TabbedForm {...props} validate={validateExpCreation} redirect={false} submitOnEnter={true}>
             <FormTab label="Settings" {...props}>
                 <TextInput name="name" {...props} label="Name of the experiment" source="name" validate={[required]}/>
-                <TextField name="id" {...props} source="id" />
+                <TextField name="id" {...props} source="id"/>
                 <TextField name="key"  {...props} source="key"/>
                 <DefaultOptionsField {...props} name="field"/>
-                <CodeMirrorInput {...props} name="get_context" label="Get context" source="get_context" options={{rows: 2}}/>
-                <CodeMirrorInput {...props} name="get_action" label="Get action" source="get_action" options={{rows: 2}}/>
-                <CodeMirrorInput {...props} name="get_reward" label="Get reward" source="get_reward" options={{rows: 2}}/>
-                <CodeMirrorInput {...props} name="set_reward" label="Set reward" source="set_reward" options={{rows: 2}}/>
-                <BooleanInput label="Store theta every hour?" source="hourly_theta" parse ={truthyParse} format={truthyFormat}/>
-                <BooleanInput label="Return an advice_id?"    source="advice_id"    parse ={truthyParse} format={truthyFormat}/>
+                <CodeMirrorInput {...props} name="get_context" label="Get context" source="get_context"
+                                 options={{rows: 2}}/>
+                <CodeMirrorInput {...props} name="get_action" label="Get action" source="get_action"
+                                 options={{rows: 2}}/>
+                <CodeMirrorInput {...props} name="get_reward" label="Get reward" source="get_reward"
+                                 options={{rows: 2}}/>
+                <CodeMirrorInput {...props} name="set_reward" label="Set reward" source="set_reward"
+                                 options={{rows: 2}}/>
+                <BooleanInput label="Store theta every hour?" source="hourly_theta" parse={truthyParse}
+                              format={truthyFormat}/>
+                <BooleanInput label="Return an advice_id?" source="advice_id" parse={truthyParse}
+                              format={truthyFormat}/>
                 <DependentInput dependsOn="advice_id" resolve={checkCustomConstraint}>
                     <NumberInput label="Delta hours" source="delta_hours" step={1} validate={[required]}/>
-                    <LongTextInput validate={[required]} name="default_reward" label="Default reward" source="default_reward" options={{multiLine: true,rows: 2}} />
+                    <LongTextInput validate={[required]} name="default_reward" label="Default reward"
+                                   source="default_reward" options={{multiLine: true, rows: 2}}/>
                 </DependentInput>
                 <br/><br/>
             </FormTab>
@@ -100,15 +107,19 @@ export const ExpCreate = (props) => (
         <SimpleForm {...props}>
             <TextInput label="Name of the experiment" source="name" validate={[required]}/>
             <DefaultOptionsField name="field"/>
-            <CodeMirrorInput {...props} name="get_context" label="Get context" source="get_context" options={{rows: 2}}/>
+            <CodeMirrorInput {...props} name="get_context" label="Get context" source="get_context"
+                             options={{rows: 2}}/>
             <CodeMirrorInput {...props} name="get_action" label="Get action" source="get_action" options={{rows: 2}}/>
             <CodeMirrorInput {...props} name="get_reward" label="Get reward" source="get_reward" options={{rows: 2}}/>
             <CodeMirrorInput {...props} name="set_reward" label="Set reward" source="set_reward" options={{rows: 2}}/>
-            <BooleanInput label="Store theta every hour?" defaultValue = "False" source="hourly_theta" parse ={truthyParse} format={truthyFormat}/>
-            <BooleanInput label="Return an advice_id?" defaultValue = "False" source="advice_id"    parse ={truthyParse} format={truthyFormat}/>
+            <BooleanInput label="Store theta every hour?" defaultValue="False" source="hourly_theta" parse={truthyParse}
+                          format={truthyFormat}/>
+            <BooleanInput label="Return an advice_id?" defaultValue="False" source="advice_id" parse={truthyParse}
+                          format={truthyFormat}/>
             <DependentInput dependsOn="advice_id" resolve={checkCustomConstraint}>
                 <NumberInput label="Delta hours" source="delta_hours" step={1} validate={[required]}/>
-                <LongTextInput validate={[required]} name="default_reward" label="Default reward" source="default_reward" />
+                <LongTextInput validate={[required]} name="default_reward" label="Default reward"
+                               source="default_reward"/>
             </DependentInput>
             <br/><br/>
         </SimpleForm>

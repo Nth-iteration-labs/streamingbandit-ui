@@ -70,8 +70,6 @@ const getActionQuery = (record) => store.serverurl + "/getaction/" + record.id +
 const setRewardQueryA = (record) => store.serverurl + "/setreward/" + record.id + "?key="  + record.key + "&context=CONTEXT&action=ACTION&reward=REWARD"
 const setRewardQueryB = (record) => store.serverurl + "/setreward/" + record.id + "?key="  + record.key + "&advice_id=ADVICE_ID&reward=REWARD"
 
-
-
 export const ExpEdit = (props) => (
 
     <Edit title={<PostTitle/>} {...props}>

@@ -23,8 +23,10 @@ export default (type, params) => {
                 headers: new Headers({'Content-Type': 'application/json'}),
                 credentials: 'include',
             },
-        )
-            .then((response) => {
+        ).then((response) => {
+                if (response.status === 401) {
+                    return Promise.reject("Wrong username or password")
+                }
                 if (response.status < 200 || response.status >= 300) {
                     throw new Error(response.statusText);
                 }
@@ -41,7 +43,8 @@ export default (type, params) => {
                 }
             })
             .catch((e) => {
-                return Promise.reject(e.statusText)
+				console.log(e)
+                return Promise.reject(e)
             })
     }
 

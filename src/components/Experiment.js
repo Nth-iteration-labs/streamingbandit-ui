@@ -108,7 +108,8 @@ export const ExpEdit = (props) => (
                               format={truthyFormat}/>
                 <DependentInput dependsOn="advice_id" resolve={checkCustomConstraint}>
                     <NumberInput label="Delta hours" source="delta_hours" step={1} validate={[required]}/>
-                    <LongTextInput validate={[required]} name="default_reward" label="Default reward"
+
+                    <LongTextInput validate={[required]} name="default_reward" label={'Default reward as a Python dict, for example \u007b\u0022\u0076\u0061\u006c\u0075\u0065\u0022\u003a\u0022\u0030\u0022\u007d'}
                                    source="default_reward" options={{multiLine: true, rows: 2}}/>
                 </DependentInput>
                 <br/><br/>
@@ -142,7 +143,7 @@ export const ExpCreate = (props) => (
                           format={truthyFormat}/>
             <DependentInput dependsOn="advice_id" resolve={checkCustomConstraint}>
                 <NumberInput label="Delta hours" source="delta_hours" step={1} validate={[required]}/>
-                <LongTextInput validate={[required]} name="default_reward" label="Default reward"
+                <LongTextInput validate={[required]} name="default_reward" label={'Default reward as a Python dict, for example \u007b\u0022\u0076\u0061\u006c\u0075\u0065\u0022\u003a\u0022\u0030\u0022\u007d'}
                                source="default_reward"/>
             </DependentInput>
             <br/><br/>

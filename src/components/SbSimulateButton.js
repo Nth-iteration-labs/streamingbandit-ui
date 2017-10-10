@@ -28,7 +28,8 @@ class SimulateButton extends React.Component {
         };
     }
 
-    ucFirst(string) {
+    static ucFirst(string) {
+        // noinspection JSUnresolvedFunction
         return string.charAt(0).toUpperCase() + string.slice(1);
     }
 
@@ -46,18 +47,17 @@ class SimulateButton extends React.Component {
             headers: response.headers,
             body: text,
 
-        }))).then(({status, statusText, headers, body}) => {
+        }))).then(({status, statusText, body}) => {
             let json;
             try {
                 json = JSON.parse(body);
-                var str = JSON.stringify(json, undefined, 4);
                 //this.setState({currentThetaString: str})
-                document.getElementById(id).innerHTML = str;
+                document.getElementById(id).innerHTML = JSON.stringify(json, undefined, 4);
             } catch (e) {
                 //
             }
             if (status < 200 || status >= 300) {
-                return Promise.reject(statusText, status);
+                return Promise.reject(statusText);
             }
         });
     }
@@ -67,8 +67,8 @@ class SimulateButton extends React.Component {
         document.getElementById("result").innerHTML = "<p class='loading'>Running simulation </p>";
         let connectionString = store.serverurl + "/eval/" + this.props.record.id +
             "/simulate?N=" + parseInt(this.state.numValue, 10) +
-            "&log_stats=" + this.ucFirst(this.state.doLog.toString()) +
-            "&verbose=" + this.ucFirst(this.state.doShowResult.toString());
+            "&log_stats=" + SimulateButton.ucFirst(this.state.doLog.toString()) +
+            "&verbose=" + SimulateButton.ucFirst(this.state.doShowResult.toString());
         if (this.state.seed !== null) connectionString = connectionString + "&seed=" + this.state.seed;
         fetch(
             connectionString,
@@ -84,7 +84,7 @@ class SimulateButton extends React.Component {
             headers: response.headers,
             body: text,
 
-        }))).then(({status, statusText, headers, body}) => {
+        }))).then(({status, statusText, body}) => {
             let json;
             let str = '';
             try {
@@ -102,7 +102,7 @@ class SimulateButton extends React.Component {
                 document.getElementById("result").innerHTML = str;
             }
             if (status < 200 || status >= 300) {
-                return Promise.reject(statusText, status);
+                return Promise.reject(statusText);
             }
         })
     }
@@ -165,7 +165,7 @@ class SimulateButton extends React.Component {
                 /><br/>
                 <RaisedButton name="sim" onClick={this.handleClick} label="Run a simulation of the experiment"
                               value="set" primary={true} style={styles.button}/>
-                <pre dangerouslySetInnerHTML={simResult} style={styles.pre}></pre>
+                <pre dangerouslySetInnerHTML={simResult} style={styles.pre}/>
             </div>
         )
     }

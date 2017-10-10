@@ -8,10 +8,9 @@ const fetchJson = (url, options = {}) => {
     // console.log("fetchJson"+url)
     // console.log("fetchJsonstore"+store.serverurl)
 
-    var parser = document.createElement('a');
+    let parser = document.createElement('a');
     parser.href = url;
-    let fixurl = store.serverurl + parser.pathname + parser.search + parser.hash;
-    url = fixurl;
+    url = store.serverurl + parser.pathname + parser.search + parser.hash;
 
     // end ugly hack
 

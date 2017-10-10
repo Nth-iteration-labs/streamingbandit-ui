@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import themeReducer from '../reducers/themeReducer';
 import {Admin, Delete, Resource} from 'admin-on-rest';
-import {ExpCreate, ExpEdit, ExpList} from '../components/Experiment';
+import {ExpCreate, ExpEdit, ExpList} from '../pages/Experiment';
 import Login from './Login';
 import Dashboard from '../components/Dashboard';
 import authClient from '../network/authClient';
@@ -25,7 +25,7 @@ class App extends Component {
         }
     }
 
-    render(props, state) {
+    render(props) {
         return (
 
             <Admin authClient={authClient}

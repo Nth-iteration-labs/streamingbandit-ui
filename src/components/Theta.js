@@ -71,7 +71,7 @@ class Theta extends Component {
                 // not json
             }
             if (status < 200 || status >= 300) {
-                return Promise.reject(statusText, status);
+                return Promise.reject(statusText);
             }
         });
     }
@@ -94,14 +94,13 @@ class Theta extends Component {
             let json;
             try {
                 json = JSON.parse(body);
-                var str = JSON.stringify(json, undefined, 4);
                 //this.setState({currentThetaString: str})
-                document.getElementById(id).innerHTML = str;
+                document.getElementById(id).innerHTML = JSON.stringify(json, undefined, 4);
             } catch (e) {
                 //
             }
             if (status < 200 || status >= 300) {
-                return Promise.reject(statusText, status);
+                return Promise.reject(statusText);
             }
         });
     }

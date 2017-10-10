@@ -9,6 +9,8 @@
     "babel-preset-stage-2": "^6.24.1",
     "codemirror": "^5.30.0",
     "downloadbutton": "^1.0.0",
+    "eslint": "^4.8.0",
+    "eslint-plugin-react": "^7.4.0",
     "material-design-icons": "^3.0.1",
     "material-ui-number-input": "^5.0.24",
     "react": "^15.6.2",
@@ -16,10 +18,10 @@
     "react-dom": "^15.6.2",
     "react-easy-params": "^1.0.0",
     "react-easy-state": "^3.0.1",
+    "react-redux": "latest",
     "react-scripts": "1.0.13",
     "url-exists": "^1.0.3",
-    "valid-url": "^1.0.9",
-    "react-redux": "latest"
+    "valid-url": "^1.0.9"
   },
   "scripts": {
     "start": "react-scripts start",

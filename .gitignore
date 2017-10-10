@@ -25,3 +25,5 @@ build/build.zip
 .idea/streamingbandit-ui.iml
 .idea/vcs.xml
 .idea/workspace.xml
+.idea/inspectionProfiles/Project_Default.xml
+.eslintrc

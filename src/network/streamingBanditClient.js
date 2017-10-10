@@ -5,8 +5,8 @@ import {CREATE, DELETE, GET_LIST, GET_MANY, GET_MANY_REFERENCE, GET_ONE, UPDATE,
 
 // Flatten JSON and inject ID for further Admin-on-Rest parsing
 JSON.insertId = function (data) {
-    var jsonarray = [];
-    for (var prop in data) {
+    let jsonarray = [];
+    for (let prop in data) {
         data[prop].id = prop;
         jsonarray.push(data[prop])
     }

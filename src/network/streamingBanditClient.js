@@ -94,16 +94,25 @@ export default (apiUrl, httpClient = jsonApiHttpClient) => {
             case GET_LIST:
             case GET_MANY_REFERENCE:
 
-                /* the id insert & sorting ought to be done server side, really */
+                /* the id insert, pagination & sorting ought to be done server side, really */
 
                 response.json = JSON.insertId(response.json);
+
+                const total_length = response.json.length;
+
                 if (params.sort.order === "DESC") {
                     response.json = _.reverse(_.sortBy(response.json, [params.sort.field]));
                 } else {
                     response.json = _.sortBy(response.json, [params.sort.field]);
                 }
 
-                return {data: response.json, total: response.json.length};
+                const page = params.pagination.page || 1;
+                const per_page = params.pagination.perPage;
+                const offset = (page - 1) * per_page;
+
+                response.json = response.json.slice(offset, offset + per_page);
+
+                return {data: response.json, total: total_length};
             case UPDATE:
             case CREATE:
                 return {data: {...params.data, id: json.id}};

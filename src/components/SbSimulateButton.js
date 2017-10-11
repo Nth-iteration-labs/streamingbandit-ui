@@ -90,7 +90,7 @@ class SimulateButton extends React.Component {
             try {
                 json = JSON.parse(body);
                 str = JSON.stringify(json, null, 4);
-                this.setState({simResult: {__html: str}});
+                this.setState({simResult: {__html: "<p id='result'>"+str+"</p>"}});
                 document.getElementById("result").innerHTML = str;
                 this.fetchAndShow(store.serverurl + "/stats/" + this.props.record.id + "/currenttheta", "currentThetaString");
                 this.fetchAndShow(store.serverurl + "/stats/" + this.props.record.id + "/hourlytheta", "hourlyThetaString");
@@ -98,7 +98,7 @@ class SimulateButton extends React.Component {
             } catch (e) {
                 json = JSON.parse(body);
                 str = JSON.stringify(json, null, 4);
-                this.setState({simResult: {__html: str}});
+                this.setState({simResult: {__html:  "<p id='result'>"+str+"</p>"}});
                 document.getElementById("result").innerHTML = str;
             }
             if (status < 200 || status >= 300) {

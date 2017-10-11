@@ -9,13 +9,31 @@ import Menu from './Menu';
 import customRoutes from '../routes/routes';
 import Layout from './Layout';
 
-
 import streamingBanditClient from '../network/streamingBanditClient';
 import {easyComp} from 'react-easy-state'
 import store from '../stores/store'
 
-class App extends Component {
+import hotkey from 'react-shortcut-key'
+ 
+const controlSave = e => { 
+    e.preventDefault();     
+    e.stopPropagation();
+	let button = document.querySelector('button[type="submit"]')
+	if (button)
+	{
+		if (button.innerHTML.indexOf('Save') !== -1)
+		{
+			button.click()
+		}
+	}
+	return false; 
+}
+ 
+const keymap = {
+  'ctrl+s': controlSave
+}
 
+class App extends Component {
 
     constructor(props) {
         super(props);
@@ -47,4 +65,6 @@ class App extends Component {
     }
 }
 
-export default easyComp(App);
+const AppCtrlSave = hotkey(keymap)(App)
+
+export default easyComp(AppCtrlSave);

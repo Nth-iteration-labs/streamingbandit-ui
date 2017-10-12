@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import RaisedButton from 'material-ui/RaisedButton';
 
 function saveAs(uri, filename) {
     var link = document.createElement('a');
@@ -24,6 +25,7 @@ class DownloadButton extends React.Component {
         this.state = {
             loading: false,
             fileData: null,
+			bgcolor: "rgb(0, 188, 212)"
         };
         this._onGenerate = this._onGenerate.bind(this);
         this._donePreparing = this._donePreparing.bind(this);
@@ -39,6 +41,7 @@ class DownloadButton extends React.Component {
         this.setState({
             loading: false,
             fileData: fileData,
+			bgcolor: "rgb(255, 64, 129)"
         });
     }
 
@@ -53,7 +56,7 @@ class DownloadButton extends React.Component {
         var url = URL.createObjectURL(blob);
         saveAs(url, fileData.filename);
         this.props.onDownloaded && this.props.onDownloaded();
-		this.setState({loading: false, fileData: null});
+		this.setState({loading: false, fileData: null, bgcolor: "rgb(0, 188, 212)"});
     }
 
     render() {
@@ -76,27 +79,27 @@ class DownloadButton extends React.Component {
 
             }
 
-            return (<button style={style} onClick={e => {
+            return (<RaisedButton  backgroundColor={this.state.bgcolor} style={style} onClick={e => {
                 e.preventDefault();
                 this._onDownload();
             }} className={cls}>
                 {title}
-            </button>);
+            </RaisedButton>);
         }
 
         if (this.state.loading) {
 
-            return (<button style={style} className={cls + ' DownloadButton-loading'}>
+            return (<RaisedButton  backgroundColor={this.state.bgcolor} style={style} className={cls + ' DownloadButton-loading'}>
                 {this.props.loadingTitle}
-            </button>);
+            </RaisedButton>);
         }
 
-        return (<button style={style} onClick={e => {
+        return (<RaisedButton  backgroundColor={this.state.bgcolor} style={style} onClick={e => {
             e.preventDefault();
             this._onGenerate();
         }} className={cls + ' DownloadButton-generate'}>
             {this.props.generateTitle}
-        </button>);
+        </RaisedButton>);
     }
 
 }

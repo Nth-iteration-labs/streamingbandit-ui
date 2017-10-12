@@ -89,19 +89,19 @@ class History extends Component {
     }
 
     makeFileLog(done) {
-        this.fetchAndDo(store.serverurl + "/stats/" + this.props.record.id + "/log", "log.json", done)
+        this.fetchAndDo(store.serverurl + "/stats/" + this.props.record.id + "/log", "log_"+Date.now()+".json", done)
     }
 
     makeFileActionLog(done) {
-        this.fetchAndDo(store.serverurl + "/stats/" + this.props.record.id + "/actionlog", "actionlog.json", done)
+        this.fetchAndDo(store.serverurl + "/stats/" + this.props.record.id + "/actionlog", "actionlog_"+Date.now()+".json", done)
     }
 
     makeFileRewardLog(done) {
-        this.fetchAndDo(store.serverurl + "/stats/" + this.props.record.id + "/rewardlog", "rewardlog.json", done)
+        this.fetchAndDo(store.serverurl + "/stats/" + this.props.record.id + "/rewardlog", "rewardlog_"+Date.now()+".json", done)
     }
 
     makeFileSimulationLog(done) {
-        this.fetchAndDo(store.serverurl + "/stats/" + this.props.record.id + "/simulationlog", "simulationlog.json", done)
+        this.fetchAndDo(store.serverurl + "/stats/" + this.props.record.id + "/simulationlog", "simulationlog_"+Date.now()+".json", done)
     }
 
 

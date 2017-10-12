@@ -53,6 +53,7 @@ class DownloadButton extends React.Component {
         var url = URL.createObjectURL(blob);
         saveAs(url, fileData.filename);
         this.props.onDownloaded && this.props.onDownloaded();
+		this.setState({loading: false, fileData: null});
     }
 
     render() {

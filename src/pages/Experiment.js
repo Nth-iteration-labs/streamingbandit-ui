@@ -18,7 +18,6 @@ import {
     TextInput
 } from 'admin-on-rest';
 
-
 import DefaultOptionsField from '../components/DefaultOptionsField'
 import {DependentInput} from 'aor-dependent-input';
 import SimulateButton from '../components/SbSimulateButton'
@@ -63,7 +62,6 @@ const checkCustomConstraint = v => (v === "true" || v === true || v === "True") 
 const checkCustomConstraintInverse = v => (v === "true" || v === true || v === "True") ? false : true;
 const truthyFormat = v => (v === "true" || v === true || v === "True") ? true : false;
 const truthyParse = v => (v === "true" || v === true || v === "True") ? "True" : "False";
-
 
 const getActionQuery = (record) => store.serverurl + "/getaction/" + record.id + "?key=" + record.key + "&context=CONTEXT";
 const setRewardQueryA = (record) => store.serverurl + "/setreward/" + record.id + "?key=" + record.key + "&context=CONTEXT&action=ACTION&reward=REWARD";

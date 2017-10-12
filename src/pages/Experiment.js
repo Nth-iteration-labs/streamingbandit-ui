@@ -32,18 +32,8 @@ const PostTitle = ({record}) => {
 
 const validateExpCreation = (values) => {
     const errors = {};
-    if (!values.get_context) {
-        errors.name = ['Get context is required'];
-    }
-    if (!values.get_action) {
-        errors.name = ['Get action is required'];
-    }
-    if (!values.get_reward) {
-        errors.name = ['Get reward is required'];
-    }
-    if (!values.set_reward) {
-        errors.name = ['Set reward is required'];
-    }
+	/* You can set custom errors here - for example: */
+    /* if (!values.get_context) { errors.name = ['Get context is required']; */
     return errors
 };
 
@@ -93,6 +83,7 @@ export const ExpEdit = (props) => (
                 <DependentInput dependsOn="advice_id" resolve={checkCustomConstraint}>
                     <FunctionField label="Example set reward query" render={setRewardQueryB}/>
                 </DependentInput>
+
                 <DependentInput dependsOn="advice_id" resolve={checkCustomConstraintInverse}>
                     <FunctionField label="Example set reward query" render={setRewardQueryA}/>
                 </DependentInput>
@@ -101,6 +92,7 @@ export const ExpEdit = (props) => (
                               format={truthyFormat}/>
                 <BooleanInput label="Return an advice_id?" source="advice_id" parse={truthyParse}
                               format={truthyFormat}/>
+
                 <DependentInput dependsOn="advice_id" resolve={checkCustomConstraint}>
                     <NumberInput label="Delta hours" source="delta_hours" step={1} validate={[required]}/>
 

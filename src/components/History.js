@@ -40,7 +40,7 @@ const styles = {
         height: 40
     },
     buttonMargin: {marginLeft: '1em', marginBottom: '2em', marginTop: '2em'},
-    paddingLast: {display: "block", position: "relative", height: 220}
+    paddingLast: {display: "block", position: "relative", height: 270}
 };
 
 class History extends Component {
@@ -100,12 +100,18 @@ class History extends Component {
         this.fetchAndDo(store.serverurl + "/stats/" + this.props.record.id + "/rewardlog", "rewardlog.json", done)
     }
 
+    makeFileSimulationLog(done) {
+        this.fetchAndDo(store.serverurl + "/stats/" + this.props.record.id + "/simulationlog", "simulationlog.json", done)
+    }
+
+
+
     render() {
         return (
             <div style={styles.paddingLast}>
                 <br/><br/>
                 <DownloadButton style={styles.button}
-                                generateTitle="Generate and download log"
+                                generateTitle="Generate and download main log"
                                 loadingTitle="Generating log file..."
                                 downloadTitle="Click to download log"
                                 async={true}
@@ -122,6 +128,12 @@ class History extends Component {
                                 downloadTitle="Click to download reward log"
                                 async={true}
                                 genFile={this.makeFileRewardLog}/>
+				<DownloadButton style={styles.button}
+                                generateTitle="Generate and download simulation log"
+                                loadingTitle="Generating simulation log file..."
+                                downloadTitle="Click to download simulation log"
+                                async={true}
+                                genFile={this.makeFileSimulationLog}/>
             </div>
         );
     }

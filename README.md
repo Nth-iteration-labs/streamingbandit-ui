@@ -1,8 +1,10 @@
-# streamingbandit-ui
-
 <img src="https://raw.githubusercontent.com/Nth-iteration-labs/streamingbandit-ui/master/img/experiments.png" width="420"/> &nbsp;&nbsp;&nbsp; <img src="https://raw.githubusercontent.com/Nth-iteration-labs/streamingbandit-ui/master/img/ab_test.png" width="420"/>
 
-RESTful frontend for StreamingBandit https://github.com/Nth-iteration-labs/streamingbandit build with https://github.com/marmelab/admin-on-rest, using React and Material Design.
+# StreamingBandit Client
+
+RESTful frontend for [StreamingBandit](https://github.com/Nth-iteration-labs/streamingbandit).
+
+Build on [StreamingBandit](https://github.com/marmelab/admin-on-rest).
 
 **Note**: This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app).
 
@@ -27,28 +29,3 @@ StreamingBandit UI should work in the following browsers:
 - Safari Mobile 10.0 +
 
 It does not work in Internet Explorer, and does not work locally (by clicking index.html) for Safari.
-
-## Available Scripts
-
-In the project directory, you can run:
-
-### `npm start`
-
-Runs the app in the development mode.<br>
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
-
-The page will reload if you make edits.<br>
-You will also see any lint errors in the console.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.<br>
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.<br>
-Your app is ready to be deployed!
-
-### `npm run deploy`
-
-Deploy the build to GitHub gh-pages.
-

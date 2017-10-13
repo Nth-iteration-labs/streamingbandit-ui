@@ -1,7 +1,6 @@
 # streamingbandit-ui
 
-|![StreamingBandit Client](https://raw.githubusercontent.com/Nth-iteration-labs/streamingbandit-ui/master/img/experiments.png)|![StreamingBandit Client](https://raw.githubusercontent.com/Nth-iteration-labs/streamingbandit-ui/master/img/ab_test.png)|
-
+<img src="https://raw.githubusercontent.com/Nth-iteration-labs/streamingbandit-ui/master/img/experiments.png" width="300"/> <img src="https://raw.githubusercontent.com/Nth-iteration-labs/streamingbandit-ui/master/img/ab_test.png)" width="300"/>
 
 RESTful frontend for StreamingBandit https://github.com/Nth-iteration-labs/streamingbandit build with https://github.com/marmelab/admin-on-rest, using React and Material Design.
 

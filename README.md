@@ -20,6 +20,6 @@ StreamingBandit Client is compatible with the following browsers:
 |  | Opera Mobile 37 + |
 |  | Chrome for Android 49.0 + |
 
-StreamingBandit Client *not* compatible with Internet Explorer, and does not run locally (by clicking index.html) in Safari.
+StreamingBandit Client is *not* compatible with Internet Explorer, and does not run locally (by clicking index.html) in Safari.
 
 

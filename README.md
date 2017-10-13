@@ -1,4 +1,4 @@
-<img src="https://raw.githubusercontent.com/Nth-iteration-labs/streamingbandit-ui/master/img/experiments.png" width="435"/> &nbsp;&nbsp;&nbsp; <img src="https://raw.githubusercontent.com/Nth-iteration-labs/streamingbandit-ui/master/img/ab_test.png" width="435"/>
+<img src="https://raw.githubusercontent.com/Nth-iteration-labs/streamingbandit-ui/master/img/experiments.png" width="435"/> &nbsp;&nbsp;<img src="https://raw.githubusercontent.com/Nth-iteration-labs/streamingbandit-ui/master/img/ab_test.png" width="435"/>
 
 # StreamingBandit Client
 

@@ -8,7 +8,7 @@ Build on [Admin-on-rest](https://github.com/marmelab/admin-on-rest).
 
 ## Browser compatibility
 
-StreamingBandit Client should be compatible with the following browsers:
+StreamingBandit Client is compatible with the following browsers:
 
 | Desktop | Mobile |
 |-----------------------|---------------------------|
@@ -20,6 +20,6 @@ StreamingBandit Client should be compatible with the following browsers:
 |  | Opera Mobile 37 + |
 |  | Chrome for Android 49.0 + |
 
-StreamingBandit Client not compatible with Internet Explorer, and does not run locally (by clicking index.html) in Safari.
+StreamingBandit Client *not* compatible with Internet Explorer, and does not run locally (by clicking index.html) in Safari.
 
 

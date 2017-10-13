@@ -6,26 +6,20 @@ RESTful frontend for [StreamingBandit](https://github.com/Nth-iteration-labs/str
 
 Build on [Admin-on-rest](https://github.com/marmelab/admin-on-rest).
 
-**Note**: This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app).
-
 ## Browser compatibility
 
-StreamingBandit UI should work in the following browsers:
+StreamingBandit Client should be compatible with the following browsers:
 
-**Desktop**
-- Chrome 49.0	+
-- MS Edge 12 (10240) + 
-- Firefox 18 + 
-- Opera 36 + 
-- Safari 10.0 + 
+| Desktop | Mobile |
+|-----------------------|---------------------------|
+| Chrome 49.0 + | Android 56 + |
+| MS Edge 12 (10240) +  | Safari Mobile 10.0 + |
+| Firefox 18 + | Edge (Yes) + |
+| Safari 10.0 + | Firefox Mobile 18 + |
+| Opera 36 + | IE Mobile 13 (10586) + |
+|  | Opera Mobile 37 + |
+|  | Chrome for Android 49.0 + |
 
-**Mobile**
-- Android 56 +
-- Chrome for Android 49.0 +
-- Edge (Yes) +
-- Firefox Mobile 18 +
-- IE Mobile 13 (10586) +
-- Opera Mobile 37 +
-- Safari Mobile 10.0 +
+StreamingBandit Client not compatible with Internet Explorer, and does not run locally (by clicking index.html) in Safari.
 
-It does not work in Internet Explorer, and does not work locally (by clicking index.html) for Safari.
+

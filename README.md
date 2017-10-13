@@ -4,7 +4,7 @@
 
 RESTful frontend for [StreamingBandit](https://github.com/Nth-iteration-labs/streamingbandit).
 
-Build on [StreamingBandit](https://github.com/marmelab/admin-on-rest).
+Build on [Admin-on-rest](https://github.com/marmelab/admin-on-rest).
 
 **Note**: This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app).
 

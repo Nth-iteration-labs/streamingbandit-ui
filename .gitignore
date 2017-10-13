@@ -30,3 +30,5 @@ build/build.zip
 yarn.lock
 yarn.lock
 yarn.lock
+.idea/jsLinters/jslint.xml
+.idea/codeStyleSettings.xml

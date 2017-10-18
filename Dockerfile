@@ -2,7 +2,7 @@
 # docker build -t streamingbandit-ui .
 # Run this Docker using the following command
 # docker run -d -p 80:80 --name sb-ui streamingbandit-ui
-FROM node:argon
+FROM node:8-alpine
 
 ADD ./ /sb-ui/
 WORKDIR /sb-ui/

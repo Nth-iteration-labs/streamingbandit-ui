@@ -1,12 +1,23 @@
-<img style="max-width:100%;border: 1px solid;" src="https://raw.githubusercontent.com/Nth-iteration-labs/streamingbandit-ui/master/img/experiments.png" width="435"/> &nbsp;&nbsp;<img style="max-width:100%;border: 1px solid;" src="https://raw.githubusercontent.com/Nth-iteration-labs/streamingbandit-ui/master/img/ab_test.png" width="435"/>
+##  StreamingBanditUI
 
-# StreamingBandit Client
+StreamingBanditUI is an open source software tool written in Javascript (particularly, in [React](https://reactjs.org/)), intended to handle the administration of StreamingBanditUI over the Web or from your desktop.
 
-RESTful frontend for [StreamingBandit](https://github.com/Nth-iteration-labs/streamingbandit).
+##  How to install and use StreamingBanditUI 
 
-Build on [Admin-on-rest](https://github.com/marmelab/admin-on-rest).
+To start, first make sure you have installed [StreamingBandit server](https://github.com/Nth-iteration-labs/streamingbandit-ui).
 
-## Browser compatibility
+Then just follow these steps.
+
+1. Download and unzip the StreamingBanditUI package [here](https://github.com/Nth-iteration-labs/streamingbandit-ui/releases/download/v1.0/StreamingBanditUI.zip), if you haven't already. 
+The StreamingBanditUI package will extract into a folder called StreamingBanditUI in the same directory that you downloaded StreamingBanditUI.zip
+1. Upload the all of the files contained in the StreamingBanditUI folder to the desired location on your web server and visit index.html.
+OR
+1. Run StreamingBandit-ui by clicking on index.html in the StreamingBanditUI directory. This works in most, but not all browsers. Recent versions of Firefox, Microsoft Edge and Google Chrome should work fine.
+1. Now enter the IP or domain together with the port what runs StreamingBandit (default: http://localhost:8080)
+
+That's it! You should now be able to access your StreamingBandit server, and start experimenting! 
+
+###  Browser compatibility
 
 StreamingBandit Client is compatible with the following browsers:
 
@@ -22,4 +33,11 @@ StreamingBandit Client is compatible with the following browsers:
 
 StreamingBandit Client is *not* compatible with Internet Explorer, and does not run locally (by clicking index.html) in Safari.
 
+<img style="max-width:100%;border: 1px solid;" src="https://raw.githubusercontent.com/Nth-iteration-labs/streamingbandit-ui/master/img/experiments.png" width="435"/> &nbsp;&nbsp;<img style="max-width:100%;border: 1px solid;" src="https://raw.githubusercontent.com/Nth-iteration-labs/streamingbandit-ui/master/img/ab_test.png" width="435"/>
+
+##  Speficiations
+
+RESTful frontend for [StreamingBandit](https://github.com/Nth-iteration-labs/streamingbandit).
+
+Build on [Admin-on-rest](https://github.com/marmelab/admin-on-rest) and [React](https://reactjs.org/)).
 

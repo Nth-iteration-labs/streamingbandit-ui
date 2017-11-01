@@ -15,7 +15,7 @@ The StreamingBanditUI package will extract into a folder called StreamingBanditU
 OR
 
 2. Run StreamingBanditUI by clicking on index.html in the StreamingBanditUI directory. This works in most, but not all browsers. Recent versions of Firefox, Microsoft Edge and Google Chrome should work fine.
-3. Now enter the IP or domain together with the port on StreamingBandit is running (default: http://localhost:8080).
+3. Now enter the IP or domain together with the port on StreamingBandit is running (default: http://localhost:8080) and login to the StreamingBandit server.
 
 That's it! You should now be able to access your StreamingBandit server, and start experimenting! 
 

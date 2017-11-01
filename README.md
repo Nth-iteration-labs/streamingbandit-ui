@@ -4,7 +4,7 @@ StreamingBanditUI is an open source software tool written in Javascript (particu
 
 ##  How to install and use StreamingBanditUI 
 
-To start, first make sure you have installed [StreamingBandit server](https://github.com/Nth-iteration-labs/streamingbandit-ui),  (a Python application to setup and run streaming (contextual) bandit experiments).
+To start, first make sure you have installed [StreamingBandit server](https://github.com/Nth-iteration-labs/streamingbandit-ui).
 
 Then just follow these steps.
 

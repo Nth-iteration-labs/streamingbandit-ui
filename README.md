@@ -1,4 +1,4 @@
-##  StreamingBanditUI
+#  StreamingBanditUI
 
 StreamingBanditUI is an open source software tool written in Javascript (particularly, in [React](https://reactjs.org/)), intended to handle the administration of StreamingBanditUI over the Web or from your Desktop.
 
@@ -10,12 +10,12 @@ Then just follow these steps.
 
 1. Download and unzip the StreamingBanditUI package [here](https://github.com/Nth-iteration-labs/streamingbandit-ui/releases/download/v1.0/StreamingBanditUI.zip), if you haven't already. 
 The StreamingBanditUI package will extract into a folder called StreamingBanditUI in the same directory that you downloaded StreamingBanditUI.zip
-2. Upload the all of the files contained in the StreamingBanditUI folder to the desired location on your web server and visit index.html.
+2a. Upload the all of the files contained in the StreamingBanditUI folder to the desired location on your web server and visit index.html.
 
 OR
 
-3. Run StreamingBandit-ui by clicking on index.html in the StreamingBanditUI directory. This works in most, but not all browsers. Recent versions of Firefox, Microsoft Edge and Google Chrome should work fine.
-4. Now enter the IP or domain together with the port what runs StreamingBandit (default: http://localhost:8080)
+2b. Run StreamingBandit-ui by clicking on index.html in the StreamingBanditUI directory. This works in most, but not all browsers. Recent versions of Firefox, Microsoft Edge and Google Chrome should work fine.
+3. Now enter the IP or domain together with the port what runs StreamingBandit (default: http://localhost:8080)
 
 That's it! You should now be able to access your StreamingBandit server, and start experimenting! 
 

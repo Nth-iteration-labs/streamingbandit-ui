@@ -1,6 +1,6 @@
 #  StreamingBanditUI
 
-StreamingBanditUI is an open source software tool written in Javascript (particularly, in [React](https://reactjs.org/)), intended to handle the administration of StreamingBanditUI over the Web or from your Desktop.
+StreamingBanditUI is an open source software tool written in Javascript (particularly, in [React](https://reactjs.org/)), intended to handle the administration of StreamingBandit over the Web or from your Desktop.
 
 ##  How to install and use StreamingBanditUI 
 
@@ -14,7 +14,7 @@ The StreamingBanditUI package will extract into a folder called StreamingBanditU
 
 OR
 
-2. Run StreamingBandit-ui by clicking on index.html in the StreamingBanditUI directory. This works in most, but not all browsers. Recent versions of Firefox, Microsoft Edge and Google Chrome should work fine.
+2. Run StreamingBanditUI by clicking on index.html in the StreamingBanditUI directory. This works in most, but not all browsers. Recent versions of Firefox, Microsoft Edge and Google Chrome should work fine.
 3. Now enter the IP or domain together with the port what runs StreamingBandit (default: http://localhost:8080)
 
 That's it! You should now be able to access your StreamingBandit server, and start experimenting! 
@@ -37,9 +37,34 @@ StreamingBandit Client is *not* compatible with Internet Explorer, and does not 
 
 <img style="max-width:100%;border: 1px solid;" src="https://raw.githubusercontent.com/Nth-iteration-labs/streamingbandit-ui/master/img/experiments.png" width="435"/> &nbsp;&nbsp;<img style="max-width:100%;border: 1px solid;" src="https://raw.githubusercontent.com/Nth-iteration-labs/streamingbandit-ui/master/img/ab_test.png" width="435"/>
 
-##  Speficiations
+##  Specifications
 
 RESTful frontend for [StreamingBandit](https://github.com/Nth-iteration-labs/streamingbandit).
 
 Build on [Admin-on-rest](https://github.com/marmelab/admin-on-rest) and [React](https://reactjs.org/).
 
+To explore the source code, start with [src/index.js](https://github.com/marmelab/admin-on-rest-demo/blob/master/src/index.js).
+
+**Note**: This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app).
+
+### Available Scripts
+
+The StreamingBandit team makes use of [Yarn](https://yarnpkg.com/en/), but NPM should build StreamingBanditUI fine too. In that case, replace "yarn" below with "npm".
+
+In the project directory, you can run:
+
+#### `yarn start`
+
+Runs the app in the development mode.<br>
+Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+
+The page will reload if you make edits.<br>
+You will also see any lint errors in the console.
+
+#### `yarn build`
+
+Builds the app for production to the `build` folder.<br>
+It correctly bundles React in production mode and optimizes the build for the best performance.
+
+The build is minified and the filenames include the hashes.<br>
+Your app is ready to be deployed!

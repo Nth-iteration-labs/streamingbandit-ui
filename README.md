@@ -1,6 +1,6 @@
 #  StreamingBanditUI
 
-StreamingBanditUI is an open source software tool written in Javascript (particularly, in [React](https://reactjs.org/)), intended to handle the administration of StreamingBandit over the Web or from your Desktop.
+StreamingBanditUI is an open source software tool written in Javascript (particularly, in [React](https://reactjs.org/)), intended to handle the administration of [StreamingBandit server(s)](https://github.com/Nth-iteration-labs/streamingbandit-ui) over the Web or from your Desktop.
 
 ##  How to install and use StreamingBanditUI 
 

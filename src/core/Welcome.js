@@ -47,7 +47,7 @@ export default translate(({ style, translate, localClientUrl }) => (
       <b>{localClientUrl}</b>
     </div>
     <RaisedButton
-      href="https://github.com/callemall/material-ui"
+      href="https://github.com/Nth-iteration-labs/streamingbandit"
       target="_blank"
       label="Go get me on GitHub!"
       secondary={true}

@@ -15,7 +15,10 @@ import {
   SimpleForm,
   TabbedForm,
   TextField,
-  TextInput
+  TextInput,
+  minValue,
+  maxValue, 
+  number
 } from "admin-on-rest";
 
 import DefaultOptionsField from "../components/DefaultOptionsField";
@@ -167,7 +170,8 @@ export const ExpEdit = props => (
             label="Delta hours"
             source="delta_hours"
             step={1}
-            validate={[required]}
+            validate={[required,number, minValue(0), maxValue(99999)]}
+
           />
 
           <LongTextInput

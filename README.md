@@ -41,5 +41,5 @@ StreamingBandit Client is *not* compatible with Internet Explorer, and does not 
 
 RESTful frontend for [StreamingBandit](https://github.com/Nth-iteration-labs/streamingbandit).
 
-Build on [Admin-on-rest](https://github.com/marmelab/admin-on-rest) and [React](https://reactjs.org/)).
+Build on [Admin-on-rest](https://github.com/marmelab/admin-on-rest) and [React](https://reactjs.org/).
 

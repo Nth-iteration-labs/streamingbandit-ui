@@ -11,6 +11,7 @@ import RaisedButton from "material-ui/RaisedButton";
 import TextField from "material-ui/TextField";
 import LockIcon from "material-ui/svg-icons/action/lock-outline";
 import { cyan500, pinkA200 } from "material-ui/styles/colors";
+import FlatButton from "material-ui/FlatButton";
 import validUrl from "valid-url";
 import {
   Notification,
@@ -28,8 +29,16 @@ const styles = {
     alignItems: "center",
     justifyContent: "center"
   },
+  fb: {
+    width: "100%",
+	textTransform: "capitalize"
+  },
   card: {
     minWidth: 300
+  },
+  cardbottom: {
+    minWidth: 300,
+    marginTop: 30
   },
   avatar: {
     margin: "1em",
@@ -44,7 +53,7 @@ const styles = {
   hint: {
     textAlign: "center",
     marginTop: "1em",
-    color: "#ccc"
+    color: "#000"
   }
 };
 
@@ -142,6 +151,25 @@ class Login extends Component {
                 />
               </CardActions>
             </form>
+          </Card>
+          <Card style={styles.cardbottom}>
+            <div>
+                <FlatButton style={styles.fb}
+                    label={"Backend on GitHub"}
+					secondary={true}
+                    href="https://github.com/Nth-iteration-labs/streamingbandit"
+                  /><br/>
+                  <FlatButton style={styles.fb}
+                    label={"Frontend on GitHub"}
+					secondary={true}
+                    href="https://github.com/Nth-iteration-labs/streamingbandit-ui"
+                  /><br/>
+                  <FlatButton style={styles.fb}
+                    label={"Documentation"}
+					secondary={true}
+                    href="http://nth-iteration-labs.github.io/streamingbandit/"
+                  />
+            </div>
           </Card>
           <Notification />
         </div>

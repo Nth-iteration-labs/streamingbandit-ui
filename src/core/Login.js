@@ -31,7 +31,7 @@ const styles = {
   },
   fb: {
     width: "100%",
-	textTransform: "capitalize"
+    textTransform: "capitalize"
   },
   card: {
     minWidth: 300
@@ -156,17 +156,17 @@ class Login extends Component {
             <div>
                 <FlatButton style={styles.fb}
                     label={"Backend on GitHub"}
-					secondary={true}
+                    secondary={true}
                     href="https://github.com/Nth-iteration-labs/streamingbandit"
                   /><br/>
                   <FlatButton style={styles.fb}
                     label={"Frontend on GitHub"}
-					secondary={true}
+                    secondary={true}
                     href="https://github.com/Nth-iteration-labs/streamingbandit-ui"
                   /><br/>
                   <FlatButton style={styles.fb}
                     label={"Documentation"}
-					secondary={true}
+                    secondary={true}
                     href="http://nth-iteration-labs.github.io/streamingbandit/"
                   />
             </div>

@@ -18,7 +18,7 @@ const CodeMirrorInput = ({
   <CodeMirror
     value={value}
     options={{
-      indentUnit: 2,
+      indentUnit: 4,
       insertSoftTab: true,
       extraKeys: { Tab: function(cm) { var spaces = Array(cm.getOption("indentUnit") + 1).join(" "); cm.replaceSelection(spaces); } },
       lineNumbers: true,

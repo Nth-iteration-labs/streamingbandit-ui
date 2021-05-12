@@ -9,7 +9,7 @@
     "aor-dependent-input": "^1.1.1",
     "babel-plugin-transform-object-rest-spread": "^6.26.0",
     "babel-preset-stage-2": "^6.24.1",
-    "codemirror": "^5.30.0",
+    "codemirror": "^5.58.2",
     "downloadbutton": "^1.0.0",
     "eslint": "^4.8.0",
     "eslint-plugin-react": "^7.4.0",
